@@ -1,6 +1,5 @@
 package com.example.patin.usuariocanchas;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,33 +11,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mTextMessage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        /**
+         * allows to change view using the buttom menu
+         * @param item
+         * @return current view to show
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText("Home");
-
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText("Notificaciones");
-
                     return true;
                 case R.id.navigation_contacts:
                     mTextMessage.setText("Contactos");
-
                     return  true;
             }
             return false;
@@ -55,14 +55,14 @@ public class Home extends AppCompatActivity
         mTextMessage = (TextView) findViewById(R.id.content_textView_homeactivity);
         mTextMessage.setText("Home");
 
-
+        //Menu de abajo
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        //Menu lateral
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -106,8 +106,11 @@ public class Home extends AppCompatActivity
     }
 
 
-
-
+    /**
+     * Listenners of lateral menu
+     * @param item
+     * @return activity
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -116,12 +119,14 @@ public class Home extends AppCompatActivity
 
         if (id == R.id.nav_perfil) {
             //Open my perfil activity
-            Intent i =new Intent(Home.this,MyPerfil.class);
+            Intent i =new Intent(Home.this,MyPerfilActivity.class);
             Home.this.startActivity(i);
         } else if (id == R.id.nav_history) {
-
+            Intent i =new Intent(Home.this,MyHistoryActivity.class);
+            Home.this.startActivity(i);
         } else if (id == R.id.nav_equipos) {
-
+            Intent i =new Intent(Home.this,EquipoActivity.class);
+            Home.this.startActivity(i);
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_share) {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".MyPerfil">
+    tools:context=".MyPerfilActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,6 +55,12 @@
             android:padding="10dp"
             android:text="* * * * *" />
 
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mis servicios" />
 
         <Button
             android:id="@+id/button"
