@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +16,8 @@ public class Login extends AppCompatActivity {
         loadSeccionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent main = new Intent(Login.this,Home.class);
-                Login.this.startActivity(main);
+                Intent main = new Intent(LoginActivity.this,Home.class);
+                LoginActivity.this.startActivity(main);
             }
         });
 
