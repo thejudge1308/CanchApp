@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CachApp</string>
+    <string name="title_activity_adminstrador_principal">AdminstradorPrincipal</string>
+    <string name="title_activity_historial">Historial</string>
+</resources>
