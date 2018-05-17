@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HorarioCancha"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            >
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancha 2"
+                android:layout_gravity="center"
+                />
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9:00-10:00 jugando equipo x"
+                android:background="@color/colorRojo"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10:00-11:00 reservado equipo y"
+                android:background="@color/colorAmarillo"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="11:00-12:00 reservado equipo z"
+                android:background="@color/colorAmarillo"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12:00-13:00 disponible"
+                android:background="@color/colorVerde"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13:00-14:00 disponible"
+                android:background="@color/colorVerde"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="14:00-15:00 reservado equipo y"
+                android:background="@color/colorAmarillo"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15:00-16:00 disponible"
+                android:background="@color/colorVerde"
+                android:layout_marginTop="10dp"
+                />
+            <Button
+                android:id="@+id/btn9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="16:00-17:00 disponible"
+                android:background="@color/colorVerde"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Volver"
+                android:textColor="@color/colorRojo"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
