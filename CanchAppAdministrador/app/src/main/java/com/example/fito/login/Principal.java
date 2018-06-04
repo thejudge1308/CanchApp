@@ -25,7 +25,7 @@ import java.util.Date;
 public class Principal extends AppCompatActivity {
 
     private ArrayList<Button> botonesCancha;
-    private int id, cantidadCanchas;
+    private int id, cantidad, cantidadCanchas, contador, total;
     private String rutAdmin;
 
     @Override
@@ -35,9 +35,12 @@ public class Principal extends AppCompatActivity {
 
         rutAdmin = getIntent().getStringExtra("rut");
         id=1;
-        cantidadCanchas = 2;
+        //cantidad = 100;
+        contador = 0;
+        cantidadCanchas = 0;
+        total = 0;
 
-        Log.d("Rut",rutAdmin);
+        Log.d("RutAdmin",rutAdmin);
 
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaString = fecha.format(new Date());
@@ -48,104 +51,158 @@ public class Principal extends AppCompatActivity {
 
         botonesCancha = new ArrayList<Button>();
 
-        /*for(int i=1;i<8;i++)
-        {
-            String n = i+"";
-            String b = "btn"+n;
-            botonesCancha.add((Button)findViewById(R.id.b));
-        }*/
-        //botonesCancha.add((Button) findViewById(R.id.btn1));
-        //botonesCancha.add((Button) findViewById(R.id.btn2));
+
+        int cant=0;
+
+        CantidadCanchas();
+
+        //CrearBotones();
+
+        //CapturaCanchas();//captura los nombres de las canchas  en los botones
+
+        //clickBtoBotonCancha();
+
+        ClickBotonHistorial();
+
+        ClickBotonAgregar();
+
+        ClickBotonEliminar();
+
+    }
+
+    public void CantidadCanchas()
+    {
+        Response.Listener<String> respuesta = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("JS", response);
+                try {
+                    JSONObject res = new JSONObject(response);
+                    boolean ok = res.getBoolean("success");
+
+                    Log.v("Json", ok + "");
+
+                    if (ok == true)
+                    {
+                        //cantidadCanchas++;
+
+                        //cont++;
+                        cantidadCanchas = res.getInt("cantidadcancha");
+                        Log.d("CantidadCanchas",cantidadCanchas+"");
+
+                        TotalCanchas(cantidadCanchas);
+
+                    }
+                    else
+                    {
+
+                    }
+                } catch (JSONException e) {
+                    Log.v("JSon", e.getMessage() + e.toString());
+                }
+            }
+        };
+
+        CantidadCanchaRequest r = new CantidadCanchaRequest( rutAdmin, respuesta);
+        RequestQueue cola = Volley.newRequestQueue(Principal.this);
+        cola.add(r);
+    }
+
+    public void TotalCanchas(int CantCancha)
+    {
+        Log.d("CantCancha",CantCancha+"");
+        cantidadCanchas = CantCancha;
+        Response.Listener<String> respuesta = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.v("JS", response);
+                try {
+                    JSONObject res = new JSONObject(response);
+                    boolean ok = res.getBoolean("success");
+
+                    Log.v("JsonTotal", ok + "");
+
+                    if (ok == true)
+                    {
+                        //Intent adminPrin = new Intent(Principal.this, LoginActivity.class);
+                        //Principal.this.startActivity(adminPrin);
+                        total = res.getInt("id");
+
+                        Log.d("totalCancha",total+"");
+
+                        CrearBotones(cantidadCanchas);
+
+                        CapturaCanchas(total);
+
+                        clickBotonCancha();
 
 
+                    }
+                    else
+                    {
+                        /*AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
+                        alerta.setMessage("Fallo en el Registro")
+                                .setNegativeButton("Reintentar", null)
+                                .create().show();*/
+                    }
+                } catch (JSONException e) {
+                    Log.v("JSon", e.getMessage() + e.toString());
+                }
+            }
+        };
+
+        CapturarUltimaCanchaRequest r = new CapturarUltimaCanchaRequest(respuesta);
+        RequestQueue cola = Volley.newRequestQueue(Principal.this);
+        cola.add(r);
+
+    }
+
+    public void CrearBotones(int cantidad)
+    {
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayoutbtns);
         layout.setOrientation(LinearLayout.VERTICAL);  //Can also be done in xml by android:orientation="vertical"
 
-        for (int i = 0; i < cantidadCanchas; i++) {
+        for (int i = 0; i < cantidad; i++)
+        {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
+
+            //Color colorRosa=new Color(255, 0, 0);
+            //Color color1=new Color((int) 223,(int) 45,(int) 223);
             //for (int j = 0; j < 4; j++ )
             //{
-                Button btnTag = new Button(this);
-                btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                //btnTag.setText("Button " + (j + 1 + (i * 4)));
-                //btnTag.setId(j + 1 + (i * 4));
-                btnTag.setText("Button " + (i + 1));
-                btnTag.setId(i + 1);
-                btnTag.setBackgroundColor(Color.LTGRAY);
-                botonesCancha.add(btnTag);
-                row.addView(btnTag);
+            Button btnTag = new Button(this);
+            btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            //btnTag.setText("Button " + (j + 1 + (i * 4)));
+            //btnTag.setId(j + 1 + (i * 4));
+            btnTag.setText("Button " + (i + 1));
+            btnTag.setId(i + 1);
+            btnTag.setBackgroundColor(Color.parseColor("#94bd79"));
+
+            /*Margen para los botones*/
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
+            params.setMargins(5, 20, 10, 0); //left, top, right, bottom
+            row.setLayoutParams(params);
+
+            botonesCancha.add(btnTag);
+            row.addView(btnTag);
             //}
 
             layout.addView(row);
         }
-
-        CapturaCanchas();
-
-        clickBtoBotonCancha();
-
-        /*final Button btnIngresa = (Button) findViewById(R.id.btn3);
-
-        btnIngresa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Entra", "entra");
-
-                id=1;
-
-                for(int i=0; i <2; i++)
-                {
-                    final int j=i;
-
-                    Response.Listener<String> respuesta = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.v("JS", response);
-                            try {
-                                JSONObject res = new JSONObject(response);
-                                boolean ok = res.getBoolean("success");
-
-                                Log.v("Json", ok + "");
-
-                                if (ok == true) {
-                                    //Intent adminPrin = new Intent(Principal.this, LoginActivity.class);
-                                    //Principal.this.startActivity(adminPrin);
-                                    String nombre = res.getString("nombre");
-                                    Log.d("Nombre", nombre);
-                                    botonesCancha.get(j).setText(nombre);
-                                } else {
-                                    AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
-                                    alerta.setMessage("Fallo en el Registro")
-                                            .setNegativeButton("Reintentar", null)
-                                            .create().show();
-                                }
-                            } catch (JSONException e) {
-                                Log.v("JSon", e.getMessage() + e.toString());
-                            }
-                        }
-                    };
-
-                    Log.d("Respuesta", respuesta + "");
-
-                    PrincipalRequest r = new PrincipalRequest(id+"", rutAdmin, respuesta);
-                    RequestQueue cola = Volley.newRequestQueue(Principal.this);
-                    cola.add(r);
-
-                    id++;
-                }
-            }
-        });*/
-
     }
 
-    public void CapturaCanchas()
+    public void CapturaCanchas(int cantidad)
     {
         Log.d("Entra", "entra");
 
+        contador =0;
+
         id=1;
 
-        for(int i=0; i <cantidadCanchas; i++)
+        for(int i=0; i <cantidad; i++)
         {
             final int j=i;
 
@@ -164,15 +221,17 @@ public class Principal extends AppCompatActivity {
                             //Principal.this.startActivity(adminPrin);
                             String nombre = res.getString("nombre");
                             Log.d("Nombre", nombre);
-                            botonesCancha.get(j).setText(nombre);
+
+                            botonesCancha.get(contador).setText(nombre);
+
+                            contador++;
                         }
                         else
                         {
                             /*AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
-                            alerta.setMessage("Fallo en el Registro")
+                            alerta.setMessage("Fallo")
                                     .setNegativeButton("Reintentar", null)
                                     .create().show();*/
-                            cantidadCanchas=0;
                         }
                     } catch (JSONException e) {
                         Log.v("JSon", e.getMessage() + e.toString());
@@ -188,10 +247,9 @@ public class Principal extends AppCompatActivity {
 
             Log.d("id",id+"");
         }
-
     }
 
-    public void clickBtoBotonCancha()
+    public void clickBotonCancha()
     {
         for (final Button btn:botonesCancha)
         {
@@ -207,4 +265,49 @@ public class Principal extends AppCompatActivity {
             });
         }
     }
+
+    public void ClickBotonHistorial()
+    {
+        Button botonHistorial = (Button) findViewById(R.id.btnHistorial);
+        botonHistorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent =new Intent(Principal.this, Historial.class);
+                intent.putExtra("rut",rutAdmin);
+                Principal.this.startActivity(intent);
+            }
+        });
+    }
+
+    public void ClickBotonAgregar()
+    {
+        Button botonAgregar = (Button) findViewById(R.id.btnAgregar);
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent =new Intent(Principal.this, AgregarCancha.class);
+                intent.putExtra("rut",rutAdmin);
+                Principal.this.startActivity(intent);
+                Principal.this.finish();
+            }
+        });
+    }
+
+    public void ClickBotonEliminar()
+    {
+        Button botonEliminar = (Button) findViewById(R.id.btnEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent =new Intent(Principal.this, EliminarCancha.class);
+                intent.putExtra("rut",rutAdmin);
+                Principal.this.startActivity(intent);
+                Principal.this.finish();
+            }
+        });
+    }
+
 }

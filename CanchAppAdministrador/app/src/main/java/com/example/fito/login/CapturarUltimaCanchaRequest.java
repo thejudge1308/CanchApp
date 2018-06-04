@@ -9,21 +9,15 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrincipalRequest extends StringRequest
+public class CapturarUltimaCanchaRequest extends StringRequest
 {
 
-    private static String Login_URL = CommandName.url+"Cancha.php";
+    private static String Login_URL = CommandName.url+"ConsultaUltimaCancha.php";
     private Map<String, String> parametros;
 
-    public PrincipalRequest(String id, String rut,Response.Listener<String> listener)
+    public CapturarUltimaCanchaRequest(Response.Listener<String> listener)
     {
         super(Request.Method.POST, Login_URL, listener,null);
-
-        Log.d("Rut2",rut);
-
-        parametros = new HashMap<>();
-        parametros.put("rut",rut);
-        parametros.put("id",id);
     }
 
     @Override

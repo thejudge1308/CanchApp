@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".RegistroActivity" />
         <activity android:name=".Principal" />
-        <activity android:name=".HorarioCancha"></activity>
+        <activity android:name=".HorarioCancha" />
+        <activity android:name=".Historial" />
+        <activity android:name=".AgregarCancha" />
+        <activity android:name=".EliminarCancha"></activity>
     </application>
 
 </manifest>

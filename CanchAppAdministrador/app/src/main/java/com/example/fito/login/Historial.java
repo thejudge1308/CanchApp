@@ -1,27 +1,19 @@
 package com.example.fito.login;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class HorarioCancha extends AppCompatActivity
-{
-    private String nombreCancha;
+public class Historial extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_horario_cancha);
-
-        nombreCancha = getIntent().getStringExtra("nombreCancha");
-
-        TextView txtNombreCancha = (TextView) findViewById(R.id.txtNombreCancha);
-        txtNombreCancha.setText(nombreCancha);
+        setContentView(R.layout.activity_historial);
 
         ClickVolver();
-
     }
 
     public void ClickVolver()
@@ -32,8 +24,9 @@ public class HorarioCancha extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                HorarioCancha.this.finish();
+                Historial.this.finish();
             }
         });
+
     }
 }

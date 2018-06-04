@@ -9,13 +9,13 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PrincipalRequest extends StringRequest
+public class CantidadCanchaRequest extends StringRequest
 {
 
-    private static String Login_URL = CommandName.url+"Cancha.php";
+    private static String Login_URL = CommandName.url+"CantidadCancha.php";
     private Map<String, String> parametros;
 
-    public PrincipalRequest(String id, String rut,Response.Listener<String> listener)
+    public CantidadCanchaRequest(String rut,Response.Listener<String> listener)
     {
         super(Request.Method.POST, Login_URL, listener,null);
 
@@ -23,7 +23,6 @@ public class PrincipalRequest extends StringRequest
 
         parametros = new HashMap<>();
         parametros.put("rut",rut);
-        parametros.put("id",id);
     }
 
     @Override
