@@ -41,12 +41,53 @@ public class AgregarCancha extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                CantidadCanchas();
                 AgregarCanchas();
             }
         });
     }
 
-    public void AgregarCanchas()
+    public void CantidadCanchas()
+    {
+        final String rutAdmin = getIntent().getStringExtra("rut");
+
+        Response.Listener<String> respuesta = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("JS", response);
+                try {
+                    JSONObject res = new JSONObject(response);
+                    boolean ok = res.getBoolean("success");
+
+                    Log.v("Json", ok + "");
+
+                    if (ok == true)
+                    {
+                        //cantidadCanchas++;
+
+                        //cont++;
+                        int cantidadCanchas = res.getInt("cantidadcancha");
+                        Log.d("CantidadCanchas",cantidadCanchas+"");
+
+                        AumentarCantidadCanchas(cantidadCanchas+1);
+
+                    }
+                    else
+                    {
+
+                    }
+                } catch (JSONException e) {
+                    Log.v("JSon", e.getMessage() + e.toString());
+                }
+            }
+        };
+
+        CantidadCanchaRequest r = new CantidadCanchaRequest( rutAdmin, respuesta);
+        RequestQueue cola = Volley.newRequestQueue(AgregarCancha.this);
+        cola.add(r);
+    }
+
+    public void AgregarCanchas(String nombreCancha)
     {
         final TextView txtNombreCancha = (TextView) findViewById(R.id.txtNombreCancha);
         final TextView txtDireccionCancha = (TextView) findViewById(R.id.txtDireccion);
@@ -100,45 +141,7 @@ public class AgregarCancha extends AppCompatActivity {
         cola.add(r);
     }
 
-    public void CantidadCanchas()
-    {
-        final String rutAdmin = getIntent().getStringExtra("rut");
 
-        Response.Listener<String> respuesta = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("JS", response);
-                try {
-                    JSONObject res = new JSONObject(response);
-                    boolean ok = res.getBoolean("success");
-
-                    Log.v("Json", ok + "");
-
-                    if (ok == true)
-                    {
-                        //cantidadCanchas++;
-
-                        //cont++;
-                        int cantidadCanchas = res.getInt("cantidadcancha");
-                        Log.d("CantidadCanchas",cantidadCanchas+"");
-
-                        AumentarCantidadCanchas(cantidadCanchas+1);
-
-                    }
-                    else
-                    {
-
-                    }
-                } catch (JSONException e) {
-                    Log.v("JSon", e.getMessage() + e.toString());
-                }
-            }
-        };
-
-        CantidadCanchaRequest r = new CantidadCanchaRequest( rutAdmin, respuesta);
-        RequestQueue cola = Volley.newRequestQueue(AgregarCancha.this);
-        cola.add(r);
-    }
 
     public void AumentarCantidadCanchas(int cantidadCanchas)
     {
