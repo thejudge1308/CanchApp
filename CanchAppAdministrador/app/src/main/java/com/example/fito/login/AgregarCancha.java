@@ -42,7 +42,7 @@ public class AgregarCancha extends AppCompatActivity {
             public void onClick(View view)
             {
                 CantidadCanchas();
-                AgregarCanchas();
+
             }
         });
     }
@@ -69,6 +69,7 @@ public class AgregarCancha extends AppCompatActivity {
                         int cantidadCanchas = res.getInt("cantidadcancha");
                         Log.d("CantidadCanchas",cantidadCanchas+"");
 
+                        AgregarCanchas("cancha "+(cantidadCanchas+1)+"");
                         AumentarCantidadCanchas(cantidadCanchas+1);
 
                     }
@@ -89,10 +90,10 @@ public class AgregarCancha extends AppCompatActivity {
 
     public void AgregarCanchas(String nombreCancha)
     {
-        final TextView txtNombreCancha = (TextView) findViewById(R.id.txtNombreCancha);
+        //final TextView txtNombreCancha = (TextView) findViewById(R.id.txtNombreCancha);
         final TextView txtDireccionCancha = (TextView) findViewById(R.id.txtDireccion);
         final TextView txtUbicacionCancha = (TextView) findViewById(R.id.txtUbicacion);
-        String nombre = txtNombreCancha.getText().toString();
+        //String nombre = txtNombreCancha.getText().toString();
         String direccion = txtDireccionCancha.getText().toString();
         String ubicacion = txtUbicacionCancha.getText().toString();
         String estado = "disponible";
@@ -110,7 +111,6 @@ public class AgregarCancha extends AppCompatActivity {
 
                     if (ok == true)
                     {
-                        CantidadCanchas();
 
                         AlertDialog.Builder alerta= new AlertDialog.Builder(AgregarCancha.this);
                         alerta.setMessage( "Se agregó correctamente la cancha")
@@ -136,7 +136,7 @@ public class AgregarCancha extends AppCompatActivity {
             }
         };
 
-        AgregarCanchaRequest r = new AgregarCanchaRequest( nombre, direccion, ubicacion, estado,rut, respuesta);
+        AgregarCanchaRequest r = new AgregarCanchaRequest( nombreCancha, direccion, ubicacion, estado,rut, respuesta);
         RequestQueue cola = Volley.newRequestQueue(AgregarCancha.this);
         cola.add(r);
     }

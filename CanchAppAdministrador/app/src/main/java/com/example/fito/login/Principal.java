@@ -25,7 +25,7 @@ import java.util.Date;
 public class Principal extends AppCompatActivity {
 
     private ArrayList<Button> botonesCancha;
-    private int id, cantidad, cantidadCanchas, contador, total;
+    private int id, cantidadCanchas, contador, total;
     private String rutAdmin;
 
     @Override
@@ -84,9 +84,6 @@ public class Principal extends AppCompatActivity {
 
                     if (ok == true)
                     {
-                        //cantidadCanchas++;
-
-                        //cont++;
                         cantidadCanchas = res.getInt("cantidadcancha");
                         Log.d("CantidadCanchas",cantidadCanchas+"");
 
@@ -125,8 +122,6 @@ public class Principal extends AppCompatActivity {
 
                     if (ok == true)
                     {
-                        //Intent adminPrin = new Intent(Principal.this, LoginActivity.class);
-                        //Principal.this.startActivity(adminPrin);
                         total = res.getInt("id");
 
                         Log.d("totalCancha",total+"");
@@ -168,15 +163,9 @@ public class Principal extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-
-            //Color colorRosa=new Color(255, 0, 0);
-            //Color color1=new Color((int) 223,(int) 45,(int) 223);
-            //for (int j = 0; j < 4; j++ )
-            //{
             Button btnTag = new Button(this);
             btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            //btnTag.setText("Button " + (j + 1 + (i * 4)));
-            //btnTag.setId(j + 1 + (i * 4));
+
             btnTag.setText("Button " + (i + 1));
             btnTag.setId(i + 1);
             btnTag.setBackgroundColor(Color.parseColor("#94bd79"));
@@ -221,6 +210,8 @@ public class Principal extends AppCompatActivity {
                             //Principal.this.startActivity(adminPrin);
                             String nombre = res.getString("nombre");
                             Log.d("Nombre", nombre);
+
+                            Log.d("contador", contador+"");
 
                             botonesCancha.get(contador).setText(nombre);
 

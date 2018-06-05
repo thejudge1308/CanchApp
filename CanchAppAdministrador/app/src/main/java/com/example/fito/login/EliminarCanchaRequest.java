@@ -10,12 +10,13 @@ public class EliminarCanchaRequest extends StringRequest {
     private static String Login_URL = CommandName.url+"EliminarCancha.php";
     private Map<String, String> parametros;
 
-    public EliminarCanchaRequest(String id, Response.Listener<String> listener)
+    public EliminarCanchaRequest(String nombreCancha,String rutAdmin, Response.Listener<String> listener)
     {
         super(Method.POST, Login_URL, listener,null);
 
         parametros = new HashMap<>();
-        parametros.put("id",id);
+        parametros.put("nombre",nombreCancha);
+        parametros.put("fkadministrador",rutAdmin);
 
     }
 

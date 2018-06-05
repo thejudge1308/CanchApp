@@ -1,12 +1,15 @@
 package com.example.fito.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -16,19 +19,40 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class EliminarCancha extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class EliminarCancha extends AppCompatActivity
+{
+
+    private ArrayList<Button> botonesCancha;
+
+    private int id, cantidadCanchas, contador, total;
+
+    private String rutAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_cancha);
 
-        ClickBotonEliminar();
+        botonesCancha = new ArrayList<Button>();
+
+        contador = 0;
+        id = 0;
+
+        cantidadCanchas = 0;
+        total = 0;
+
+        rutAdmin = getIntent().getStringExtra("rut");
+
+        CantidadCanchas();
+
+        //ClickBotonEliminar();
 
         ClickVolver();
     }
 
-    private void ClickBotonEliminar()
+    /*private void ClickBotonEliminar()
     {
         Button btnEliminar = (Button) findViewById(R.id.btnEliminar);
 
@@ -37,57 +61,17 @@ public class EliminarCancha extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                EliminarCanchaCanchas();
+                //EliminarCanchaCanchas();
+
+
             }
         });
-    }
-
-    private void EliminarCanchaCanchas()
-    {
-        final TextView txtIdCancha = (TextView) findViewById(R.id.txtIDCancha);
-        String id = txtIdCancha.getText().toString();
-
-        final String rut = getIntent().getStringExtra("rut");
-
-        Response.Listener<String> respuesta = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("JS", response);
-                try {
-                    JSONObject res = new JSONObject(response);
-                    boolean ok = res.getBoolean("success");
-
-                    Log.v("Json", ok + "");
-
-                    if (ok == true)
-                    {
-                        CantidadCanchas();
+    }*/
 
 
-
-                    }
-                    else
-                    {
-                        AlertDialog.Builder alerta= new AlertDialog.Builder(EliminarCancha.this);
-                        alerta.setMessage( "Fallo en el Registro")
-                                .setNegativeButton("Reintentar",null)
-                                .create().show();
-                    }
-                } catch (JSONException e) {
-                    Log.v("JSon", e.getMessage() + e.toString());
-                }
-            }
-        };
-
-        EliminarCanchaRequest r = new EliminarCanchaRequest( id, respuesta);
-        RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
-        cola.add(r);
-    }
 
     public void CantidadCanchas()
     {
-        final String rutAdmin = getIntent().getStringExtra("rut");
-
         Response.Listener<String> respuesta = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -103,10 +87,12 @@ public class EliminarCancha extends AppCompatActivity {
                         //cantidadCanchas++;
 
                         //cont++;
-                        int cantidadCanchas = res.getInt("cantidadcancha");
+                        cantidadCanchas = res.getInt("cantidadcancha");
                         Log.d("CantidadCanchas",cantidadCanchas+"");
 
-                        DismiuirCantidadCanchas(cantidadCanchas-1);
+                        TotalCanchas(cantidadCanchas);
+
+
 
                     }
                     else
@@ -124,10 +110,223 @@ public class EliminarCancha extends AppCompatActivity {
         cola.add(r);
     }
 
+    public void TotalCanchas(int CantCancha)
+    {
+        Log.d("CantCancha",CantCancha+"");
+        cantidadCanchas = CantCancha;
+        Response.Listener<String> respuesta = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response)
+            {
+                Log.v("JS", response);
+                try {
+                    JSONObject res = new JSONObject(response);
+                    boolean ok = res.getBoolean("success");
+
+                    Log.v("JsonTotal", ok + "");
+
+                    if (ok == true)
+                    {
+                        int total = res.getInt("id");
+
+                        Log.d("totalCancha",total+"");
+
+                        CrearBotones(cantidadCanchas);
+
+                        CapturaCanchas(total);
+
+                        clickBotonCancha(cantidadCanchas);
+
+
+                    }
+                    else
+                    {
+                        /*AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
+                        alerta.setMessage("Fallo en el Registro")
+                                .setNegativeButton("Reintentar", null)
+                                .create().show();*/
+                    }
+                } catch (JSONException e) {
+                    Log.v("JSon", e.getMessage() + e.toString());
+                }
+            }
+        };
+
+        CapturarUltimaCanchaRequest r = new CapturarUltimaCanchaRequest(respuesta);
+        RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
+        cola.add(r);
+
+    }
+
+    public void CrearBotones(int cantidad)
+    {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayoutbtns);
+        layout.setOrientation(LinearLayout.VERTICAL);  //Can also be done in xml by android:orientation="vertical"
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            LinearLayout row = new LinearLayout(this);
+            row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            Button btnTag = new Button(this);
+            btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            btnTag.setText("Button " + (i + 1));
+            btnTag.setId(i + 1);
+            btnTag.setBackgroundColor(Color.parseColor("#94bd79"));
+
+            /*Margen para los botones*/
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) btnTag.getLayoutParams();
+            params.setMargins(5, 20, 10, 0); //left, top, right, bottom
+            row.setLayoutParams(params);
+
+            botonesCancha.add(btnTag);
+            row.addView(btnTag);
+            //}
+
+            layout.addView(row);
+        }
+    }
+
+    public void CapturaCanchas(int cantidad)
+    {
+        Log.d("Entra", "entra");
+
+        contador =0;
+
+        id=1;
+
+        for(int i=0; i <cantidad; i++)
+        {
+            final int j=i;
+
+            Response.Listener<String> respuesta = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.v("JS", response);
+                    try {
+                        JSONObject res = new JSONObject(response);
+                        boolean ok = res.getBoolean("success");
+
+                        Log.v("Json", ok + "");
+
+                        if (ok == true) {
+                            //Intent adminPrin = new Intent(Principal.this, LoginActivity.class);
+                            //Principal.this.startActivity(adminPrin);
+                            String nombre = res.getString("nombre");
+                            Log.d("Nombre", nombre);
+
+                            Log.d("contador", contador+"");
+
+                            botonesCancha.get(contador).setText(nombre);
+
+                            contador++;
+                        }
+                        else
+                        {
+                            /*AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
+                            alerta.setMessage("Fallo")
+                                    .setNegativeButton("Reintentar", null)
+                                    .create().show();*/
+                        }
+                    } catch (JSONException e) {
+                        Log.v("JSon", e.getMessage() + e.toString());
+                    }
+                }
+            };
+
+            PrincipalRequest r = new PrincipalRequest(id+"", rutAdmin, respuesta);
+            RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
+            cola.add(r);
+
+            id++;
+
+            Log.d("id",id+"");
+        }
+    }
+
+    public void clickBotonCancha(int cantidad)
+    {
+        cantidadCanchas = cantidad;
+        for (final Button btn:botonesCancha)
+        {
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+
+                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(EliminarCancha.this);
+                    dialogo1.setTitle("Advertencia");
+                    dialogo1.setMessage("¿ Confirma eliminar cancha ?");
+                    dialogo1.setCancelable(false);
+                    dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogo1, int id) {
+                            btn.setVisibility(View.INVISIBLE);
+                            String nombreCancha = (String) btn.getText();
+                            Log.d("ID", nombreCancha);
+
+                            EliminarCanchaCanchas(nombreCancha);
+
+                            DismiuirCantidadCanchas(cantidadCanchas-1);
+                        }
+                    });
+                    dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogo1, int id) {
+                            //No hace nada
+                        }
+                    });
+                    dialogo1.show();
+
+
+                    /*Intent intent =new Intent(EliminarCancha.this, HorarioCancha.class);
+                    intent.putExtra("nombreCancha",btn.getText());
+                    EliminarCancha.this.startActivity(intent);*/
+                }
+            });
+        }
+    }
+
+    private void EliminarCanchaCanchas(String nombreCancha)
+    {
+        //final TextView txtIdCancha = (TextView) findViewById(R.id.txtIDCancha);
+        //String id = txtIdCancha.getText().toString();
+
+        final String rut = getIntent().getStringExtra("rut");
+
+        Response.Listener<String> respuesta = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("JS", response);
+                try {
+                    JSONObject res = new JSONObject(response);
+                    boolean ok = res.getBoolean("success");
+
+                    Log.v("Json", ok + "");
+
+                    if (ok == true)
+                    {
+                        CantidadCanchas();
+                    }
+                    else
+                    {
+                        AlertDialog.Builder alerta= new AlertDialog.Builder(EliminarCancha.this);
+                        alerta.setMessage( "Fallo en el Eliminar")
+                                .setNegativeButton("Reintentar",null)
+                                .create().show();
+                    }
+                } catch (JSONException e) {
+                    Log.v("JSon", e.getMessage() + e.toString());
+                }
+            }
+        };
+
+        EliminarCanchaRequest r = new EliminarCanchaRequest(nombreCancha, rutAdmin, respuesta);
+        RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
+        cola.add(r);
+    }
+
     public void DismiuirCantidadCanchas(int cantidadCanchas)
     {
-        final String rutAdmin = getIntent().getStringExtra("rut");
-
         Response.Listener<String> respuesta = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
