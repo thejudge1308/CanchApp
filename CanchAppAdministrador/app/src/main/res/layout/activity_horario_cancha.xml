@@ -9,103 +9,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/txtNombreCancha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cancha 2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <EditText
+            android:id="@+id/etPlannedDate"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="date"
+            android:maxLines="1" />
 
         <LinearLayout
+            android:id="@+id/linearlayoutbtns"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
-            >
-
-            <TextView
-                android:id="@+id/txtNombreCancha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cancha 2"
-                android:layout_gravity="center"
-                />
-            <Button
-                android:id="@+id/btn2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="9:00-10:00 jugando equipo x"
-                android:background="@color/colorRojo"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="10:00-11:00 reservado equipo y"
-                android:background="@color/colorAmarillo"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="11:00-12:00 reservado equipo z"
-                android:background="@color/colorAmarillo"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12:00-13:00 disponible"
-                android:background="@color/colorVerde"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="13:00-14:00 disponible"
-                android:background="@color/colorVerde"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="14:00-15:00 reservado equipo y"
-                android:background="@color/colorAmarillo"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="15:00-16:00 disponible"
-                android:background="@color/colorVerde"
-                android:layout_marginTop="10dp"
-                />
-            <Button
-                android:id="@+id/btn9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="16:00-17:00 disponible"
-                android:background="@color/colorVerde"
-                android:layout_marginTop="10dp"
-                />
-
-            <TextView
-                android:id="@+id/txtVolver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Volver"
-                android:textSize="25dp"
-                android:textColor="@color/colorRojo"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="125dp"
-                android:layout_gravity="center"
-                />
-
-
-        </LinearLayout>
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

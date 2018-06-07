@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.finish();
             }
         });
-
         final EditText usuario = (EditText)findViewById(R.id.txtUsuario);
         final EditText clave = (EditText)findViewById(R.id.txtContrasena);
 

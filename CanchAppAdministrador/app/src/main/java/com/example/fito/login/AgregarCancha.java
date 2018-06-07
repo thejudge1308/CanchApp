@@ -41,7 +41,7 @@ public class AgregarCancha extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                CantidadCanchas();
+                //CantidadCanchas();
                 AgregarCanchas();
             }
         });
@@ -87,7 +87,7 @@ public class AgregarCancha extends AppCompatActivity {
         cola.add(r);
     }
 
-    public void AgregarCanchas(String nombreCancha)
+    public void AgregarCanchas()
     {
         final TextView txtNombreCancha = (TextView) findViewById(R.id.txtNombreCancha);
         final TextView txtDireccionCancha = (TextView) findViewById(R.id.txtDireccion);

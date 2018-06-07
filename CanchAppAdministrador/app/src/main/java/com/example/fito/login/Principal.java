@@ -44,9 +44,7 @@ public class Principal extends AppCompatActivity {
 
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaString = fecha.format(new Date());
-
         TextView fechaActual = (TextView) findViewById(R.id.txt1);
-
         fechaActual.setText(fechaString);
 
         botonesCancha = new ArrayList<Button>();
@@ -156,13 +154,13 @@ public class Principal extends AppCompatActivity {
         RequestQueue cola = Volley.newRequestQueue(Principal.this);
         cola.add(r);
 
+
     }
 
     public void CrearBotones(int cantidad)
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayoutbtns);
         layout.setOrientation(LinearLayout.VERTICAL);  //Can also be done in xml by android:orientation="vertical"
-
         for (int i = 0; i < cantidad; i++)
         {
             LinearLayout row = new LinearLayout(this);
