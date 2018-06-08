@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class EliminarCancha extends AppCompatActivity
 {
@@ -121,38 +122,73 @@ public class EliminarCancha extends AppCompatActivity
                 Log.v("JS", response);
                 try {
                     JSONObject res = new JSONObject(response);
-                    boolean ok = res.getBoolean("success");
+                    Iterator<String> temp = res.keys();
+                    //int i =0;
+                    CrearBotones(cantidadCanchas);
+
+                    clickBotonCancha(cantidadCanchas);
+
+                    //while(temp.hasNext()){
+                    for(int i=0; i<cantidadCanchas; i++)
+                    {
+
+                        //String val = temp.next();
+                        //Object ob = res.get(val);
+                        //CapturaCanchas(res.getInt("id"+i));
+                        //Log.v("DATA",""+res.getString("nombre"+i));
+
+
+                        botonesCancha.get(i).setText(res.getString("nombre" + i));
+
+                        //i++;
+                    }
+
+
+                    /*boolean ok = res.getBoolean("success");
 
                     Log.v("JsonTotal", ok + "");
 
                     if (ok == true)
                     {
-                        int total = res.getInt("id");
+                        total = res.getInt("id");
 
                         Log.d("totalCancha",total+"");
 
                         CrearBotones(cantidadCanchas);
 
-                        CapturaCanchas(total);
+                        contador = 0;
 
-                        clickBotonCancha(cantidadCanchas);
+                        for(int i=0; i <15; i++)
+                        {
+                            try
+                            {
+                                Log.v("IDaca",res.getInt("id")+"");
+                                CapturaCanchas((res.getInt("id")));
+                            }
+                            catch (Exception e)
+                            {
+                                Log.d("Error",e+"");
+                            }
+                        }
+
+                        clickBotonCancha();
 
 
                     }
                     else
-                    {
+                    {*/
                         /*AlertDialog.Builder alerta = new AlertDialog.Builder(Principal.this);
                         alerta.setMessage("Fallo en el Registro")
                                 .setNegativeButton("Reintentar", null)
                                 .create().show();*/
-                    }
+                    //}
                 } catch (JSONException e) {
                     Log.v("JSon", e.getMessage() + e.toString());
                 }
             }
         };
 
-        CapturarUltimaCanchaRequest r = new CapturarUltimaCanchaRequest(respuesta);
+        CapturarUltimaCanchaRequest r = new CapturarUltimaCanchaRequest(rutAdmin,respuesta);
         RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
         cola.add(r);
 
@@ -188,17 +224,16 @@ public class EliminarCancha extends AppCompatActivity
         }
     }
 
-    public void CapturaCanchas(int cantidad)
+    public void CapturaCanchas(int id)
     {
         Log.d("Entra", "entra");
 
-        contador =0;
+        //contador =0;
 
-        id=1;
+        //id=1;
 
-        for(int i=0; i <cantidad; i++)
-        {
-            final int j=i;
+        //for(int i=0; i <cantidad; i++)
+        //{
 
             Response.Listener<String> respuesta = new Response.Listener<String>() {
                 @Override
@@ -239,10 +274,10 @@ public class EliminarCancha extends AppCompatActivity
             RequestQueue cola = Volley.newRequestQueue(EliminarCancha.this);
             cola.add(r);
 
-            id++;
+            //id++;
 
             Log.d("id",id+"");
-        }
+        //}
     }
 
     public void clickBotonCancha(int cantidad)

@@ -1,5 +1,6 @@
 package com.example.fito.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -18,60 +19,37 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
-public class Principal extends AppCompatActivity {
+public class ActualizarCancha extends AppCompatActivity {
 
     private ArrayList<Button> botonesCancha;
+
     private int id, cantidadCanchas, contador, total;
+
     private String rutAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_actualizar_cancha);botonesCancha = new ArrayList<Button>();
 
-        rutAdmin = getIntent().getStringExtra("rut");
-        id=1;
-        //cantidad = 100;
         contador = 0;
+        id = 0;
+
         cantidadCanchas = 0;
         total = 0;
 
-        Log.d("RutAdmin",rutAdmin);
-
-        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaString = fecha.format(new Date());
-
-        TextView fechaActual = (TextView) findViewById(R.id.txt1);
-
-        fechaActual.setText(fechaString);
-
-        botonesCancha = new ArrayList<Button>();
-
-
-        int cant=0;
+        rutAdmin = getIntent().getStringExtra("rut");
 
         CantidadCanchas();
 
-        //CrearBotones();
+        //ClickBotonEliminar();
 
-        //CapturaCanchas();//captura los nombres de las canchas  en los botones
-
-        //clickBtoBotonCancha();
-
-        ClickBotonHistorial();
-
-        ClickBotonAgregar();
-
-        ClickBotonActualizar();
-
-        ClickBotonEliminar();
-
+        ClickVolver();
     }
+
 
     public void CantidadCanchas()
     {
@@ -87,10 +65,15 @@ public class Principal extends AppCompatActivity {
 
                     if (ok == true)
                     {
+                        //cantidadCanchas++;
+
+                        //cont++;
                         cantidadCanchas = res.getInt("cantidadcancha");
                         Log.d("CantidadCanchas",cantidadCanchas+"");
 
                         TotalCanchas(cantidadCanchas);
+
+
 
                     }
                     else
@@ -104,7 +87,7 @@ public class Principal extends AppCompatActivity {
         };
 
         CantidadCanchaRequest r = new CantidadCanchaRequest( rutAdmin, respuesta);
-        RequestQueue cola = Volley.newRequestQueue(Principal.this);
+        RequestQueue cola = Volley.newRequestQueue(ActualizarCancha.this);
         cola.add(r);
     }
 
@@ -121,32 +104,27 @@ public class Principal extends AppCompatActivity {
                     JSONObject res = new JSONObject(response);
                     Iterator<String> temp = res.keys();
                     //int i =0;
-                    Log.v("CANTIDAD",cantidadCanchas+"");
                     CrearBotones(cantidadCanchas);
 
-                    clickBotonCancha();
+                    clickBotonCancha(cantidadCanchas);
 
                     //while(temp.hasNext()){
+                    for(int i=0; i<cantidadCanchas; i++)
+                    {
+
                         //String val = temp.next();
                         //Object ob = res.get(val);
                         //CapturaCanchas(res.getInt("id"+i));
                         //Log.v("DATA",""+res.getString("nombre"+i));
-                    for(int i=0;i<cantidadCanchas;i++)
-                    {
-                        Log.v("I", i + "");
 
-                            Log.v("I", i + "");
-
-                            Log.v("Nombre", "" + res.getString("nombre" + i));
-
-                            botonesCancha.get(i).setText(res.getString("nombre" + i));
-                        }
+                        Log.v("I",i+"");
 
 
-                            //botonesCancha.get(i).setText(res.getString("nombre" + i));
+                        botonesCancha.get(i).setText(res.getString("nombre" + i));
 
+                        //i++;
 
-
+                    }
 
 
                     /*boolean ok = res.getBoolean("success");
@@ -194,7 +172,7 @@ public class Principal extends AppCompatActivity {
         };
 
         CapturarUltimaCanchaRequest r = new CapturarUltimaCanchaRequest(rutAdmin,respuesta);
-        RequestQueue cola = Volley.newRequestQueue(Principal.this);
+        RequestQueue cola = Volley.newRequestQueue(ActualizarCancha.this);
         cola.add(r);
 
     }
@@ -238,7 +216,7 @@ public class Principal extends AppCompatActivity {
         //id=1;
 
         //for(int i=0; i <cantidad; i++)
-        //{
+        // {
 
             Response.Listener<String> respuesta = new Response.Listener<String>() {
                 @Override
@@ -276,7 +254,7 @@ public class Principal extends AppCompatActivity {
             };
 
             PrincipalRequest r = new PrincipalRequest(id+"", rutAdmin, respuesta);
-            RequestQueue cola = Volley.newRequestQueue(Principal.this);
+            RequestQueue cola = Volley.newRequestQueue(ActualizarCancha.this);
             cola.add(r);
 
             //id++;
@@ -285,81 +263,57 @@ public class Principal extends AppCompatActivity {
         //}
     }
 
-    public void clickBotonCancha()
+    public void clickBotonCancha(int cantidad)
     {
-        //Log.d("EntraBtn","");
+        cantidadCanchas = cantidad;
         for (final Button btn:botonesCancha)
         {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view)
                 {
-                    //btn.setVisibility(View.INVISIBLE);
-                    Intent intent =new Intent(Principal.this, HorarioCancha.class);
-                    intent.putExtra("nombreCancha",btn.getText());
-                    Principal.this.startActivity(intent);
+
+                    Intent intent =new Intent(ActualizarCancha.this, ActualizarCancha2.class);
+                    intent.putExtra("rut",rutAdmin);
+                    String nombreCancha = (String) btn.getText();
+                    intent.putExtra("cancha",nombreCancha);
+                    ActualizarCancha.this.startActivity(intent);
+
+                    ActualizarCancha.this.finish();
+
                 }
             });
         }
     }
 
-    public void ClickBotonHistorial()
+    public void ClickVolver()
     {
-        Button botonHistorial = (Button) findViewById(R.id.btnHistorial);
-        botonHistorial.setOnClickListener(new View.OnClickListener() {
+        final String rut = getIntent().getStringExtra("rut");
+
+        TextView txtVolver = (TextView) findViewById(R.id.txtVolver);
+        txtVolver.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
-                Intent intent =new Intent(Principal.this, Historial.class);
-                intent.putExtra("rut",rutAdmin);
-                Principal.this.startActivity(intent);
+                Intent intent =new Intent(ActualizarCancha.this, Principal.class);
+                intent.putExtra("rut",rut);
+                ActualizarCancha.this.startActivity(intent);
+
+                ActualizarCancha.this.finish();
             }
         });
     }
 
-    public void ClickBotonAgregar()
+    public void Volver()
     {
-        Button botonAgregar = (Button) findViewById(R.id.btnAgregar);
-        botonAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent =new Intent(Principal.this, AgregarCancha.class);
-                intent.putExtra("rut",rutAdmin);
-                Principal.this.startActivity(intent);
-                Principal.this.finish();
-            }
-        });
-    }
+        final String rut = getIntent().getStringExtra("rut");
 
-    public void ClickBotonActualizar()
-    {
-        Button botonActualizar = (Button) findViewById(R.id.btnActualizar);
-        botonActualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent =new Intent(Principal.this, ActualizarCancha.class);
-                intent.putExtra("rut",rutAdmin);
-                Principal.this.startActivity(intent);
-                //Principal.this.finish();
-            }
-        });
-    }
+        Intent intent =new Intent(ActualizarCancha.this, Principal.class);
+        intent.putExtra("rut",rut);
+        ActualizarCancha.this.startActivity(intent);
 
-    public void ClickBotonEliminar()
-    {
-        Button botonEliminar = (Button) findViewById(R.id.btnEliminar);
-        botonEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent =new Intent(Principal.this, EliminarCancha.class);
-                intent.putExtra("rut",rutAdmin);
-                Principal.this.startActivity(intent);
-                Principal.this.finish();
-            }
-        });
-    }
 
+        ActualizarCancha.this.finish();
+    }
 }

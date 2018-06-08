@@ -52,7 +52,18 @@
                     android:textSize="30dp"
                     android:background="@color/colorVerdeOscuro"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="50dp"
+                    />
+
+                <Button
+                    android:id="@+id/btnActualizar"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="->"
+                    android:textSize="30dp"
+                    android:background="@color/colorAmarilloOscuro"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
                     />
 
                 <Button

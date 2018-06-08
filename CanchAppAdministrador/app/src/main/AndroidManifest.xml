@@ -23,7 +23,9 @@
         <activity android:name=".HorarioCancha" />
         <activity android:name=".Historial" />
         <activity android:name=".AgregarCancha" />
-        <activity android:name=".EliminarCancha"></activity>
+        <activity android:name=".EliminarCancha" />
+        <activity android:name=".ActualizarCancha" />
+        <activity android:name=".ActualizarCancha2"></activity>
     </application>
 
 </manifest>
