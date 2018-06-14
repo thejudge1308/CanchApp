@@ -36,14 +36,17 @@
 
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/content_linearlayout_homeactivity"
+                android:orientation="vertical"
+                >
 
-                <TextView
+                <fragment
+                    android:id="@+id/frangment_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text=""
-                    android:id="@+id/content_textView_homeactivity"
-                    />
+                    class="com.example.patin.usuariocanchas.Fragment.HomeFragment">
+                </fragment>
 
             </android.support.v7.widget.LinearLayoutCompat>
         </android.support.constraint.ConstraintLayout>

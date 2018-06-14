@@ -1,23 +1,36 @@
 package com.example.patin.usuariocanchas;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+
+import com.example.patin.usuariocanchas.Activities.EquipoActivity;
+import com.example.patin.usuariocanchas.Activities.MyHistoryActivity;
+import com.example.patin.usuariocanchas.Activities.MyPerfilActivity;
+import com.example.patin.usuariocanchas.Values.SingletonUser;
+import com.example.patin.usuariocanchas.Fragment.HomeFragment;
+import com.example.patin.usuariocanchas.Fragment.NotifiFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private TextView mTextMessage;
+    private LinearLayoutCompat content;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -32,13 +45,12 @@ public class Home extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText("Home");
+                    setHomeViewFragment();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText("Notificaciones");
+                    setNotifyViewFragment();
                     return true;
                 case R.id.navigation_contacts:
-                    mTextMessage.setText("Contactos");
                     return  true;
             }
             return false;
@@ -52,11 +64,11 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = (TextView) findViewById(R.id.content_textView_homeactivity);
-        mTextMessage.setText("Home");
-
+        //linearLayout del contenido
+         this.content = findViewById(R.id.content_linearlayout_homeactivity);
         //Menu de abajo
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,10 +78,18 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View v = navigationView.getHeaderView(0);
+        TextView usertext = v.findViewById(R.id.username_lateral_nav);
+        usertext.setText(SingletonUser.getInstance().getName());
+        TextView scoretext = v.findViewById(R.id.calification_lateral_nav);
+        scoretext.setText(SingletonUser.getInstance().getScore()+"");
+
+
     }
 
     @Override
@@ -138,4 +158,35 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setHomeViewFragment(){
+
+
+        Fragment f;
+        FragmentManager fm = getFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = fm.beginTransaction();
+        f=new HomeFragment();
+        ft.replace(R.id.frangment_content,f);
+        ft.disallowAddToBackStack();
+        ft.commit();
+
+    }
+
+    private void setNotifyViewFragment(){
+        Fragment f;
+        FragmentManager fm = getFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        FragmentTransaction ft = fm.beginTransaction();
+        f=new NotifiFragment();
+        ft.replace(R.id.frangment_content,f);
+        ft.disallowAddToBackStack();
+        ft.commit();
+    }
+
+    private void setContactViewFragment(){
+
+    }
+
 }
