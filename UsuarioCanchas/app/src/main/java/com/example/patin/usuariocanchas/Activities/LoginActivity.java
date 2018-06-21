@@ -19,12 +19,19 @@ import com.android.volley.toolbox.Volley;
 import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Request.LoginRequest;
+import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,12 +107,34 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login(){
-        String email = this.userEditText.getText().toString().trim();
+        final String email = this.userEditText.getText().toString().trim();
         String pass=this.passEditText.getText().toString().trim();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+                    Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                User user = SingletonUser.getInstance();
+                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                    User userR = issue.getValue(User.class);
+                                    userR.setPassword("");
+                                    SingletonUser.user = userR;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     Intent main = new Intent(LoginActivity.this,HomeActivity.class);
                     LoginActivity.this.startActivity(main);
 
