@@ -82,11 +82,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View v = navigationView.getHeaderView(0);
         TextView usertext = v.findViewById(R.id.username_lateral_nav);
-        usertext.setText(SingletonUser.getInstance().getName());
+        usertext.setText(SingletonUser.getInstance().getNickname());
         TextView scoretext = v.findViewById(R.id.calification_lateral_nav);
         scoretext.setText(SingletonUser.getInstance().getScore()+"");
-
-
     }
 
     @Override

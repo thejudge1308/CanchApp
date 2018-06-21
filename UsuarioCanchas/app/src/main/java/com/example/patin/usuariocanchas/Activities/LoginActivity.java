@@ -127,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
                                     SingletonUser.user = userR;
                                 }
                             }
+                            Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                            LoginActivity.this.startActivity(main);
                         }
 
                         @Override
@@ -135,8 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                    LoginActivity.this.startActivity(main);
+
 
                 }else{
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);

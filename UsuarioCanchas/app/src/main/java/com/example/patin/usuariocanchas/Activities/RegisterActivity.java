@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                                  //Guardar datos en la BD de firebase
                                  FirebaseDatabase database = FirebaseDatabase.getInstance();
                                  DatabaseReference userReference = database.getReference(FireBaseReferences.USER_REFERENCE); //Obtiene la referencia de la bd
-                                 User newUser = new User(emailR,passR,nameR,surnameR,nicknameR,birthDateR);
+                                 User newUser = new User(emailR,"uwu",nameR,surnameR,nicknameR,birthDateR);
                                  userReference.push().setValue(newUser);
                                  finish();
                              }else{
