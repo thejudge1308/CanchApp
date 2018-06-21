@@ -52,8 +52,8 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = (TextView) findViewById(R.id.content_textView_homeactivity);
-        mTextMessage.setText("Home");
+       // mTextMessage = (TextView) findViewById(R.id.content_textView_homeactivity);
+       // mTextMessage.setText("Home");
 
         //Menu de abajo
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
