@@ -2,6 +2,7 @@ package com.example.patin.usuariocanchas.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Request.LoginRequest;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText userEditText;
     private EditText passEditText;
-
+    FirebaseAuth.AuthStateListener fireAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +55,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        fireAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //Compruerba el inicio de sesion
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    Log.i("fire","Sesion iniciada");
+                }else{
+                    Log.i("fire","no iniciada");
+                }
+            }
+        };
+
+
         this.loginButton = (Button)findViewById(R.id.button_login);
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(theFieldsAreValids()){
-                    isValidTheUser();
+                    login();
                 }
             }
         });
@@ -78,82 +98,56 @@ public class LoginActivity extends AppCompatActivity {
         return flag;
     }
 
-    public void isValidTheUser(){
-        String userR = this.userEditText.getText().toString();
-        String passR= this.passEditText.getText().toString();
 
-        Response.Listener<String> respuesta = new Response.Listener<String>() {
+    private void login(){
+        String email = this.userEditText.getText().toString().trim();
+        String pass=this.passEditText.getText().toString().trim();
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject res = new JSONObject(response);
-                    String mensaje = res.getString("mensaje");
-                    JSONArray array = res.getJSONArray("datos");
-                    if(mensaje.equals("true")){
-                        //JSONObject userJson = res.getJSONObject("datos");//email,nickname,nombre,apellido,puntuacion
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                    LoginActivity.this.startActivity(main);
 
-                        //User currentUser = SingletonUser.createUser(array.getJSONObject(0).getString("email"),array.getJSONObject(0).getString("nombre"),array.getJSONObject(0).getString("apellido"),array.getJSONObject(0).getString("nickname"),array.getJSONObject(0).getDouble("puntuacion"));
-                        //Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                        //LoginActivity.this.startActivity(main);
-                        //Toast.makeText(LoginActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
-                        //finish();
-                    }else{
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                        alertDialogBuilder.setTitle("Problemas al iniciar sesión");
-                        alertDialogBuilder
-                                .setMessage("Click continuar, para salir")
-                                .setCancelable(false)
-                                .setPositiveButton("continuar",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // if this button is clicked, close
-                                        // current activity
-                                        //LoginActivity.this.finish();
-                                        dialog.cancel();
-                                    }
-                                })
-                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // if this button is clicked, just close
-                                        // the dialog box and do nothing
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    }
-                    Log.v("Json",mensaje );
-
-
-                } catch (JSONException e) {
-                    Log.v("Json",e +"");
+                }else{
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                    alertDialogBuilder.setTitle("No se ha podido iniciar sesión, datos incorrectos.");
+                    alertDialogBuilder.setTitle("No se ha podido realizar la conexión");
                     alertDialogBuilder
                             .setMessage("Click continuar, para salir")
                             .setCancelable(false)
                             .setPositiveButton("continuar",new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    //LoginActivity.this.finish();
                                     dialog.cancel();
                                 }
                             })
                             .setNegativeButton("No",new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, just close
+                                    // the dialog box and do nothing
                                     dialog.cancel();
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-
                 }
-
             }
-        };
-
-        LoginRequest r = new LoginRequest(userR,passR,respuesta);
-        RequestQueue cola = Volley.newRequestQueue(LoginActivity.this);
-        cola.add(r);
-
+        });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(this.fireAuthStateListener);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(this.fireAuthStateListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(this.fireAuthStateListener);
+        }
+    }
 
 }

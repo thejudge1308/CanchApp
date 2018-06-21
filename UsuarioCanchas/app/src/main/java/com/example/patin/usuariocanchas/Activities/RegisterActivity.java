@@ -1,8 +1,10 @@
 package com.example.patin.usuariocanchas.Activities;
 
 import android.app.DatePickerDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,6 +15,11 @@ import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Segurity.Validation;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     private EditText pass2EditText;
     private Button registerButton;
     private DatePickerDialog datePickerDialog;
+    FirebaseAuth.AuthStateListener fireAuthStateListener;
 
 
 
@@ -57,23 +65,58 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                 datePickerDialog.show();
             }
         });
+
+        fireAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //Compruerba el inicio de sesion
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    Log.i("fire","Sesion iniciada");
+                }else{
+                    Log.i("fire","no iniciada");
+                }
+            }
+        };
+
+
+
+
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(RegisterActivity.this.gotoRegister()){
-                    String emailR = emailEditText.getText().toString().trim();
-                    String nameR =  nameEditText.getText().toString().trim();
-                    String surnameR = surnameEditText.getText().toString().trim();
-                    String nicknameR = nicknameEditText.getText().toString().trim();
-                    String passR = pass1EditText.getText().toString().trim();
-                    String birthDateR= dateEditText.getText().toString().trim();
+                    final String emailR = emailEditText.getText().toString().trim();
+                    final String nameR =  nameEditText.getText().toString().trim();
+                    final String surnameR = surnameEditText.getText().toString().trim();
+                    final String nicknameR = nicknameEditText.getText().toString().trim();
+                    final String passR = pass1EditText.getText().toString().trim();
+                    final String birthDateR= dateEditText.getText().toString().trim();
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userReference = database.getReference(FireBaseReferences.USER_REFERENCE); //Obtiene la referencia de la bd
-                    User newUser = new User(emailR,passR,nameR,surnameR,nicknameR,birthDateR);
-                    userReference.push().setValue(newUser);
-                    Toast.makeText(RegisterActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
-                    finish();
+
+
+                    //Guardar en el Auth de firebase
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailR,passR).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                             if(task.isSuccessful()){
+                                 Toast.makeText(RegisterActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
+                                 //Guardar datos en la BD de firebase
+                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                 DatabaseReference userReference = database.getReference(FireBaseReferences.USER_REFERENCE); //Obtiene la referencia de la bd
+                                 User newUser = new User(emailR,passR,nameR,surnameR,nicknameR,birthDateR);
+                                 userReference.push().setValue(newUser);
+                                 finish();
+                             }else{
+                                 Toast.makeText(RegisterActivity.this, "No se ha podido realizar la acción", Toast.LENGTH_SHORT).show();
+                             }
+                        }
+                    });
+
+
+
+                    //Toast.makeText(RegisterActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
