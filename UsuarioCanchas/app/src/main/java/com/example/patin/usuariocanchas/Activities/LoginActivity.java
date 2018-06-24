@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passEditText;
     FirebaseAuth.AuthStateListener fireAuthStateListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         //this.userEditText = findViewById
         this.userEditText = findViewById(R.id.email_edittext_loginactivity);
         this.passEditText = findViewById(R.id.pass_edittext_loginactivity);
-
         this.registerTextView = findViewById(R.id.register_textview_loginactivity);
+
+        //Register
         this.registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         fireAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -69,6 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
                     Log.i("fire","Sesion iniciada");
+                    loadUserData(user.getEmail());
+                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                    LoginActivity.this.startActivity(main);
                 }else{
                     Log.i("fire","no iniciada");
                 }
@@ -82,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(theFieldsAreValids()){
                     login();
+
                 }
             }
         });
@@ -112,31 +119,10 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
-                    Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                User user = SingletonUser.getInstance();
-                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                    User userR = issue.getValue(User.class);
-                                    userR.setPassword("");
-                                    SingletonUser.user = userR;
-                                }
-                            }
-                            Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                            LoginActivity.this.startActivity(main);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
+                if(task.isSuccessful()) {
+                    loadUserData(LoginActivity.this.userEditText.getText().toString().trim());
+                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                    LoginActivity.this.startActivity(main);
 
 
                 }else{
@@ -166,6 +152,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Carga los datos del usuarioActual
+    public void loadUserData(String email){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+          DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+         Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
+                 query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                User user = SingletonUser.getInstance();
+                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                    User userR = issue.getValue(User.class);
+                                    userR.setPassword("");
+                                    SingletonUser.user = userR;
+                                }
+                                Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                                LoginActivity.this.startActivity(main);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

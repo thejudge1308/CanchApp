@@ -20,9 +20,14 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Configuraciones" />
+        <item
+            android:id="@+id/nav_close_sesion"
+            android:icon="@drawable/ic_cancel_black_24dp"
+            android:title="Cerrar sesión" />
+            />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Mas">
         <menu>
             <item
                 android:id="@+id/nav_share"

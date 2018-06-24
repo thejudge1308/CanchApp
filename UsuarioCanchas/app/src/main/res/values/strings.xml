@@ -19,7 +19,6 @@
     <string name="action_settings">Config Notificaciones</string>
     <string name="title_activity_notification">Conf. Notificaciones</string>
 
-    <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

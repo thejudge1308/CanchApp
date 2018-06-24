@@ -103,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                                  Toast.makeText(RegisterActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
                                  //Guardar datos en la BD de firebase
                                  FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                 database.setPersistenceEnabled(true);
                                  DatabaseReference userReference = database.getReference(FireBaseReferences.USER_REFERENCE); //Obtiene la referencia de la bd
                                  User newUser = new User(emailR,"uwu",nameR,surnameR,nicknameR,birthDateR);
                                  userReference.push().setValue(newUser);

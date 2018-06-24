@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "452010653166-l2d4n6n5jdc4vr47vlj1fp9t008v5jnk.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "452010653166-elcghl8v0bfnirrohapo3rp6uf5gkn4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.patin.usuariocanchas",
+            "certificate_hash": "6f4afb0e6f88076b19d4e13722435c5f81cd985c"
+          }
         },
         {
           "client_id": "452010653166-l2d4n6n5jdc4vr47vlj1fp9t008v5jnk.apps.googleusercontent.com",
@@ -33,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452010653166-l2d4n6n5jdc4vr47vlj1fp9t008v5jnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

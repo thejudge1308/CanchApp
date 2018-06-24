@@ -25,6 +25,7 @@ import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
 import com.example.patin.usuariocanchas.Fragment.NotifiFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private LinearLayoutCompat content;
@@ -146,8 +147,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_close_sesion) {
+            FirebaseAuth.getInstance().signOut();
+            this.finish();
+            Intent i = new Intent(HomeActivity.this,LoginActivity.class);
+            HomeActivity.this.startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
