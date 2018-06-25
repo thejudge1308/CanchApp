@@ -13,7 +13,7 @@ public class User {
     private Double score;
     private boolean isActive;
     private String birthday;
-    private ArrayList<Service> services;
+
 
     /**
      *
@@ -98,7 +98,4 @@ public class User {
 
     public void setBirthday(String birthday) { this.birthday = birthday; }
 
-    public ArrayList<Service> getServices() { return services; }
-
-    public void setServices(ArrayList<Service> services) { this.services = services; }
 }
