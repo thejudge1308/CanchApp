@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1064110933054",
+    "firebase_url": "https://canchapp-259e9.firebaseio.com",
+    "project_id": "canchapp-259e9",
+    "storage_bucket": "canchapp-259e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064110933054:android:0af74b6ee98c0bdc",
+        "android_client_info": {
+          "package_name": "com.example.fito.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064110933054-vm8cd8dmvsr972mbs8dc83s5re1pp94v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fito.login",
+            "certificate_hash": "02528a75c16aed776f14c8c850a3822406369c4d"
+          }
+        },
+        {
+          "client_id": "1064110933054-esckliduo2m7cn8piommtcs6jj7sdnoa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1064110933054-esckliduo2m7cn8piommtcs6jj7sdnoa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDobOxkg1vclp2wes3vHpMzoMiUTkdrIaA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064110933054-esckliduo2m7cn8piommtcs6jj7sdnoa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
