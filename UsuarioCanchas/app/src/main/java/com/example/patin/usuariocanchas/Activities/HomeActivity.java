@@ -147,8 +147,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             HomeActivity.this.startActivity(i);
         } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_close_sesion) {
             FirebaseAuth.getInstance().signOut();
             this.finish();

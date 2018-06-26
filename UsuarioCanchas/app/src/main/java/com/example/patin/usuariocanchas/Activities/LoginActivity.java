@@ -118,31 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
-                    Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                User user = SingletonUser.getInstance();
-                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                    User userR = issue.getValue(User.class);
-                                    userR.setPassword("");
-                                    SingletonUser.user = userR;
-                                }
-                            }
-                            Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                            LoginActivity.this.startActivity(main);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
+                    loadUserData(email);
 
                 }else{
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
@@ -171,6 +147,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void loadUserData(String email){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+        Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    User user = SingletonUser.getInstance();
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        User userR = issue.getValue(User.class);
+                        userR.setPassword("");
+                        SingletonUser.user = userR;
+                    }
+                }
+                Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                LoginActivity.this.startActivity(main);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
