@@ -27,29 +27,4 @@
             />
     </group>
 
-    <item android:title="Mas">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Compartir aplicación" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Enviar invitación" />
-        </menu>
-    </item>
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Compartir aplicación" />
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Enviar invitación" />
-        <item
-            android:id="@+id/nav_quicksesion"
-            android:icon="@drawable/ic_power_settings_new_black_24dp"
-            android:title="Cerrar sesión" />
-    </group>
-
 </menu>
