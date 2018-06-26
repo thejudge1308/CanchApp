@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.patin.usuariocanchas.Fragment.ContactFragment;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     setNotifyViewFragment();
                     return true;
                 case R.id.navigation_contacts:
+                    setContactViewFragment();
                     return  true;
             }
             return false;
@@ -185,7 +187,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setContactViewFragment(){
+        Fragment f;
+        FragmentManager fm = getFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
+        FragmentTransaction ft = fm.beginTransaction();
+        f=new ContactFragment();
+        ft.replace(R.id.frangment_content,f);
+        ft.disallowAddToBackStack();
+        ft.commit();
     }
 
 }

@@ -73,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(user!=null){
                     Log.i("fire","Sesion iniciada");
                     loadUserData(user.getEmail());
-                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                    LoginActivity.this.startActivity(main);
                 }else{
                     Log.i("fire","no iniciada");
                 }
@@ -119,10 +117,31 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    loadUserData(LoginActivity.this.userEditText.getText().toString().trim());
-                    Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                    LoginActivity.this.startActivity(main);
+                if(task.isSuccessful()){
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+                    Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                User user = SingletonUser.getInstance();
+                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                    User userR = issue.getValue(User.class);
+                                    userR.setPassword("");
+                                    SingletonUser.user = userR;
+                                }
+                            }
+                            Intent main = new Intent(LoginActivity.this,HomeActivity.class);
+                            LoginActivity.this.startActivity(main);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
 
                 }else{
@@ -152,35 +171,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    //Carga los datos del usuarioActual
-    public void loadUserData(String email){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-          DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
-         Query query = userReference.child(FireBaseReferences.USER_REFERENCE).orderByChild("email").equalTo(email);
-                 query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                User user = SingletonUser.getInstance();
-                                for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                    User userR = issue.getValue(User.class);
-                                    userR.setPassword("");
-                                    SingletonUser.user = userR;
-                                }
-                                Intent main = new Intent(LoginActivity.this,HomeActivity.class);
-                                LoginActivity.this.startActivity(main);
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
