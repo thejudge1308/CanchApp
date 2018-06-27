@@ -53,11 +53,14 @@
         <activity
             android:name=".Activities.MapsCanchaActivity"
             android:label="@string/title_activity_maps_cancha" />
-        <activity android:name=".Activities.RegisterActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name=".Activities.ChangePassActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            />
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".Activities.ChangePassActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".Activities.AddFriendActivity" />
+        <activity android:name=".SportActivity"></activity>
     </application>
 
 </manifest>
