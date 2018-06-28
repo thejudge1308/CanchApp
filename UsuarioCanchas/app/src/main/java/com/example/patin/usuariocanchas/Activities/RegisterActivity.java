@@ -39,8 +39,6 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
     private DatePickerDialog datePickerDialog;
     FirebaseAuth.AuthStateListener fireAuthStateListener;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +77,6 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
             }
         };
 
-
-
-
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +87,6 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                     final String nicknameR = nicknameEditText.getText().toString().trim();
                     final String passR = pass1EditText.getText().toString().trim();
                     final String birthDateR= dateEditText.getText().toString().trim();
-
-
 
                     //Guardar en el Auth de firebase
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailR,passR).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -114,18 +107,9 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                         }
                     });
 
-
-
-                    //Toast.makeText(RegisterActivity.this, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
-
-
-
-
     }
 
     /*
@@ -154,6 +138,11 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
 
         if(!this.pass1EditText.getText().toString().equals(this.pass2EditText.getText().toString())){
             Toast.makeText(this, "Ambas contraseñas deben ser identicas", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(this.pass1EditText.getText().toString().length()<6 || this.pass2EditText.getText().toString().length()<6){
+            Toast.makeText(this, "La contraseña debe tener minimo 6 caracteres.", Toast.LENGTH_SHORT).show();
             return false;
         }
 

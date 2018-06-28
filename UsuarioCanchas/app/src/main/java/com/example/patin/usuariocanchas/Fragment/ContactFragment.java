@@ -55,11 +55,10 @@ public class ContactFragment extends Fragment{
 
         Drawable image  = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_group);
 
-
         this.contactItems = new ArrayList<>();
-        //this.contactItems.add(new ContactItem("1", "2",image));
-        //this.contactItems.add(new ContactItem("1", "2",image));
-        //this.contactItems.add(new ContactItem("1", "2",image));
+        this.contactItems.add(new ContactItem("1", "2",image));
+        this.contactItems.add(new ContactItem("1", "2",image));
+        this.contactItems.add(new ContactItem("1", "2",image));
         AdapterContact adapterContact = new AdapterContact(getActivity(),this.contactItems);
         this.contactListView.setAdapter(adapterContact);
 

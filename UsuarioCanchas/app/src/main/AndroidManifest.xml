@@ -23,11 +23,7 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.HomeActivity"
@@ -60,7 +56,17 @@
             android:name=".Activities.ChangePassActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".Activities.AddFriendActivity" />
-        <activity android:name=".SportActivity"></activity>
+        <activity android:name=".Activities.SportActivity" />
+        <activity android:name=".Activities.MyServiceActivity" />
+        <activity android:name=".Activities.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

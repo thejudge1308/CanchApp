@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.patin.usuariocanchas.Activities.CreateMatchActivity;
 import com.example.patin.usuariocanchas.R;
-import com.example.patin.usuariocanchas.SportActivity;
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 
 
 public class HomeFragment extends Fragment {

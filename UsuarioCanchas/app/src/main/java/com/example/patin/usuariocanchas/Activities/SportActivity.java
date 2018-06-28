@@ -1,4 +1,4 @@
-package com.example.patin.usuariocanchas;
+package com.example.patin.usuariocanchas.Activities;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,6 +14,7 @@ import com.example.patin.usuariocanchas.Activities.CreateMatchActivity;
 import com.example.patin.usuariocanchas.Adapter.AdapterContact;
 import com.example.patin.usuariocanchas.Adapter.AdapterSport;
 import com.example.patin.usuariocanchas.Item.SportItem;
+import com.example.patin.usuariocanchas.R;
 
 import java.util.ArrayList;
 

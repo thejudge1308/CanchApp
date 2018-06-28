@@ -9,29 +9,30 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.patin.usuariocanchas.Item.ContactItem;
+import com.example.patin.usuariocanchas.Item.ServiceItem;
 import com.example.patin.usuariocanchas.Item.SportItem;
+import com.example.patin.usuariocanchas.Model.Service;
 import com.example.patin.usuariocanchas.R;
 
 import java.util.ArrayList;
 
-public class AdapterSport extends BaseAdapter {
+public class AdapterService extends BaseAdapter {
     private Activity activity;
-    private ArrayList<SportItem> sportItems;
+    private ArrayList<ServiceItem> serviceItems;
 
-    public AdapterSport(Activity activity, ArrayList<SportItem> sportItems) {
+    public AdapterService(Activity activity, ArrayList<ServiceItem> serviceItems) {
         this.activity = activity;
-        this.sportItems = sportItems;
+        this.serviceItems = serviceItems;
     }
 
     @Override
     public int getCount() {
-        return sportItems.size();
+        return this.serviceItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return this.sportItems.get(position);
+        return this.serviceItems.get(position);
     }
 
     @Override
@@ -45,17 +46,12 @@ public class AdapterSport extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inf.inflate(R.layout.list_view_sport, null);
+            v = inf.inflate(R.layout.list_view_service, null);
         }
 
-       SportItem sportItem = sportItems.get(position);
+        ServiceItem serviceItem = serviceItems.get(position);
 
-        TextView title = (TextView) v.findViewById(R.id.name_list_view_sport_item);
-        title.setText(sportItem.getName());
-
-        ImageView imagen = (ImageView) v.findViewById(R.id.img_list_view_sport_item);
-        imagen.setImageDrawable(sportItem.getImagen());
-
+        
         return v;
     }
 }
