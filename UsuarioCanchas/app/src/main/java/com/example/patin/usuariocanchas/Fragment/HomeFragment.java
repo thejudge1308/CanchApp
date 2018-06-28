@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.patin.usuariocanchas.Activities.CreateMatchActivity;
 import com.example.patin.usuariocanchas.R;
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 
 
 public class HomeFragment extends Fragment {
@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
         this.newMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),CreateMatchActivity.class);
+                Intent intent = new Intent(getActivity(),SportActivity.class);
                 startActivity(intent);
             }
         });
