@@ -17,6 +17,7 @@ public class MyPerfilActivity extends AppCompatActivity {
     private EditText nickEditText;
     private TextView scoreTextView;
     private Button changePassButton;
+    private Button myServiceButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class MyPerfilActivity extends AppCompatActivity {
         this.emailTextView = findViewById(R.id.email_textview_myperfil);
         this.nickEditText = findViewById(R.id.nick_edittext_myperfil);
         this.scoreTextView = findViewById(R.id.score_textview_myperfil);
+
 
         this.emailTextView.setText(SingletonUser.getInstance().getEmail());
         this.nickEditText.setText(SingletonUser.getInstance().getNickname());
@@ -38,5 +40,13 @@ public class MyPerfilActivity extends AppCompatActivity {
             }
         });
 
+        this.myServiceButton = findViewById(R.id.myservice_button_myservice_activity);
+        this.myServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(MyPerfilActivity.this,MyServiceActivity.class);
+                MyPerfilActivity.this.startActivity(i);
+            }
+        });
     }
 }

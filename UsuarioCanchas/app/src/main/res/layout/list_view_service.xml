@@ -9,19 +9,19 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/name_list_view_sport_item"
+        android:id="@+id/name_list_view_service_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="2dp"
-        android:layout_toEndOf="@+id/img_list_view_sport_item"
-        android:layout_toRightOf="@+id/img_list_view_sport_item"
+        android:layout_toEndOf="@+id/img_list_view_service_item"
+        android:layout_toRightOf="@+id/img_list_view_service_item"
         android:text="Name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/img_list_view_sport_item"
+        android:id="@+id/img_list_view_service_item"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
@@ -37,7 +37,7 @@
         app:srcCompat="@drawable/ic_account_circle" />
 
     <TextView
-        android:id="@+id/state_textview_list_view_sport_item"
+        android:id="@+id/state_textview_list_view_service_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -47,11 +47,11 @@
         android:text="Enable" />
 
     <TextView
-        android:id="@+id/value_textview_list_view_sport_item"
+        android:id="@+id/value_textview_list_view_service_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/name_list_view_sport_item"
-        android:layout_alignStart="@+id/state_textview_list_view_sport_item"
+        android:layout_alignBottom="@+id/name_list_view_service_item"
+        android:layout_alignStart="@+id/state_textview_list_view_service_item"
         android:text="Value" />
 
 </RelativeLayout>

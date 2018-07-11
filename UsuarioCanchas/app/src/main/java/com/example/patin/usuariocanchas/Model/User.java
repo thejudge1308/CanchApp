@@ -14,7 +14,7 @@ public class User {
     private boolean isActive;
     private String birthday;
     private ArrayList<Service> services;
-    private int id;
+    private String id;
 
     /**
      *
@@ -103,7 +103,7 @@ public class User {
 
     public void setServices(ArrayList<Service> services) { this.services = services; }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(String id) { this.id = id; }
 }
