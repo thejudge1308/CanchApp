@@ -57,7 +57,7 @@
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/myservice_button_myservice_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mis servicios" />

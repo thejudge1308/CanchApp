@@ -51,7 +51,22 @@ public class AdapterService extends BaseAdapter {
 
         ServiceItem serviceItem = serviceItems.get(position);
 
-        
+        TextView nameTextView = (TextView) v.findViewById(R.id.name_list_view_service_item);
+        nameTextView.setText(serviceItem.getName());
+
+        TextView priceTextView = (TextView)v.findViewById(R.id.value_textview_list_view_service_item);
+        priceTextView.setText("$"+serviceItem.getPrice());
+
+        TextView stateTextView = (TextView)v.findViewById(R.id.state_textview_list_view_service_item);
+        if(serviceItem.getState() == serviceItem.USUARIO_HABILITADO){
+            stateTextView.setText("Habilitado");
+        }else {
+            stateTextView.setText("No Habilitado");
+        }
+
+        ImageView imagen = (ImageView) v.findViewById(R.id.img_list_view_service_item);
+        imagen.setImageDrawable(serviceItem.getImagen());
+
         return v;
     }
 }

@@ -22,9 +22,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.LoginActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-
-        </activity>
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
         <activity
             android:name=".Activities.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -58,9 +56,9 @@
         <activity android:name=".Activities.AddFriendActivity" />
         <activity android:name=".Activities.SportActivity" />
         <activity android:name=".Activities.MyServiceActivity" />
-        <activity android:name=".Activities.SplashActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            >
+        <activity
+            android:name=".Activities.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
