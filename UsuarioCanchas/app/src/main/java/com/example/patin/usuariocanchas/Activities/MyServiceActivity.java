@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import com.example.patin.usuariocanchas.Adapter.AdapterService;
 import com.example.patin.usuariocanchas.Item.ServiceItem;
-import com.example.patin.usuariocanchas.Model.Service;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
+import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,11 +63,10 @@ public class MyServiceActivity extends AppCompatActivity {
 
                        //servicesDB.add(issue.child("nombre").getValue().toString());
                         //serviceDBS.add(serviceDB);
-
                     }
 
-                    AdapterService adapterService = new AdapterService(MyServiceActivity.this,getServicesForAdapter());
-                    MyServiceActivity.this.servicesListView.setAdapter(adapterService);
+                    setServicesForUser();
+
                 }
 
             }
@@ -79,13 +78,18 @@ public class MyServiceActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @return arraylist with all services of Services_reference
+     */
     private ArrayList<ServiceItem> getServicesForAdapter(){
         Drawable image  = ContextCompat.getDrawable(MyServiceActivity.this.getApplicationContext(), R.drawable.ic_menu_share);
         ArrayList<ServiceItem> serviceItems = new ArrayList<>();
         Log.v("__SERVICE",services.size()+" mPA");
         for (HashMap.Entry<String, ServiceDB> value : services.entrySet()) {
             ServiceDB aux = (ServiceDB)value.getValue();
-            ServiceItem item = new ServiceItem(aux.nombre,aux.value,aux.estado,image);
+            ServiceItem item = new ServiceItem(aux.nombre,aux.valor,aux.estado,image);
+            Log.v("__SERVICE",item.getName()+" : "+item.getPrice() +" : "+item.getState());
             serviceItems.add(item);
 
         }
@@ -93,19 +97,65 @@ public class MyServiceActivity extends AppCompatActivity {
     return serviceItems;
     }
 
+    private void setServicesForUser(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+        Query query = userReference.child(FireBaseReferences.USER_SERVICE_REFERENCE).equalTo(SingletonUser.getInstance().getId());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    //User user = SingletonUser.getInstance();
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        Log.v("__Service","Cantidad "+issue.getChildrenCount());
+                        Log.v("__Service","key "+issue.getKey());
+                        for(DataSnapshot child : issue.getChildren()){
+                            Log.v("__Service","Child: "+child.getKey());
+                            ServiceDB service = MyServiceActivity.this.services.get(child.getKey().toString());
+                            String valueDB = child.child("valor").exists()?child.child("valor").getValue().toString():"0";
+                            String stateDB = child.child("estado").exists()?child.child("estado").getValue().toString():"0";
+                            Log.v("__Service",valueDB);
+                            Log.v("__Service",stateDB);
+                            //Log.v("__Service",service.getNombre() +" : "+service.getEstado()+" : "+service.getValor());
+
+                            service.setEstado(Integer.parseInt(stateDB));
+                            service.setValor(Integer.parseInt(valueDB));
+                            Log.v("__Service",service.getNombre() +" : "+service.getEstado()+" : "+service.getValor());
+
+
+                            MyServiceActivity.this.services.put(child.getKey().toString(),service);
+                        }
+
+                        AdapterService adapterService = new AdapterService(MyServiceActivity.this,getServicesForAdapter());
+                        MyServiceActivity.this.servicesListView.setAdapter(adapterService);
+                    }
+                }else{
+                    Log.v("__Service","Not found");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
     public class ServiceDB{
         private String nombre;
-        private int value;
+        private int valor;
         private int estado;
 
         public ServiceDB(String nombre, int value, int estado) {
             this.nombre = nombre;
-            this.value = value;
+            this.valor = value;
             this.estado = estado;
         }
         public ServiceDB(){
-            this.value = 0;
-            this.estado=1;
+            this.valor = 0;
+            this.estado=0;
         }
 
         public String getNombre() {
@@ -117,11 +167,11 @@ public class MyServiceActivity extends AppCompatActivity {
         }
 
         public int getValor() {
-            return value;
+            return valor;
         }
 
         public void setValor(int value) {
-            this.value = value;
+            this.valor = value;
         }
 
         public int getEstado() {
