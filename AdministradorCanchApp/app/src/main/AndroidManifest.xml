@@ -9,17 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
+=======
+        <activity android:name=".AdminstradorPrincipal">
+>>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".AdminstradorPrincipal"
             android:label="@string/title_activity_adminstrador_principal"
             android:theme="@style/AppTheme.NoActionBar" />
+=======
+>>>>>>> master
         <activity android:name=".HorarioCancha" />
         <activity
             android:name=".Historial"
