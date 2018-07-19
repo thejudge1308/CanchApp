@@ -95,4 +95,6 @@
     <string name="proximos_eventos">Proximos eventos</string>
     <string name="crear_partido">Reservar cancha</string>
     <string name="title_activity_maps_cancha">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -4,26 +4,30 @@ package com.example.patin.usuariocanchas.Model;
 import java.util.ArrayList;
 
 public class Cancha {
-    String nombreCancha;
+    String nombre;
     String direccion;
-    String ubicacion;
-    int precio;
-    String idAdministrador;//rut administrador
+    Integer precio;
+    Integer idAdministrador;//rut administrador
+    Double latitud;
+    Double longitud;
+    String estado;
 
-    public Cancha(String nombreCancha, String direccion, String ubicacion, int precio, String idAdministrador) {
-        this.nombreCancha = nombreCancha;
+    public Cancha(String nombre, String direccion, Integer precio, Integer idAdministrador, Double latitud, Double longitud, String estado) {
+        this.nombre = nombre;
         this.direccion = direccion;
-        this.ubicacion = ubicacion;
         this.precio = precio;
         this.idAdministrador = idAdministrador;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.estado = estado;
     }
 
-    public String getNombreCancha() {
-        return nombreCancha;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreCancha(String nombreCancha) {
-        this.nombreCancha = nombreCancha;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDireccion() {
@@ -34,27 +38,43 @@ public class Cancha {
         this.direccion = direccion;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public int getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 
-    public String getIdAdministrador() {
+    public Integer getIdAdministrador() {
         return idAdministrador;
     }
 
-    public void setIdAdministrador(String idAdministrador) {
+    public void setIdAdministrador(Integer idAdministrador) {
         this.idAdministrador = idAdministrador;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
