@@ -1,15 +1,14 @@
 <resources>
-    <string name="app_name">Aplicacion</string>
+    <string name="app_name">CanchAPP</string>
     <string name="title_home">Inicio</string>
     <string name="title_dashboard">Eventos</string>
     <string name="title_notifications">Notificationes</string>
     <string name="title_contacts">Contactos</string>
-
-    <string name="tittle_username">Username</string>
-    <string name="tittle_password">Contraseña</string>
-
-    <string name="button_login">Iniciar sesión</string>
-    <string name="tittle_recovery_pass">Recuperar contraseña</string>
+    <!--Login activity -->
+    <string name="email_textview_loginactivity">Correo electrónico</string>
+    <string name="pass_textview_loginactivity">Contraseña</string>
+    <string name="sesion_button_loginactivity">Iniciar sesión</string>
+    <string name="recovery_textview_loginactivity">Registarse</string>
 
     <string name="title_activity_home">Canchapp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -20,7 +19,6 @@
     <string name="action_settings">Config Notificaciones</string>
     <string name="title_activity_notification">Conf. Notificaciones</string>
 
-    <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
@@ -94,4 +92,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="proximos_eventos">Proximos eventos</string>
+    <string name="crear_partido">Reservar cancha</string>
+    <string name="title_activity_maps_cancha">Map</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

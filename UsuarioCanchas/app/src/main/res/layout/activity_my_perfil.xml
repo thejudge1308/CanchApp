@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".MyPerfilActivity">
+    tools:context=".Activities.MyPerfilActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:contentDescription="TODO" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/email_textview_myperfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -30,7 +30,7 @@
             android:padding="10dp"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nick_edittext_myperfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -48,7 +48,7 @@
             />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/score_textview_myperfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -57,13 +57,13 @@
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/myservice_button_myservice_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mis servicios" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/changepass_button_myperfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cambiar contraseña"

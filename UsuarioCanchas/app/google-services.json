@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "452010653166",
+    "firebase_url": "https://canchapp-8a66b.firebaseio.com",
+    "project_id": "canchapp-8a66b",
+    "storage_bucket": "canchapp-8a66b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452010653166:android:be50e7ba97937156",
+        "android_client_info": {
+          "package_name": "com.example.patin.usuariocanchas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452010653166-elcghl8v0bfnirrohapo3rp6uf5gkn4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.patin.usuariocanchas",
+            "certificate_hash": "6f4afb0e6f88076b19d4e13722435c5f81cd985c"
+          }
+        },
+        {
+          "client_id": "452010653166-l2d4n6n5jdc4vr47vlj1fp9t008v5jnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-f8OeFXZUxov6-JfKy7HFU4HDhNu3Q6M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452010653166-l2d4n6n5jdc4vr47vlj1fp9t008v5jnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

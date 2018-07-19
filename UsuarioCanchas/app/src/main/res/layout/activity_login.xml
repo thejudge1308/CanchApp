@@ -4,64 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".Activities.LoginActivity"
+    android:background="#459c32"
     >
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:id="@+id/imageView4"
+            android:layout_width="269dp"
+            android:layout_height="204dp"
+            app:srcCompat="@drawable/logo_inicial"
+            tools:layout_editor_absoluteX="82dp"
+            tools:layout_editor_absoluteY="123dp" />
+
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="left">
+            android:gravity="left"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/tittle_username"
+                android:text="@string/email_textview_loginactivity"
+                android:textColor="@color/bpWhite"
                 />
 
             <EditText
+                android:id="@+id/email_edittext_loginactivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textColorLink="?attr/colorPrimaryDark" />
+                android:textColor="@color/bpWhite"
+                android:textColorLink="@color/bpWhite"
+                android:textColorHint="@color/bpWhite"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/tittle_password"
-                />
+                android:textColor="@color/bpWhite"
+                android:text="@string/pass_textview_loginactivity" />
 
             <EditText
+                android:id="@+id/pass_edittext_loginactivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColorLink="?attr/colorPrimaryDark" />
+                android:textColor="@color/bpWhite"
+                tools:textColorLink="@color/bpWhite"
+                android:textColorHint="@color/bpWhite"
+                />
         </android.support.v7.widget.LinearLayoutCompat>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_login"
                 android:id="@+id/button_login"
-                />
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tittle_recovery_pass"
-                />
+                android:text="@string/sesion_button_loginactivity" />
+
+            <TextView
+                android:id="@+id/register_textview_loginactivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bpWhite"
+                android:text="@string/recovery_textview_loginactivity" />
         </LinearLayout>
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

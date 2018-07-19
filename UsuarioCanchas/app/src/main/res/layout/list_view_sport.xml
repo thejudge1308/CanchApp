@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--   Estructura del listview de sportActivity
+       Contiene:
+                Distintos deportes
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name_list_view_sport_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/img_list_view_sport_item"
+        android:layout_toRightOf="@+id/img_list_view_sport_item"
+        android:text="Sport"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/img_list_view_sport_item"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:maxHeight="35dp"
+        android:maxWidth="74dp"
+        app:srcCompat="@drawable/ic_account_circle" />
+
+</RelativeLayout>
