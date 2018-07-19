@@ -21,11 +21,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.LoginActivity"
-<<<<<<< HEAD
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-=======
-            android:configChanges="keyboardHidden|orientation|screenSize" />
->>>>>>> Cancha
+
         <activity
             android:name=".Activities.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
