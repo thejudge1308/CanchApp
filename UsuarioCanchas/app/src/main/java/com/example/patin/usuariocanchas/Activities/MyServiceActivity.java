@@ -1,15 +1,19 @@
 package com.example.patin.usuariocanchas.Activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.patin.usuariocanchas.Adapter.AdapterService;
 import com.example.patin.usuariocanchas.Item.ServiceItem;
+import com.example.patin.usuariocanchas.Model.Service;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
@@ -128,6 +132,21 @@ public class MyServiceActivity extends AppCompatActivity {
 
                         AdapterService adapterService = new AdapterService(MyServiceActivity.this,getServicesForAdapter());
                         MyServiceActivity.this.servicesListView.setAdapter(adapterService);
+
+                        MyServiceActivity.this.servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                ServiceItem item = (ServiceItem) MyServiceActivity.this.servicesListView.getAdapter().getItem(position);
+                                Intent  i =  new Intent(MyServiceActivity.this.getApplicationContext(),ServiceValuesActivity.class);
+                                i.putExtra("name",item.getName());
+                                i.putExtra("price",item.getPrice()+"");
+                                i.putExtra("avaliable",item.getState()+"");
+                                startActivity(i);
+                                Toast.makeText(getApplicationContext(), "Obj"+item.getState()+" : "+item.getName()+" : "+item.getPrice(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
                     }
                 }else{
                     Log.v("__Service","Not found");
