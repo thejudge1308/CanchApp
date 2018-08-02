@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                         User userR = issue.getValue(User.class);
                         userR.setPassword("");
                         SingletonUser.user = userR;
-                        SingletonUser.getInstance().setId(issue.getKey());
+                        SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
                 Intent main = new Intent(LoginActivity.this,HomeActivity.class);
