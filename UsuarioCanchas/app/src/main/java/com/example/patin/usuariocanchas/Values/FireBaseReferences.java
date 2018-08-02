@@ -1,5 +1,7 @@
 package com.example.patin.usuariocanchas.Values;
 
+import com.example.patin.usuariocanchas.Model.Cancha;
+
 public class FireBaseReferences {
     final public static String USER_REFERENCE = "usuario";
     final public static String SERVICE_REFEREMCE = "Servicio";

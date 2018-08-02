@@ -66,6 +66,7 @@
         </activity>
         <activity android:name=".Activities.CanchaPrincipalActivity" />
         <activity android:name=".Activities.HorarioCanchaActivity" />
+        <activity android:name=".Activities.HorarioYReserva"></activity>
         <activity android:name=".Activities.ServiceValuesActivity"></activity>
     </application>
 
