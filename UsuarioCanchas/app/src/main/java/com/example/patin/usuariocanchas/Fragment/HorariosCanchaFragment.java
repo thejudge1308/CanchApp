@@ -101,7 +101,9 @@ public class HorariosCanchaFragment extends Fragment {
                 String sDay="";
                 String sMonth="";
                 if(day<10){sDay="0"+day;}
+                else{sDay=Integer.toString(day);}
                 if(month<10){sMonth="0"+(month+1);}
+                else{sMonth=Integer.toString(month+1);}
                 final String selectedDate = sDay + "/" + sMonth + "/" + year;
                 vista.clearAnimation();
                 etPlannedDate.setText(selectedDate);
