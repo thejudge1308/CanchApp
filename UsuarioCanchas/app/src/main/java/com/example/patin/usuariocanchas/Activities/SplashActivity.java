@@ -72,6 +72,7 @@ public class SplashActivity extends AppCompatActivity {
                         User userR = issue.getValue(User.class);
                         userR.setPassword("");
                         SingletonUser.user = userR;
+                        SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
                 Intent main = new Intent(SplashActivity.this,HomeActivity.class);
