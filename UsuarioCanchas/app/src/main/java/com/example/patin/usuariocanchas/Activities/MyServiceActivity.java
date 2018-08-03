@@ -110,12 +110,21 @@ public class MyServiceActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
         Log.v("__Service","Id "+SingletonUser.getInstance().getId());
+
         Query query = userReference.child(FireBaseReferences.USER_SERVICE_REFERENCE).child(SingletonUser.getInstance().getId());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if(!dataSnapshot.exists()){
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+                    userReference.child(FireBaseReferences.USER_SERVICE_REFERENCE).child(SingletonUser.getInstance().getId()).push();
+                    userReference.child(FireBaseReferences.USER_SERVICE_REFERENCE).child(SingletonUser.getInstance().getId()).setValue(MyServiceActivity.this.services);
+                }
+
+
+                if (true) {
                     //User user = SingletonUser.getInstance();
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         Log.v("__Service","Cantidad "+issue.getChildrenCount());
@@ -133,19 +142,6 @@ public class MyServiceActivity extends AppCompatActivity {
                             }
                             Log.v("__Service","Child: "+child.getKey());
                             Log.v("__Service",child.getValue()+"");
-
-                            //String valueDB = child.child("valor").exists()?child.child("valor").getValue().toString():0;
-                            //int stateDB = child.child("estado").exists()?child.child("estado").getValue().toString():0;
-                            //Log.v("__Service",valueDB);
-                            //Log.v("__Service",stateDB);
-                            //Log.v("__Service",service.getNombre() +" : "+service.getEstado()+" : "+service.getValor());
-
-                            //service.setEstado(Integer.parseInt(stateDB));
-                            //service.setValor(Integer.parseInt(valueDB));
-                            //Log.v("__Service",service.getNombre() +" : "+service.getEstado()+" : "+service.getValor());
-
-
-                            //MyServiceActivity.this.services.put(child.getKey().toString(),service);
                         }
                         Service service = MyServiceActivity.this.services.get(issue.getKey().toString());
                         service.setEstado(Integer.parseInt(stateDB));
