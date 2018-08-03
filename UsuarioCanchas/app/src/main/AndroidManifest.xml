@@ -64,8 +64,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CanchaPrincipalActivity" />
-        <activity android:name=".Activities.HorarioCanchaActivity" />
+        <activity android:name=".Fragment.CanchaPrincipalFragment" />
+        <activity android:name=".Activities.CanchaPrincipalActivity"></activity>
+        <activity android:name=".Activities.HorarioCanchaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
+        <activity android:name=".Activities.HorarioYReserva"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            ></activity>
+
         <activity android:name=".Activities.ServiceValuesActivity"></activity>
     </application>
 

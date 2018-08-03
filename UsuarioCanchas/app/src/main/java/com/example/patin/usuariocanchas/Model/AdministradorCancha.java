@@ -2,12 +2,16 @@ package com.example.patin.usuariocanchas.Model;
 
 
 public class AdministradorCancha {
-    String rut;
-    String nombre;
-    String apellido;
-    String password;
 
-    public AdministradorCancha(String rut, String nombre, String apellido, String password) {
+
+    String apellido;
+    String nombre;
+    int password;
+    String rut;
+
+    public AdministradorCancha() {
+    }
+    public AdministradorCancha(String rut, String nombre, String apellido, int password) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -38,11 +42,11 @@ public class AdministradorCancha {
         this.apellido = apellido;
     }
 
-    public String getPassword() {
+    public int getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(int password) {
         this.password = password;
     }
 }
