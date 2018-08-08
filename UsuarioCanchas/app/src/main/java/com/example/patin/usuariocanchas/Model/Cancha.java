@@ -7,14 +7,14 @@ public class Cancha {
     String nombre;
     String direccion;
     String precio;
-    String idAdministrador;//rut administrador
+    Long idAdministrador;//rut administrador
     String latitud;
     String longitud;
 
     public Cancha() {
     }
 
-    public Cancha(String nombre, String direccion, String precio, String idAdministrador, String latitud, String longitud) {
+    public Cancha(String nombre, String direccion, String precio, Long idAdministrador, String latitud, String longitud) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.precio = precio;
@@ -47,11 +47,11 @@ public class Cancha {
         this.precio = precio;
     }
 
-    public String getIdAdministrador() {
+    public Long getIdAdministrador() {
         return idAdministrador;
     }
 
-    public void setIdAdministrador(String idAdministrador) {
+    public void setIdAdministrador(Long idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
 

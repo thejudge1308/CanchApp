@@ -17,8 +17,7 @@
             android:orientation="vertical"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp"
-            android:id="@+id/linearlayoutbtns">
+            android:layout_marginStart="50dp">
 
             <TextView
                 android:id="@+id/txt1"
@@ -27,6 +26,27 @@
                 android:text="Fecha 26-04-2018"
                 android:layout_gravity="center"
                 />
+
+            <TextView
+                android:id="@+id/txtNombreCLubCanchas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre Club Cancha"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/linearlayoutbtns">
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

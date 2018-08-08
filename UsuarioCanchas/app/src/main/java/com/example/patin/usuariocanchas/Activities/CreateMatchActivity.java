@@ -48,7 +48,7 @@ public class CreateMatchActivity extends AppCompatActivity {
         /**
          * crea botones dinamicamente
          */
-        final FirebaseDatabase database=FirebaseDatabase.getInstance();
+        /*final FirebaseDatabase database=FirebaseDatabase.getInstance();
         //cancha es el id del boton debe ser pasado en algun lugar
         DatabaseReference canchaDB=database.getReference("Cancha");
         canchaDB.addValueEventListener(new ValueEventListener() {
@@ -92,7 +92,7 @@ public class CreateMatchActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("aaa", databaseError.getMessage());
             }
-        });
+        });*/
 
 
 

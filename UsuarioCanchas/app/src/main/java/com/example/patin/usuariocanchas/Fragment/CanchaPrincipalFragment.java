@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.patin.usuariocanchas.Activities.HorarioCanchaActivity;
+import com.example.patin.usuariocanchas.Model.Reserva;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.google.firebase.database.DataSnapshot;
@@ -57,6 +59,8 @@ public class CanchaPrincipalFragment extends Fragment {
 
     public View view;
 
+    public TextView fechaActual,nombreClubCanchas;
+
     public CanchaPrincipalFragment() {
         // Required empty public constructor
 
@@ -96,6 +100,8 @@ public class CanchaPrincipalFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
     }
 
     @Override
@@ -108,9 +114,18 @@ public class CanchaPrincipalFragment extends Fragment {
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaString = fecha.format(new Date());
 
-        TextView fechaActual = (TextView) view.findViewById(R.id.txt1);
+        fechaActual = (TextView) view.findViewById(R.id.txt1);
 
         fechaActual.setText(fechaString);
+
+        nombreClubCanchas = (TextView) view.findViewById(R.id.txtNombreCLubCanchas);
+
+
+        String nombreClub =getArguments().getString("nombreClub");
+
+        Log.d("nombreClub",nombreClub);
+
+        nombreClubCanchas.setText(nombreClub);
 
         idAdmin =getArguments().getLong("idAmdin");
 
@@ -120,7 +135,10 @@ public class CanchaPrincipalFragment extends Fragment {
 
         CantidadCanchas(idAdmin);
 
+        //Log.v("EntraBtn","entra");
         clickBotonCancha();
+
+
 
         return view;
     }
@@ -189,16 +207,23 @@ public class CanchaPrincipalFragment extends Fragment {
         });
         //Log.d("cantidadCancha",cantidadCancha+"");
         agregarNombreCanchaBotones(id);
+
+
     }
 
     public void CrearBotones(long cantidad)
     {
+
+
+
         botonesCancha.clear();
-        view.clearAnimation();
+        //view.clearAnimation();
         Log.d("cantidad",cantidad+"");
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.linearlayoutbtns);
         layout.setOrientation(LinearLayout.VERTICAL);  //Can also be done in xml by android:orientation="vertical"
         layout.removeAllViews();
+
+
         for (int i = 0; i < cantidad; i++)
         {
             LinearLayout row = new LinearLayout(getContext());
@@ -222,6 +247,36 @@ public class CanchaPrincipalFragment extends Fragment {
 
             layout.addView(row);
         }
+
+        for (final Button btn:botonesCancha)
+        {
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+
+                    Log.v("EntraBtn","entra");
+
+                    Log.d("btn",btn.getText().toString());
+                    /*ReservaCanchaFragment fr1 = new ReservaCanchaFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    Bundle data = new Bundle();
+                    //data.putString("nombreCancha",  btn.getText().toString());
+                    fr1.setArguments(data);
+
+                    transaction.replace(R.id.contenedorFragment, fr1);
+                    transaction.commit();*/
+                    ReservaCanchaFragment reservaCanchaFragment=new ReservaCanchaFragment();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("nombreCancha",btn.getText().toString());
+                    reservaCanchaFragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.contenedorFragment,reservaCanchaFragment).commit();
+
+                }
+            });
+        }
+
     }
 
     public void agregarNombreCanchaBotones(long id)
@@ -286,24 +341,36 @@ public class CanchaPrincipalFragment extends Fragment {
 
             }
         });
+
     }
 
     public void clickBotonCancha()
     {
-        //Log.d("EntraBtn","");
-        for (final Button btn:botonesCancha)
+
+
+        /*for (final Button btn:botonesCancha)
         {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view)
                 {
-                    //btn.setVisibility(View.INVISIBLE);
-                    /*Intent intent =new Intent(CanchaPrincipalFragment.this, HorarioCanchaActivity.class);
-                    intent.putExtra("nombreCancha",btn.getText());
-                    CanchaPrincipalFragment.this.startActivity(intent);*/
+
+                    Log.v("EntraBtn","entra");
+
+                    Log.d("btn",btn.getText().toString());
+                    HorariosCanchaFragment fr1 = new HorariosCanchaFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    Bundle data = new Bundle();
+                    data.putString("nombreCancha",  btn.getText().toString());
+                    fr1.setArguments(data);
+
+                    transaction.replace(R.id.contenedorFragment, fr1);
+                    transaction.commit();
+
                 }
             });
-        }
+        }*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -329,6 +396,7 @@ public class CanchaPrincipalFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

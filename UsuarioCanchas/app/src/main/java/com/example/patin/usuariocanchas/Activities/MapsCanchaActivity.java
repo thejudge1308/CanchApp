@@ -334,7 +334,7 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
         return true;
     }
 
-    private void capturarIdAdmin(String nombreClub)
+    private void capturarIdAdmin(final String nombreClub)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference clubCanchaReference = database.getReference(); //Obtiene la referencia de la bd
@@ -355,15 +355,16 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
                         //Cancha cancha = issue.getValue(Cancha.class);
                         //Double latitud=0.0;
                         //Double longitud=0.0;
+                        String nombreC="";
                         long id =0;
                         for(DataSnapshot values : issue.getChildren()){
                             Log.v("_Firebase",values.getKey()+":"+values.getValue());
                             if(values.getKey().contains("idAdministrador")){
                                 idAdmin = (Long) values.getValue();
-                            }/*else if(values.getKey().contains("longitud")){
-                                longitud = (Double)values.getValue();
+                            }else if(values.getKey().contains("nombre")){
+                                nombreC = (String)values.getValue();
                             }
-                            else if(values.getKey().contains("nombre"))
+                            /*else if(values.getKey().contains("nombre"))
                             {
                                 //String direccionAux2= conversorDireccion(latitud, longitud);
                                 String direccionAux2=(String)values.getValue();
@@ -375,7 +376,7 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
 
                         if(idAdmin!=0)
                         {
-                            setContactViewFragment(idAdmin);
+                            setContactViewFragment(idAdmin, nombreC);
                         }
 
 
@@ -394,12 +395,15 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
         });
     }
 
-    private void setContactViewFragment(long id){
+    private void setContactViewFragment(long id, String nombreClub){
 
         idAdmin = id;
 
+
+
         Intent intent =new Intent(MapsCanchaActivity.this,CanchaPrincipalActivity.class);
         intent.putExtra("idAdmin",idAdmin);
+        intent.putExtra("nombreClub",nombreClub);
         MapsCanchaActivity.this.startActivity(intent);
         /*Fragment f;
         FragmentManager fm = getFragmentManager();

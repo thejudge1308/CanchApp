@@ -23,12 +23,18 @@ public class CanchaPrincipalActivity extends AppCompatActivity implements View.O
 
     long idAdmin;
 
+    String nombreClub;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cancha_principal);
 
         idAdmin = getIntent().getLongExtra("idAdmin",0);
+
+        nombreClub = getIntent().getStringExtra("nombreClub");
+
+
 
         //Log.d("IdAdmin",idAdmin+"");
 
@@ -43,6 +49,7 @@ public class CanchaPrincipalActivity extends AppCompatActivity implements View.O
 
         Bundle data = new Bundle();
         data.putLong("idAmdin",  idAdmin);
+        data.putString("nombreClub",nombreClub);
         fr1.setArguments(data);
 
         getSupportFragmentManager().beginTransaction().add(R.id.idContenedor, fr1);
