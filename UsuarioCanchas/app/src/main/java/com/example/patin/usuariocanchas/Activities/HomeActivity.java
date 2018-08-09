@@ -22,10 +22,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.patin.usuariocanchas.Fragment.ContactFragment;
+import com.example.patin.usuariocanchas.Fragment.NotifyFragment;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
-import com.example.patin.usuariocanchas.Fragment.NotifiFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -178,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         FragmentTransaction ft = fm.beginTransaction();
-        f=new NotifiFragment();
+        f=new NotifyFragment();
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
