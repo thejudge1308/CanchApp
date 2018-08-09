@@ -29,8 +29,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NotificacionAmistadVie
     @Override
     public void onBindViewHolder(@NonNull NotificacionAmistadViewHolder holder, int position) {
         NotificacionAmistad notificacionAmistad=notificacionAmistads.get(position);
-        holder.nombre.setText(notificacionAmistad.getNombreSolicitado());
-        holder.apellido.setText(notificacionAmistad.getApellidoSolicitado());
+        holder.nombre.setText(notificacionAmistad.getNombreSolicitante());
+        holder.apellido.setText(notificacionAmistad.getApellidoSolicitante());
+        holder.correo.setText(notificacionAmistad.getApellidoSolicitante());
+        holder.nick.setText(notificacionAmistad.getApellidoSolicitante());
     }
 
     @Override
@@ -39,12 +41,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NotificacionAmistadVie
     }
 
     public static class NotificacionAmistadViewHolder extends RecyclerView.ViewHolder{
-    TextView nombre,apellido;
+    TextView nombre,apellido,correo,nick;
 
     public NotificacionAmistadViewHolder(View itemView) {
         super(itemView);
         nombre=itemView.findViewById(R.id.textView_nombre);
         apellido=itemView.findViewById(R.id.textView_apellido);
+        correo=itemView.findViewById(R.id.textView_correo);
+        nick=itemView.findViewById(R.id.textView_nick);
     }
 }
 

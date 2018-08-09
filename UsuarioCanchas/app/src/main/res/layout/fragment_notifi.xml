@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context=".Fragment.NotifiFragment">
+    tools:context=".Fragment.NotifyFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:background="@android:color/background_light">
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
 
-        <ListView
-            android:id="@+id/contact_listview_notifyfragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLef="true"
-            android:layout_alignParentStart="true"
-            />
-
-        </ListView>
-
-    </LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

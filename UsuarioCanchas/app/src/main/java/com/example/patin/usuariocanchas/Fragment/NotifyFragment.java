@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,40 +35,45 @@ public class NotifyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            rv = (RecyclerView) view.findViewById(R.id.recycler);
-            FragmentActivity c = (FragmentActivity) getActivity();
-            rv.setLayoutManager(new LinearLayoutManager(c));
-            dbNotificaciones = FirebaseDatabase.getInstance().getReference("NotificacionAmistad");
-            notificaciones=new ArrayList<>();
-            adapter=new Adapter(notificaciones);
-            rv.setAdapter(adapter);
-            Log.v("iiii","Hola");
-            dbNotificaciones.getRoot().addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    notificaciones.removeAll(notificaciones);
-                    int i=0;
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                        i++;
-                        NotificacionAmistad notificacionAmistad=snapshot.getValue(NotificacionAmistad.class);
-                        notificaciones.add(notificacionAmistad);
-                    }
-                    Log.v("iiii",Integer.toString(i));
-                    adapter.notifyDataSetChanged();
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("logf","Entro en notify");
-        view=inflater.inflate(R.layout.fragment_notify, container, false);
+        view=inflater.inflate(R.layout.fragment_notifi, container, false);
+        rv = (RecyclerView) view.findViewById(R.id.recycler);
+        FragmentActivity c = (FragmentActivity) getActivity();
+        rv.setLayoutManager(new LinearLayoutManager(c));
+        dbNotificaciones = FirebaseDatabase.getInstance().getReference("NotificacionAmistad");
+
+        notificaciones=new ArrayList<>();
+        adapter=new Adapter(notificaciones);
+        rv.setAdapter(adapter);
+        Query q=dbNotificaciones.orderByChild("correoSolicitado").equalTo("pato@pato.com");
+        Log.v("iiii",q.toString());
+        Log.v("iiii",q.getRef().toString());
+
+        q.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                notificaciones.removeAll(notificaciones);
+                int i=0;
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                    i++;
+                    NotificacionAmistad notificacionAmistad=snapshot.getValue(NotificacionAmistad.class);
+                    notificaciones.add(notificacionAmistad);
+                }
+                Log.v("iiii",Integer.toString(i));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         return view;
     }
 

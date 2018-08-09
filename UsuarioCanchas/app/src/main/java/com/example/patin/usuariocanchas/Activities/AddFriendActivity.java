@@ -31,6 +31,7 @@ public class AddFriendActivity extends AppCompatActivity {
     String nombreSolicitante = SingletonUser.getInstance().getName();
     String apellidoSolicitante = SingletonUser.getInstance().getSurname();
     String correoSolicitante = SingletonUser.getInstance().getEmail();
+    String idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,31 +53,26 @@ public class AddFriendActivity extends AppCompatActivity {
                    final Query q =  base.orderByChild("email").equalTo(AddFriendActivity.this.emailEditText.getText().toString());
                    q.addListenerForSingleValueEvent(new ValueEventListener() {
                        @Override
-
                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                            int cont=0;
                            User user = new User();
-
                            for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
                                user = datasnapshot.getValue(User.class);
                                Log.v("Nombreeeeeeee : ",user.getName());
                                cont++;
+                               Log.v("idusuario",user.getId());
 
                            }
-
                            if (cont>0){
-
                                Log.v("encontre => ", String.valueOf(+ cont));
-                               NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(),user.getEmail());
+                               NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(),user.getEmail(),user.getNickname());
                                Log.v("nombre Solicitante ", nombreSolicitante);
                                Log.v("apellido Solicitante ", apellidoSolicitante);
                                Log.v("nombre Solicitado ", user.getName());
                                Log.v("apellido Solicitado ", user.getSurname());
                                Log.v("email Solicitado ", user.getEmail());
-
                                basedato.push().setValue(notificacionAmistad);
                                Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
-
                            }
                            else if(cont==0){
                                Log.v("encontre nada => ", String.valueOf(+ cont));

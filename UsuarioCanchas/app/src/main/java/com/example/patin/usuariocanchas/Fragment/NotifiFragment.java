@@ -39,11 +39,6 @@ public class NotifiFragment  extends Fragment {
 
         Log.v("logf","Entro en notify");
         view=inflater.inflate(R.layout.fragment_notifi, container, false);
-        return view;
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         rv = (RecyclerView) view.findViewById(R.id.recycler);
         FragmentActivity c = (FragmentActivity) getActivity();
         rv.setLayoutManager(new LinearLayoutManager (c));
@@ -67,5 +62,11 @@ public class NotifiFragment  extends Fragment {
 
             }
         });
+        return view;
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 }

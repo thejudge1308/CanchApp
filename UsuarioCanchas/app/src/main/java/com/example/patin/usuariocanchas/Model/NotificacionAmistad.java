@@ -6,61 +6,78 @@ public class NotificacionAmistad {
     String nombreSolicitado;
     String apellidoSolicitado;
     String correoSolicitado;
+    String correoSolicitante;
+    String nick;
 
 
     public NotificacionAmistad() {
     }
 
-    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado) {
+    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado, String correoSolicitante, String nick) {
         this.nombreSolicitante = nombreSolicitante;
         this.apellidoSolicitante = apellidoSolicitante;
         this.nombreSolicitado = nombreSolicitado;
         this.apellidoSolicitado = apellidoSolicitado;
         this.correoSolicitado = correoSolicitado;
+        this.correoSolicitante = correoSolicitante;
+        this.nick = nick;
+    }
 
+    public String getNombreSolicitante() {
+        return nombreSolicitante;
     }
 
     public void setNombreSolicitante(String nombreSolicitante) {
         this.nombreSolicitante = nombreSolicitante;
     }
 
-    public void setApellidoSolicitante(String apellidoSolicitante) {
-        this.apellidoSolicitante = apellidoSolicitante;
-    }
-
-    public void setNombreSolicitado(String nombreSolicitado) {
-        this.nombreSolicitado = nombreSolicitado;
-    }
-
-    public void setApellidoSolicitado(String apellidoSolicitado) {
-        this.apellidoSolicitado = apellidoSolicitado;
-    }
-
-    public void setCorreoSolicitado(String correoSolicitado) {
-        this.correoSolicitado = correoSolicitado;
-    }
-
-
-    public String getNombreSolicitante() {
-        return nombreSolicitante;
-    }
-
     public String getApellidoSolicitante() {
         return apellidoSolicitante;
+    }
+
+    public void setApellidoSolicitante(String apellidoSolicitante) {
+        this.apellidoSolicitante = apellidoSolicitante;
     }
 
     public String getNombreSolicitado() {
         return nombreSolicitado;
     }
 
+    public void setNombreSolicitado(String nombreSolicitado) {
+        this.nombreSolicitado = nombreSolicitado;
+    }
+
     public String getApellidoSolicitado() {
         return apellidoSolicitado;
+    }
+
+    public void setApellidoSolicitado(String apellidoSolicitado) {
+        this.apellidoSolicitado = apellidoSolicitado;
     }
 
     public String getCorreoSolicitado() {
         return correoSolicitado;
     }
 
+    public void setCorreoSolicitado(String correoSolicitado) {
+        this.correoSolicitado = correoSolicitado;
+    }
+
+    public String getCorreoSolicitante() {
+        return correoSolicitante;
+    }
+
+    public void setCorreoSolicitante(String correoSolicitante) {
+        this.correoSolicitante = correoSolicitante;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
 }
 
 
