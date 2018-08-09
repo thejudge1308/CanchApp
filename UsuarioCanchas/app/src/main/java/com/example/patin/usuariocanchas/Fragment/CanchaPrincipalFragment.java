@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.patin.usuariocanchas.Activities.CanchaPrincipalActivity;
 import com.example.patin.usuariocanchas.Activities.HorarioCanchaActivity;
+import com.example.patin.usuariocanchas.Activities.MapsCanchaActivity;
 import com.example.patin.usuariocanchas.Model.Reserva;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
@@ -258,20 +260,12 @@ public class CanchaPrincipalFragment extends Fragment {
                     Log.v("EntraBtn","entra");
 
                     Log.d("btn",btn.getText().toString());
-                    /*ReservaCanchaFragment fr1 = new ReservaCanchaFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                    Bundle data = new Bundle();
-                    //data.putString("nombreCancha",  btn.getText().toString());
-                    fr1.setArguments(data);
-
-                    transaction.replace(R.id.contenedorFragment, fr1);
-                    transaction.commit();*/
-                    ReservaCanchaFragment reservaCanchaFragment=new ReservaCanchaFragment();
+                    HorariosCanchaFragment horarioCanchaFragment=new HorariosCanchaFragment();
                     Bundle bundle=new Bundle();
                     bundle.putString("nombreCancha",btn.getText().toString());
-                    reservaCanchaFragment.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.contenedorFragment,reservaCanchaFragment).commit();
+                    horarioCanchaFragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.idContenedor,horarioCanchaFragment).commit();
 
                 }
             });
