@@ -20,6 +20,7 @@ import com.example.patin.usuariocanchas.Activities.AddFriendActivity;
 import com.example.patin.usuariocanchas.Activities.CreateMatchActivity;
 import com.example.patin.usuariocanchas.Activities.HomeActivity;
 import com.example.patin.usuariocanchas.Activities.LoginActivity;
+import com.example.patin.usuariocanchas.Activities.MyPerfilActivity;
 import com.example.patin.usuariocanchas.Adapter.AdapterContact;
 import com.example.patin.usuariocanchas.Item.ContactItem;
 import com.example.patin.usuariocanchas.R;
@@ -45,8 +46,10 @@ public class ContactFragment extends Fragment{
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),AddFriendActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getActivity(),AddFriendActivity.class);
+                //startActivity(intent);
+                Intent i =new Intent(getActivity(),AddFriendActivity.class);
+                ContactFragment.this.startActivity(i);
 
             }
         });

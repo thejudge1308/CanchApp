@@ -21,8 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.LoginActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
-
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".Activities.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -66,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.CanchaPrincipalActivity" />
-        <activity android:name=".Activities.HorarioCanchaActivity"></activity>
+        <activity android:name=".Activities.HorarioCanchaActivity" />
     </application>
 
 </manifest>
