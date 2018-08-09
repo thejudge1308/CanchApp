@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.patin.usuariocanchas">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -64,7 +65,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fragment.CanchaPrincipalFragment" />
+        <activity android:name=".Fragment.CanchaPrincipalFragment"
+            tools:ignore="InnerclassSeparator" />
         <activity android:name=".Activities.CanchaPrincipalActivity"></activity>
         <activity android:name=".Activities.HorarioCanchaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
