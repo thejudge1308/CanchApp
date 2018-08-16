@@ -76,8 +76,6 @@
             ></activity>
 
         <activity android:name=".Activities.ServiceValuesActivity"></activity>
-        <activity android:name=".Activities.CanchaPrincipalActivity" />
-        <activity android:name=".Activities.HorarioCanchaActivity" />
     </application>
 
 </manifest>
