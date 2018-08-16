@@ -8,4 +8,5 @@ public class FireBaseReferences {
     final public static String NOTIFICACION_REFEREMCE = "Notificacion";
     final public static String NOTIFICACIONAMISTAD_REFEREMCE = "NotificacionAmistad";
     final public static String AMIGO_REFEREMCE = "Amigo";
+    final public static String CORREO_SOLICITADO = "correoSolicitado";
 }

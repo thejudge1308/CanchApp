@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.patin.usuariocanchas.Model.Adapter;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.R;
+import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,8 @@ public class NotifyFragment extends Fragment {
     RecyclerView rv;
     View view;
     Adapter adapter;
+    String keyUser;
+    String correoUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,20 +46,19 @@ public class NotifyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.v("logf","Entro en notify");
+        correoUser = getArguments().getString("correoUser");//Obtengo el correo y la llave del usuario
+        keyUser = getArguments().getString("keyUser");// estos datos vienen en un bundle desde una activity a un fragment
+        Log.v("iii",correoUser);
+        Log.v("iii",keyUser);
         view=inflater.inflate(R.layout.fragment_notifi, container, false);
         rv = (RecyclerView) view.findViewById(R.id.recycler);
         FragmentActivity c = (FragmentActivity) getActivity();
         rv.setLayoutManager(new LinearLayoutManager(c));
-        dbNotificaciones = FirebaseDatabase.getInstance().getReference("NotificacionAmistad");
-
+        dbNotificaciones = FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE).child(keyUser);
         notificaciones=new ArrayList<>();
         adapter=new Adapter(notificaciones);
         rv.setAdapter(adapter);
-        Query q=dbNotificaciones.orderByChild("correoSolicitado").equalTo("pato@pato.com");
-        Log.v("iiii",q.toString());
-        Log.v("iiii",q.getRef().toString());
-
+        Query q=dbNotificaciones.orderByChild(FireBaseReferences.CORREO_SOLICITADO).equalTo(correoUser);
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,10 +66,15 @@ public class NotifyFragment extends Fragment {
                 int i=0;
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                     i++;
+
                     NotificacionAmistad notificacionAmistad=snapshot.getValue(NotificacionAmistad.class);
                     notificaciones.add(notificacionAmistad);
+
                 }
-                Log.v("iiii",Integer.toString(i));
+                if (notificaciones.size()<=0){
+                    TextView textView=view.findViewById(R.id.nohaynotificaciones);
+                    textView.setText("No hay notificaciones nuevas");
+                }
                 adapter.notifyDataSetChanged();
             }
 

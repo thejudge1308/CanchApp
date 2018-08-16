@@ -22,16 +22,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddFriendActivity extends AppCompatActivity {
     private EditText emailEditText;
     private Button sendRequestButton;
     DatabaseReference base;
     DatabaseReference baseNotificacion;
     DatabaseReference basedato;
-    String nombreSolicitante = SingletonUser.getInstance().getName();
+    String nombreSolicitante = SingletonUser.getInstance().getName(); //soy yo
     String apellidoSolicitante = SingletonUser.getInstance().getSurname();
     String correoSolicitante = SingletonUser.getInstance().getEmail();
-    String idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,28 +52,33 @@ public class AddFriendActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                     //buscar el usuario en la base de datos
-                   final Query q =  base.orderByChild("email").equalTo(AddFriendActivity.this.emailEditText.getText().toString());
+                    final String correoIngresado=AddFriendActivity.this.emailEditText.getText().toString();
+                   final Query q =  base.orderByChild("email").equalTo(correoIngresado);
                    q.addListenerForSingleValueEvent(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                            int cont=0;
                            User user = new User();
+                           String keyUser="";
                            for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
-                               user = datasnapshot.getValue(User.class);
-                               Log.v("Nombreeeeeeee : ",user.getName());
-                               cont++;
-                               Log.v("idusuario",user.getId());
-
+                               keyUser=datasnapshot.getKey();
+                               if (!correoIngresado.equalsIgnoreCase(SingletonUser.getInstance().getEmail())) {
+                                   user = datasnapshot.getValue(User.class);
+                                   Log.v("Nombre: ", keyUser);
+                                   Log.v("Nombre: ", dataSnapshot.getKey() + " key");
+                                   cont++;
+                               }
                            }
                            if (cont>0){
                                Log.v("encontre => ", String.valueOf(+ cont));
-                               NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(),user.getEmail(),user.getNickname());
+                               NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
                                Log.v("nombre Solicitante ", nombreSolicitante);
                                Log.v("apellido Solicitante ", apellidoSolicitante);
                                Log.v("nombre Solicitado ", user.getName());
                                Log.v("apellido Solicitado ", user.getSurname());
                                Log.v("email Solicitado ", user.getEmail());
-                               basedato.push().setValue(notificacionAmistad);
+                               //asi se inserta una solicitud de amistad
+                               basedato.child(keyUser).push().setValue(notificacionAmistad);
                                Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
                            }
                            else if(cont==0){

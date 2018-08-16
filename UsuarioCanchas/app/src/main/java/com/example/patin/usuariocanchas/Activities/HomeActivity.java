@@ -27,9 +27,15 @@ import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private LinearLayoutCompat content;
+    String correoUser;
+    String keyUser;
+    Bundle bundle = new Bundle();
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -86,9 +92,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View v = navigationView.getHeaderView(0);
         TextView usertext = v.findViewById(R.id.username_lateral_nav);
         usertext.setText(SingletonUser.getInstance().getNickname());
+
+        //el correo  y la llave del usuario la pasare como parametro a cada fragment a traves de bunlde
+        correoUser=SingletonUser.getInstance().getEmail();
+        keyUser=SingletonUser.getInstance().getId();
+        bundle.putString("correoUser",this.correoUser);
+        bundle.putString("keyUser",keyUser);
+
         TextView scoretext = v.findViewById(R.id.calification_lateral_nav);
         scoretext.setText(SingletonUser.getInstance().getScore()+"");
     }
+
 
     @Override
     public void onBackPressed() {
@@ -158,7 +172,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /*private void getUserKey(){
+        DatabaseReference user;
+        user = FirebaseDatabase.getInstance().getReference("usuario");
+        keyUser=user.child("email").equalTo(correoUser).;
+
+    }*/
+
     private void setHomeViewFragment(){
+
 
 
         Fragment f;
@@ -166,9 +188,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = fm.beginTransaction();
         f=new HomeFragment();
+        f.setArguments(bundle);
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
+
 
     }
 
@@ -176,9 +200,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Fragment f;
         FragmentManager fm = getFragmentManager();
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
         FragmentTransaction ft = fm.beginTransaction();
         f=new NotifyFragment();
+        f.setArguments(bundle);
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
@@ -188,9 +212,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Fragment f;
         FragmentManager fm = getFragmentManager();
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
         FragmentTransaction ft = fm.beginTransaction();
         f=new ContactFragment();
+        f.setArguments(bundle);
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();

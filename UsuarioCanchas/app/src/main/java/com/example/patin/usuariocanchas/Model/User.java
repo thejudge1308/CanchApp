@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
+    private String id;
     private String email;
     private String password;
     private String name;
@@ -14,7 +15,6 @@ public class User {
     private boolean isActive;
     private String birthday;
     private ArrayList<Service> services;
-    private String id;
 
     /**
      *

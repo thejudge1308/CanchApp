@@ -7,20 +7,26 @@ public class NotificacionAmistad {
     String apellidoSolicitado;
     String correoSolicitado;
     String correoSolicitante;
-    String nick;
 
 
     public NotificacionAmistad() {
     }
 
-    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado, String correoSolicitante, String nick) {
+    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado, String correoSolicitante) {
         this.nombreSolicitante = nombreSolicitante;
         this.apellidoSolicitante = apellidoSolicitante;
         this.nombreSolicitado = nombreSolicitado;
         this.apellidoSolicitado = apellidoSolicitado;
         this.correoSolicitado = correoSolicitado;
         this.correoSolicitante = correoSolicitante;
-        this.nick = nick;
+    }
+
+    public String getCorreoSolicitante() {
+        return correoSolicitante;
+    }
+
+    public void setCorreoSolicitante(String correoSolicitante) {
+        this.correoSolicitante = correoSolicitante;
     }
 
     public String getNombreSolicitante() {
@@ -63,21 +69,6 @@ public class NotificacionAmistad {
         this.correoSolicitado = correoSolicitado;
     }
 
-    public String getCorreoSolicitante() {
-        return correoSolicitante;
-    }
-
-    public void setCorreoSolicitante(String correoSolicitante) {
-        this.correoSolicitante = correoSolicitante;
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
 }
 
 
