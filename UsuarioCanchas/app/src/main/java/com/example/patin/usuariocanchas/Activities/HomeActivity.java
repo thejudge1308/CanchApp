@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
+import com.example.patin.usuariocanchas.Fragment.HomeFragment;
 import com.example.patin.usuariocanchas.Fragment.ContactFragment;
 import com.example.patin.usuariocanchas.Fragment.NotifyFragment;
 import com.example.patin.usuariocanchas.R;
@@ -180,9 +180,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }*/
 
     private void setHomeViewFragment(){
-
-
-
         Fragment f;
         FragmentManager fm = getFragmentManager();
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -192,8 +189,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
-
-
     }
 
     private void setNotifyViewFragment(){

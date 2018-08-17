@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context=".Fragment.HomeFragment">
+    tools:context=".Fragment.CreaEventoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -13,22 +13,16 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/boton_crea_evento"
+            android:id="@+id/reservarcancha_button_fragmenthome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear Evento" />
+            android:text="@string/crear_partido" />
 
         <Button
-            android:id="@+id/mis_reservas"
+            android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MIS RESERVAS" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/proximos_eventos" />
+            android:text="CREAR EQUIPO" />
 
         <ListView
             android:layout_width="match_parent"

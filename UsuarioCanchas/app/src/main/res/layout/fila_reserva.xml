@@ -10,12 +10,10 @@
 
 
     <TextView
-        android:id="@+id/titulo_notificacion"
+        android:id="@+id/textView_nombre_cancha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Notificacion de Amistad"
-        android:textAlignment="viewStart"
+        android:text="Nombre de Cancha"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -33,25 +31,36 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView_nombre"
+                android:id="@+id/textView_fecha_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Aceptar"
+                android:text="Fecha Evento"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
-
             <TextView
-                android:id="@+id/textView_correo"
+                android:id="@+id/textView_hora_inicio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Hora Inicio"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:id="@+id/textView_hora_termino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Termino"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_valor_cancelado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valor Cancelado"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1200"
+            android:layout_weight="1600"
             android:orientation="horizontal">
-
         </LinearLayout>
 
         <LinearLayout
@@ -59,20 +68,30 @@
             android:layout_height="match_parent"
             android:layout_weight="800"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_aceptar_amigo"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:text="Aceptar"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView_fecha_evento_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha Evento"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
-
-            <Button
-                android:id="@+id/button_ignorar_amigo"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:text="Ignorar"
+            <TextView
+                android:id="@+id/textView_hora_inicio_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Inicio"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:id="@+id/textView_hora_termino_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Termino"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_valor_cancelado_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valor Cancelado"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
 

@@ -1,41 +1,37 @@
-package com.example.patin.usuariocanchas.Model;
+package com.example.patin.usuariocanchas.Adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.patin.usuariocanchas.Model.Amigo;
+import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.EventListener;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.NotificacionAmistadViewHolder>{
+public class AdapterNotificacion extends RecyclerView.Adapter<AdapterNotificacion.NotificacionAmistadViewHolder>{
     List<NotificacionAmistad> notificacionAmistads;
     View v;
 
-    public Adapter(List<NotificacionAmistad> notificacionAmistads) {
+    public AdapterNotificacion(List<NotificacionAmistad> notificacionAmistads) {
         this.notificacionAmistads = notificacionAmistads;
     }
 
     @NonNull
     @Override
     public NotificacionAmistadViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        v= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recycler,parent,false);
+        v= LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_notificacion,parent,false);
         NotificacionAmistadViewHolder holder=new NotificacionAmistadViewHolder(v);
         return holder;
     }
@@ -119,6 +115,4 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NotificacionAmistadVie
 
     }
 }
-
-
 }

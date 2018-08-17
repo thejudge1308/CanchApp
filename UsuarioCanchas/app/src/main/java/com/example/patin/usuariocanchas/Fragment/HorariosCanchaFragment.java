@@ -30,6 +30,8 @@ import com.example.patin.usuariocanchas.Model.DatePickerFragment;
 import com.example.patin.usuariocanchas.Model.HorarioCancha;
 import com.example.patin.usuariocanchas.Model.Reserva;
 import com.example.patin.usuariocanchas.R;
+import com.example.patin.usuariocanchas.Values.FireBaseReferences;
+import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class HorariosCanchaFragment extends Fragment {
@@ -169,17 +173,26 @@ public class HorariosCanchaFragment extends Fragment {
                             //builder.setIcon(R.drawable.ic_launcher);
                             builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    DatabaseReference reservaCancha=database.getReference("Reserva").child(nombreCancha);
+                                    DatabaseReference reservaCancha=database.getReference(FireBaseReferences.RESERVA_REFERENCE).child(SingletonUser.getInstance().getId()).child(nombreCancha);
                                     String fechaEvento=etPlannedDate.getText().toString();
                                     String fechaReserva=fechaActual;
                                     String estado="Reservado";
                                     String horaInicio=horariosCancha.get(idBotonPresionado).getHora_inicio();
                                     String horaTermino=horariosCancha.get(idBotonPresionado).getHora_termino();
-                                    if(fechaReserva.equalsIgnoreCase(fechaEvento)){
-                                        Toast.makeText(getContext(),"No se puede reservar cancha el mismo dia del juego",Toast.LENGTH_LONG).show();
+                                    if(Date.parse(fechaReserva)>Date.parse(fechaEvento)){
+                                        Toast.makeText(getContext(),"Fecha de evento debe se mayor a la fecha actual",Toast.LENGTH_LONG).show();
                                     }else{
-                                        Reserva reserva=new Reserva(fechaEvento,fechaReserva,estado,horaInicio,horaTermino);
-                                        reservaCancha.push().setValue(reserva);
+                                        Reserva reserva=new Reserva(fechaEvento,fechaReserva,estado,horaInicio,horaTermino, SingletonUser.getInstance().getId(),nombreCancha);
+                                        //codigo necesario para almacenar el id dentro del objeto
+                                        DatabaseReference newReserva = reservaCancha.push();
+                                        newReserva.setValue(reserva);
+                                        String keyUser = newReserva.getKey();
+                                        Log.v("keyy",keyUser);
+                                        Map<String, Object> reservaUpdates = new HashMap<>();
+                                        reservaUpdates.put(keyUser+"/id", keyUser);
+                                        reservaCancha.updateChildren(reservaUpdates);
+                                        //end
+                                        //reservaCancha.push().setValue(reserva);
                                         Toast.makeText(getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();
                                     }
                                     dialog.dismiss();
@@ -196,9 +209,9 @@ public class HorariosCanchaFragment extends Fragment {
                         }
                     });
                 }
-                DatabaseReference reservaDB= database.getReference("Reserva");
+                DatabaseReference reservaCancha=database.getReference(FireBaseReferences.RESERVA_REFERENCE).child(SingletonUser.getInstance().getId()).child(nombreCancha);
                 //Query query=reservaDB.orderByChild("fecha").equalTo(etPlannedDate.getText().toString());
-                Query query=reservaDB.child(nombreCancha).orderByChild("fecha_evento").equalTo(etPlannedDate.getText().toString());
+                Query query=reservaCancha.orderByChild(FireBaseReferences.RESERVA_FECHAEVENTO_REFERENCE).equalTo(etPlannedDate.getText().toString());
                 Log.v("query",query.getRef().getKey());
                 query.addValueEventListener(new ValueEventListener() {
                     @Override
