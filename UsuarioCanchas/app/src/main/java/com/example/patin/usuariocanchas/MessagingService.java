@@ -4,17 +4,60 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.patin.usuariocanchas.Activities.SplashActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MessagingService extends FirebaseMessagingService {
 
+    /**
+     * Notificaciones:
+     * Partido = 0
+     * Amigo = 1
+     * Equipo = 2
+     * Servicio = 3
+     */
+
+    public final String NOTIFICACION_PARTIDO="0";
+    public final String NOTIFICACION_AMIGO="1";
+    public final String NOTIFICACION_EQUIPO="2";
+    public final String NOTIFICACION_SERVICIO="3";
+
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        //remoteMessage.getNotification().getBody();
+
+
+        this.crearNotificacion( getHeader(remoteMessage.getNotification().getBody()));
+        //Log.d("MESSAGING_FIREBASE", "From: " + remoteMessage.getFrom());
+        //Log.d("MESSAGING_FIREBASE", "Notification Message Body: " + remoteMessage.getNotification().getBody());
+
+
+
+    }
+
+    public String getHeader(String opcion){
+        switch (opcion){
+            case NOTIFICACION_PARTIDO:
+                return "Te han invitado a un partido";
+            case NOTIFICACION_AMIGO:
+                return "Tienes una solicitud de amistad.";
+            case NOTIFICACION_EQUIPO:
+                return "Tienes una solicitud de un equipo.";
+            case NOTIFICACION_SERVICIO:
+                return "Alguien necesita de tus servicios.";
+            default:
+                return "Unete al juego.";
+        }
+
+    }
+
+    public void crearNotificacion(String mensaje){
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
@@ -22,7 +65,7 @@ public class MessagingService extends FirebaseMessagingService {
         builder.setSmallIcon(R.drawable.logo_inicial);
 
         // This intent is fired when notification is clicked
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/"));
+        Intent intent = new Intent(getApplicationContext(),SplashActivity.class );
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // Set the intent that will fire when the user taps the notification.
@@ -32,26 +75,24 @@ public class MessagingService extends FirebaseMessagingService {
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_inicial));
 
         // Content title, which appears in large type at the top of the notification
-        builder.setContentTitle("Canchap");
+        builder.setContentTitle("CanchApp");
 
         // Content text, which appears in smaller text below the title
-        builder.setContentText(remoteMessage.getNotification().getBody());
+        builder.setContentText(mensaje);
 
         // The subtext, which appears under the text on newer devices.
         // This will show-up in the devices with Android 4.2 and above only
-        builder.setSubText("Tap to view documentation about notifications.");
+        builder.setSubText("Presiona para ver mas.");
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+        //Sound of notification
+        builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
         // Will display the notification in the notification bar
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(NotificationManager.IMPORTANCE_HIGH, builder.build());
 
 
-        // TODO: Handle FCM messages here.
-        // If the application is in the foreground handle both data and notification messages here.
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated.
-        Log.d("MESSAGING_FIREBASE", "From: " + remoteMessage.getFrom());
-        Log.d("MESSAGING_FIREBASE", "Notification Message Body: " + remoteMessage.getNotification().getBody());
+
     }
 }

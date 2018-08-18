@@ -50,9 +50,9 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
                     //Log.i("Fire","Sesion iniciada");
-                    ///Log.d("MESSAGING_FIREBASE", "token "+ FirebaseInstanceId.getInstance().getToken());
-                    setPhoneId();
+                    Log.d("MESSAGING_FIREBASE", "token "+ FirebaseInstanceId.getInstance().getToken());
                     loadUserData(user.getEmail());
+
                 }else{
                     Log.i("Fire","no iniciada");
                     Intent main = new Intent(SplashActivity.this,LoginActivity.class);
@@ -81,6 +81,9 @@ public class SplashActivity extends AppCompatActivity {
                         SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
+
+                setPhoneId();
+
                 Intent main = new Intent(SplashActivity.this,HomeActivity.class);
                 SplashActivity.this.startActivity(main);
             }
@@ -122,11 +125,16 @@ public class SplashActivity extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*if(!dataSnapshot.exists()){
+                    Log.v("MESSAGING_FIREBASE", "Cambio "+FirebaseInstanceId.getInstance().getToken());
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference id_phone_reference = database.getReference(); //Obtiene la referencia de la bd
-                id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).push();
-                id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).setValue(new TelefonoID(SingletonUser.getInstance().getEmail(),FirebaseInstanceId.getInstance().getToken()));
+                }*/
+                //Log.v("MESSAGING_FIREBASE","id: "+SingletonUser.getInstance().getId());
+                //Log.v("MESSAGING_FIREBASE", FirebaseInstanceId.getInstance().getToken());
+                 FirebaseDatabase database = FirebaseDatabase.getInstance();
+                 DatabaseReference id_phone_reference = database.getReference(); //Obtiene la referencia de la bd
+                 id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).push();
+                 id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).setValue(new TelefonoID(SingletonUser.getInstance().getEmail(),FirebaseInstanceId.getInstance().getToken()));
 
             }
 
