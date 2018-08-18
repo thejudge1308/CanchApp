@@ -34,7 +34,8 @@ public class AddFriendActivity extends AppCompatActivity {
     String nombreSolicitante = SingletonUser.getInstance().getName(); //soy yo
     String apellidoSolicitante = SingletonUser.getInstance().getSurname();
     String correoSolicitante = SingletonUser.getInstance().getEmail();
-
+    DatabaseReference noDuplicate;
+    int contador=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v("Nombre mio = ",nombreSolicitante + apellidoSolicitante);
@@ -71,15 +72,46 @@ public class AddFriendActivity extends AppCompatActivity {
                            }
                            if (cont>0){
                                Log.v("encontre => ", String.valueOf(+ cont));
-                               NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
+                               final NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
                                Log.v("nombre Solicitante ", nombreSolicitante);
                                Log.v("apellido Solicitante ", apellidoSolicitante);
                                Log.v("nombre Solicitado ", user.getName());
                                Log.v("apellido Solicitado ", user.getSurname());
                                Log.v("email Solicitado ", user.getEmail());
                                //asi se inserta una solicitud de amistad
-                               basedato.child(keyUser).push().setValue(notificacionAmistad);
-                               Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
+                               noDuplicate = FirebaseDatabase.getInstance().getReference("NotificacionAmistad").child(user.getEmail());
+
+                               Query query=  noDuplicate.orderByChild("correoSolicitante").equalTo(correoSolicitante);
+                               query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        NotificacionAmistad notificacionAmistad = new NotificacionAmistad();
+                                       for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                           notificacionAmistad = datasnapshot.getValue(NotificacionAmistad.class);
+                                           if(notificacionAmistad.getCorreoSolicitante().equalsIgnoreCase(correoSolicitante)){
+                                               contador ++;
+
+                                           }
+
+                                       }
+
+                                   }
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                   }
+                               });
+                               if (contador==0){
+                                   basedato.child(keyUser).push().setValue(notificacionAmistad);
+
+                                   Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
+                               }
+                               else if(contador>0){
+                                   Toast.makeText(AddFriendActivity.this, "El Usuario ya Tiene una Tolicitud de Usted" , Toast.LENGTH_LONG ).show();
+                               }
+
+
                            }
                            else if(cont==0){
                                Log.v("encontre nada => ", String.valueOf(+ cont));
