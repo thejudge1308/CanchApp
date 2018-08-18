@@ -18,16 +18,18 @@ public class MessagingService extends FirebaseMessagingService {
 
     /**
      * Notificaciones:
-     * Partido = 0
-     * Amigo = 1
-     * Equipo = 2
-     * Servicio = 3
+     * Envio Partido = 0
+     * Envio Amigo = 1
+     * Envio Equipo = 2
+     * Envio Servicio = 3
+     * Recepcion de Amigo 4.
      */
 
-    public final String NOTIFICACION_PARTIDO="0";
-    public final String NOTIFICACION_AMIGO="1";
-    public final String NOTIFICACION_EQUIPO="2";
-    public final String NOTIFICACION_SERVICIO="3";
+    public final static String NOTIFICACION_PARTIDO="0";
+    public final static String NOTIFICACION_AMIGO="1";
+    public final static String NOTIFICACION_EQUIPO="2";
+    public final static String NOTIFICACION_SERVICIO="3";
+    public final static String NOTIFICACION_AMIGO_ACEPT="4";
 
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //remoteMessage.getNotification().getBody();
@@ -41,7 +43,7 @@ public class MessagingService extends FirebaseMessagingService {
 
     }
 
-    public String getHeader(String opcion){
+    public static String getHeader(String opcion){
         switch (opcion){
             case NOTIFICACION_PARTIDO:
                 return "Te han invitado a un partido";
@@ -51,6 +53,8 @@ public class MessagingService extends FirebaseMessagingService {
                 return "Tienes una solicitud de un equipo.";
             case NOTIFICACION_SERVICIO:
                 return "Alguien necesita de tus servicios.";
+            case NOTIFICACION_AMIGO_ACEPT:
+                return "Han aceptado tu solicitud de amistad.";
             default:
                 return "Unete al juego.";
         }
