@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -99,7 +101,16 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerDia
                                  ///database.setPersistenceEnabled(true);
                                  DatabaseReference userReference = database.getReference(FireBaseReferences.USER_REFERENCE); //Obtiene la referencia de la bd
                                  User newUser = new User(emailR,"uwu",nameR,surnameR,nicknameR,birthDateR);
-                                 userReference.push().setValue(newUser);
+
+                                 //codigo necesario para almacenar el id dentro del objeto
+                                 DatabaseReference newUserReference = userReference.push();
+                                 newUserReference.setValue(newUser);
+                                 String keyUser = newUserReference.getKey();
+                                 Log.v("keyy",keyUser);
+                                 Map<String, Object> userUpdates = new HashMap<>();
+                                 userUpdates.put(keyUser+"/id", keyUser);
+                                 userReference.updateChildren(userUpdates);
+                                 //end
                                  finish();
                              }else{
                                  Toast.makeText(RegisterActivity.this, "No se ha podido realizar la acción", Toast.LENGTH_SHORT).show();

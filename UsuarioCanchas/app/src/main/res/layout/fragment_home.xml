@@ -13,16 +13,16 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/boton_crea_evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buscar Amigo" />
+            android:text="Crear Evento" />
 
         <Button
-            android:id="@+id/reservarcancha_button_fragmenthome"
+            android:id="@+id/mis_reservas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/crear_partido" />
+            android:text="MIS RESERVAS" />
 
         <TextView
             android:layout_width="match_parent"

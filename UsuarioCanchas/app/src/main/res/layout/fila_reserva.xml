@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="2dp">
+
+
+    <TextView
+        android:id="@+id/textView_nombre_cancha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de Cancha"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="800"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_fecha_evento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha Evento"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_hora_inicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Inicio"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:id="@+id/textView_hora_termino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Termino"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_valor_cancelado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valor Cancelado"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1600"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="800"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView_fecha_evento_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha Evento"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_hora_inicio_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Inicio"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+            <TextView
+                android:id="@+id/textView_hora_termino_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hora Termino"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+            <TextView
+                android:id="@+id/textView_valor_cancelado_st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valor Cancelado"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="10px"
+        android:orientation="vertical"></LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@android:color/darker_gray"></View>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="10px"
+        android:orientation="vertical"></LinearLayout>
+
+</LinearLayout>
