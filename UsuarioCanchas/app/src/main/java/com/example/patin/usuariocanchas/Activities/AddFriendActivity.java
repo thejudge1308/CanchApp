@@ -41,7 +41,7 @@ public class AddFriendActivity extends AppCompatActivity {
         Log.v(" Mi correo = ",correoSolicitante);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-        base = FirebaseDatabase.getInstance().getReference("usuario");
+        base = FirebaseDatabase.getInstance().getReference("Amigos");
         baseNotificacion = FirebaseDatabase.getInstance().getReference("Notificacion");
         basedato = FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE);
         this.emailEditText = findViewById(R.id.email_addfriend_activity);

@@ -14,4 +14,5 @@ public class FireBaseReferences {
     final public static String CLUB_CANCHA_REFERENCE = "ClubCancha";
     final public static String RESERVA_REFERENCE = "Reserva";
     final public static String RESERVA_FECHAEVENTO_REFERENCE = "fecha_evento";
+    final public static String AMIGOS_REFERENCE = "Amigos";
 }

@@ -26,6 +26,7 @@ import com.example.patin.usuariocanchas.Activities.LoginActivity;
 import com.example.patin.usuariocanchas.Activities.MyPerfilActivity;
 import com.example.patin.usuariocanchas.Adapter.AdapterContact;
 import com.example.patin.usuariocanchas.Item.ContactItem;
+import com.example.patin.usuariocanchas.Model.Amigo;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
@@ -41,6 +42,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ContactFragment extends Fragment{
+    private  FloatingActionButton floatingActionButton;
+    private ListView contactListView;
+    private ArrayList<ContactItem> contactItems;
+    private String miID = SingletonUser.getInstance().getId();
+    private String miCorreo = SingletonUser.getInstance().getEmail();
+    private ArrayList<Amigo> misAmigos = new ArrayList<Amigo>();
+    DatabaseReference bdAmigos;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable  ViewGroup container,
@@ -57,6 +66,98 @@ public class ContactFragment extends Fragment{
                     getFragmentManager().beginTransaction().replace(R.id.frangment_content,buscarAmigo).commit();
                 }
             });
+
+
+            bdAmigos= FirebaseDatabase.getInstance().getReference("Amigos").child(miID);
+
+        final Query q =  bdAmigos.orderByChild("miCorreo").equalTo(miCorreo);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int cont=0;
+                Amigo amigo = new Amigo();
+
+                for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                    Log.v("hola", "holamundo");
+                    if (dataSnapshot.exists()){
+                        amigo = datasnapshot.getValue(Amigo.class);
+                        misAmigos.add(amigo);
+                        cont++;
+                    }
+                }
+
+                if (misAmigos.size()>0){
+                    /*for (int i=0; i<misAmigos.size();i++){
+                        Log.v("Nombre", "nombre:"+ misAmigos.get(i).getNombreAmigo());
+
+                    }*/
+
+                    contactListView = (ListView)rootView.findViewById(R.id.contact_listview_fragment_contact);
+
+                    Drawable image  = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_group);
+
+                    contactItems = new ArrayList<>();
+                    String nombreAmigo;
+                    String correoAmigo;
+                    for (int i=0;i<misAmigos.size();i++){
+                        nombreAmigo = misAmigos.get(i).getNombreAmigo() + " "+misAmigos.get(i).getApellidoAmigo();
+                        correoAmigo = misAmigos.get(i).getCorrreoAmigo();
+                        contactItems.add(new ContactItem(nombreAmigo, correoAmigo,image));
+                    }
+                    //contactItems.add(new ContactItem("2", "2",image));
+                    //this.contactItems.add(new ContactItem("3", "2",image));
+                    AdapterContact adapterContact = new AdapterContact(getActivity(),contactItems);
+                    contactListView.setAdapter(adapterContact);
+
+                    contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            final int pos = position;
+                            Toast.makeText(getActivity().getApplicationContext(),pos+"",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        /*
+        Log.v("nroAmigo","numero amigo: "+misAmigos.size());
+        if (misAmigos.size()>0){
+            this.contactListView = (ListView)rootView.findViewById(R.id.contact_listview_fragment_contact);
+
+            Drawable image  = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_group);
+
+            this.contactItems = new ArrayList<>();
+            String nombreAmigo;
+            String correoAmigo;
+            for (int i=0;i<misAmigos.size();i++){
+                nombreAmigo = misAmigos.get(i).getNombreAmigo() + " "+misAmigos.get(i).getApellidoAmigo();
+                correoAmigo = misAmigos.get(i).getCorrreoAmigo();
+                this.contactItems.add(new ContactItem(nombreAmigo, correoAmigo,image));
+            }
+            this.contactItems.add(new ContactItem("2", "2",image));
+            //this.contactItems.add(new ContactItem("3", "2",image));
+            AdapterContact adapterContact = new AdapterContact(getActivity(),this.contactItems);
+            this.contactListView.setAdapter(adapterContact);
+
+            this.contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final int pos = position;
+                    Toast.makeText(getActivity().getApplicationContext(),pos+"",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }*/
+
+
+
 
 
 
