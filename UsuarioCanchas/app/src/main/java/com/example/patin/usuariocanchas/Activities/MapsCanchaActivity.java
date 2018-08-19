@@ -139,17 +139,17 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
                         Double longitud=0.0;
                         for(DataSnapshot values : issue.getChildren()){
                             //Log.v("_Firebase",values.getKey()+":"+values.getValue());
-                           if(values.getKey().contains("latitud")){
-                               latitud = (Double)values.getValue();
-                           }else if(values.getKey().contains("longitud")){
-                               longitud = (Double)values.getValue();
-                           }
-                           else if(values.getKey().contains("nombre"))
-                           {
-                               //String direccionAux2= conversorDireccion(latitud, longitud);
-                               String direccionAux2=(String)values.getValue();
-                               direccion.add(direccionAux2);
-                           }
+                            if(values.getKey().contains("latitud")){
+                                latitud = (Double)values.getValue();
+                            }else if(values.getKey().contains("longitud")){
+                                longitud = (Double)values.getValue();
+                            }
+                            else if(values.getKey().contains("nombre"))
+                            {
+                                //String direccionAux2= conversorDireccion(latitud, longitud);
+                                String direccionAux2=(String)values.getValue();
+                                direccion.add(direccionAux2);
+                            }
 
                         }
 
@@ -176,25 +176,25 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
 
         mMap.setOnMarkerClickListener(this);
 
-     }
+    }
 
-     public void Marcadores()
-     {
-         Log.d("Largo curico", curico.size()+"");
+    public void Marcadores()
+    {
+        Log.d("Largo curico", curico.size()+"");
 
-         //mMap.addMarker(new MarkerOptions().position(curico.get(0)).title(direccion.get(0)));
-         for(int i=1; i<curico.size(); i++)
-         {
-             Log.d("direccion",direccion.get(i));
-             mMap.addMarker(new MarkerOptions().position(curico.get(i)).title(direccion.get(i)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-         }
-         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curico.get(0), 18));
-         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-             return;
-         }
-         mMap.setMyLocationEnabled(true);
+        //mMap.addMarker(new MarkerOptions().position(curico.get(0)).title(direccion.get(0)));
+        for(int i=1; i<curico.size(); i++)
+        {
+            Log.d("direccion",direccion.get(i));
+            mMap.addMarker(new MarkerOptions().position(curico.get(i)).title(direccion.get(i)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curico.get(0), 18));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
-     }
+    }
 
     public String conversorDireccion(double latitud, double longitud)
     {
@@ -408,7 +408,6 @@ public class MapsCanchaActivity extends FragmentActivity implements OnMapReadyCa
         /*Fragment f;
         FragmentManager fm = getFragmentManager();
         //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
         FragmentTransaction ft = fm.beginTransaction();
         f=new CanchaPrincipalFragment();
         ft.replace(R.id.fragment_cancha_content,f);

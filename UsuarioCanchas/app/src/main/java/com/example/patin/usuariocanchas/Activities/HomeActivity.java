@@ -16,12 +16,17 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.patin.usuariocanchas.Fragment.CreaEventoFragment;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
 import com.example.patin.usuariocanchas.Fragment.ContactFragment;
+import com.example.patin.usuariocanchas.Fragment.MapsCanchaFragment;
 import com.example.patin.usuariocanchas.Fragment.NotifyFragment;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
@@ -31,7 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MapsCanchaFragment.OnDialogResult{
     private LinearLayoutCompat content;
     String correoUser;
     String keyUser;
@@ -99,8 +104,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bundle.putString("correoUser",this.correoUser);
         bundle.putString("keyUser",keyUser);
 
+
+
         TextView scoretext = v.findViewById(R.id.calification_lateral_nav);
         scoretext.setText(SingletonUser.getInstance().getScore()+"");
+
     }
 
 
@@ -186,6 +194,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft = fm.beginTransaction();
         f=new HomeFragment();
         f.setArguments(bundle);
+
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
@@ -213,6 +222,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
+    }
+    @Override
+    public void finish(String result) {
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
+                .show();
     }
 
 }

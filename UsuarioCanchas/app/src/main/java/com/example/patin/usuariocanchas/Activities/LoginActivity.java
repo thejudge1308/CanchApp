@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                         SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
-                Intent main = new Intent(LoginActivity.this,SplashActivity.class);
+                Intent main = new Intent(LoginActivity.this,HomeActivity.class);
                 LoginActivity.this.startActivity(main);
             }
 

@@ -18,18 +18,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt1"
+                android:id="@+id/txtNombreCLubCancha2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Fecha 26-04-2018" />
+                android:layout_marginTop="10dp"
+                android:text="Selecciona Cancha"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/txtNombreCLubCanchas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Nombre Club Cancha"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="20dp" />
 
             <ScrollView

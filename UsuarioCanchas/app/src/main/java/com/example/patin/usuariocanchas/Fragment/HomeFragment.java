@@ -21,9 +21,7 @@ import com.google.android.gms.common.images.internal.LoadingImageView;
 
 public class HomeFragment extends Fragment {
 
-    private Button crearEvento,reservas;
-
-
+    private Button crearEvento;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,14 +36,6 @@ public class HomeFragment extends Fragment {
                 Log.v("fito","algo");
                 CreaEventoFragment crearEvento = new CreaEventoFragment();
                 getFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEvento).commit();
-            }
-        });
-        this.reservas=(Button) rootView.findViewById(R.id.mis_reservas);
-        this.reservas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MisReservasFragment misReservasFragment=new MisReservasFragment();
-                getFragmentManager().beginTransaction().replace(R.id.frangment_content,misReservasFragment).commit();
             }
         });
         return rootView;

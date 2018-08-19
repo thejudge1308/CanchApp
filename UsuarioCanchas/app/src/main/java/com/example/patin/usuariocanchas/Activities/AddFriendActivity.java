@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.CreateMessage;
+import com.example.patin.usuariocanchas.MessagingService;
 import com.example.patin.usuariocanchas.Model.Notificacion;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.Model.User;

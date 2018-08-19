@@ -6,21 +6,29 @@ import java.util.ArrayList;
 public class Cancha {
     String nombre;
     String direccion;
-    String precio;
     Long idAdministrador;//rut administrador
     String latitud;
     String longitud;
+    Long valor;
 
     public Cancha() {
     }
 
-    public Cancha(String nombre, String direccion, String precio, Long idAdministrador, String latitud, String longitud) {
+    public Cancha(String nombre, String direccion, Long idAdministrador, String latitud, String longitud, long valor) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.precio = precio;
         this.idAdministrador = idAdministrador;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.valor = valor;
+    }
+
+    public long getValor() {
+        return valor;
+    }
+
+    public void setValor(long valor) {
+        this.valor = valor;
     }
 
     public String getNombre() {
@@ -37,14 +45,6 @@ public class Cancha {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(String precio) {
-        this.precio = precio;
     }
 
     public Long getIdAdministrador() {

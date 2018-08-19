@@ -23,7 +23,7 @@ public class HorarioYReserva extends AppCompatActivity implements HorariosCancha
         bundle.putString("nombreCancha",nombreCancha);
         horariosCanchaFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment,horariosCanchaFragment).commit();
+       // getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment,horariosCanchaFragment).commit();
     }
 
 
