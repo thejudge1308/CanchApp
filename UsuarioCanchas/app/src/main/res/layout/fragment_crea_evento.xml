@@ -276,11 +276,11 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/crearequipo_button_creaeventofragment"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50px"
-                    android:text="Crear Evento" />
+                    android:text="Crea equipo" />
 
             </LinearLayout>
     </ScrollView>

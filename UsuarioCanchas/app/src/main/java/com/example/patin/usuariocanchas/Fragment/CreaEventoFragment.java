@@ -25,7 +25,7 @@ public class CreaEventoFragment extends Fragment {
     private Button newMatch,reservas;
     //private Spinner spinner;
     private Button activarGps;
-    private Button creaEquipo;
+    private Button creaEquipoButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,7 +47,15 @@ public class CreaEventoFragment extends Fragment {
         container.removeAllViews();
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_crea_evento, container, false);
-
+        creaEquipoButton = view.findViewById(R.id.crearequipo_button_creaeventofragment);
+        creaEquipoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreaEquipoFragment equipoFragment = new CreaEquipoFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,equipoFragment).commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+            }
+        });
         activarGps=view.findViewById(R.id.button_activar_gps);
         activarGps.setOnClickListener(new View.OnClickListener() {
             @Override

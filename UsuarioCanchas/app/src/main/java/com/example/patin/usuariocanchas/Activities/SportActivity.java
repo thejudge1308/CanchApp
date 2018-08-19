@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.patin.usuariocanchas.Activities.CreateMatchActivity;
 import com.example.patin.usuariocanchas.Adapter.AdapterContact;
 import com.example.patin.usuariocanchas.Adapter.AdapterSport;
+import com.example.patin.usuariocanchas.Fragment.CreaEquipoFragment;
 import com.example.patin.usuariocanchas.Fragment.CreaEventoFragment;
 import com.example.patin.usuariocanchas.Fragment.HorarioCanchaDialogFragment;
 import com.example.patin.usuariocanchas.Fragment.MapsCanchaFragment;
@@ -71,6 +72,10 @@ public class SportActivity extends AppCompatActivity {
         }else if(f instanceof CreaEventoFragment){
             SportsFragment sportFragment = new SportsFragment();
             getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,sportFragment).commit();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+        }else if(f instanceof CreaEquipoFragment){
+            CreaEventoFragment fragment = new CreaEventoFragment();
+            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,fragment).commit();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
         }else if(f instanceof MapsCanchaFragment){
             CreaEventoFragment fragment = new CreaEventoFragment();
