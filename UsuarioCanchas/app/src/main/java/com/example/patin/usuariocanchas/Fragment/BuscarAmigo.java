@@ -1,7 +1,9 @@
 package com.example.patin.usuariocanchas.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,12 +44,15 @@ public class BuscarAmigo extends Fragment {
     private EditText emailEditText;
     private Button sendRequestButton;
     DatabaseReference base;
+    DatabaseReference noDuplicate;
     DatabaseReference baseNotificacion;
     DatabaseReference basedato;
     String nombreSolicitante = SingletonUser.getInstance().getName(); //soy yo
     String apellidoSolicitante = SingletonUser.getInstance().getSurname();
     String correoSolicitante = SingletonUser.getInstance().getEmail();
+    int contador=0;
 
+    User user = new User();
     private OnFragmentInteractionListener mListener;
 
     public BuscarAmigo() {
@@ -87,7 +92,7 @@ public class BuscarAmigo extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         int cont=0;
-                        User user = new User();
+
                         String keyUser="";
                         for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
                             keyUser=datasnapshot.getKey();
@@ -100,20 +105,125 @@ public class BuscarAmigo extends Fragment {
                         }
                         if (cont>0){
                             Log.v("encontre => ", String.valueOf(+ cont));
-                            NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
+                            final NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante,SingletonUser.getInstance().getId());
                             Log.v("nombre Solicitante ", nombreSolicitante);
                             Log.v("apellido Solicitante ", apellidoSolicitante);
                             Log.v("nombre Solicitado ", user.getName());
                             Log.v("apellido Solicitado ", user.getSurname());
                             Log.v("email Solicitado ", user.getEmail());
                             //asi se inserta una solicitud de amistad
-                            basedato.child(keyUser).push().setValue(notificacionAmistad);
-                            CreateMessage c = new CreateMessage(user.getEmail(), CreateMessage.NOTIFICACION_AMIGO);
-                            Toast.makeText(view.getContext(), "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
+
+                            final DatabaseReference addNotificacion = FirebaseDatabase.getInstance().getReference("NotificacionAmistad/"+user.getId());
+                            DatabaseReference bdNotificacion= FirebaseDatabase.getInstance().getReference("NotificacionAmistad").child(user.getId());
+                            bdNotificacion.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                        contador++;
+
+                                    }
+
+                                    if(contador==0){
+                                        if(!addNotificacion.push().setValue(notificacionAmistad).isSuccessful()){
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                            builder.setTitle("Solicitud");
+                                            builder.setMessage("Solicitud Enviada");
+                                            builder.setIcon(R.drawable.ic_info_black_24dp);
+                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            CreateMessage c = new CreateMessage(user.getEmail(), CreateMessage.NOTIFICACION_AMIGO);
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+
+                                        }else{
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                            builder.setTitle("Error");
+                                            builder.setMessage("Error, No se Envio la Solicitud");
+                                            builder.setIcon(R.drawable.ic_cancel_black_24dp);
+                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+                                        }
+                                    }
+                                    else if(contador>0){
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                        builder.setTitle("Solicitud");
+                                        builder.setMessage("Ya Existe una Solicitud");
+                                        builder.setIcon(R.drawable.ic_info_black_24dp);
+                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        AlertDialog alert = builder.create();
+                                        alert.show();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+
+
+
+                            //noDuplicate = FirebaseDatabase.getInstance().getReference("NotificacionAmistad");
+
+                            /*Query query=  noDuplicate.orderByChild("correoSolicitante").equalTo(correoSolicitante);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    NotificacionAmistad notificacionAmistad = new NotificacionAmistad();
+                                    for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                        notificacionAmistad = datasnapshot.getValue(NotificacionAmistad.class);
+                                        if(notificacionAmistad.getCorreoSolicitante().equalsIgnoreCase(correoSolicitante)){
+                                            contador ++;
+
+                                        }
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            if (contador==0){
+                                basedato.child(keyUser).push().setValue(notificacionAmistad);
+                                Toast.makeText(view.getContext(), "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
+                            }
+                            }
+                            else if(contador>0){
+                                Toast.makeText(view.getContext(), "El Usuario ya Tiene una Tolicitud de Usted", Toast.LENGTH_LONG ).show();
+                                //Toast.makeText(AddFriendActivity.this, "El Usuario ya Tiene una Tolicitud de Usted" , Toast.LENGTH_LONG ).show();
+                            }*/
                         }
                         else if(cont==0){
                             Log.v("encontre nada => ", String.valueOf(+ cont));
-                            Toast.makeText(view.getContext(), "Usuario no Encontrado" , Toast.LENGTH_LONG ).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                            builder.setTitle("Solicitud");
+                            builder.setMessage("Usuario no Encontrado");
+                            builder.setIcon(R.drawable.ic_info_black_24dp);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
                         }
                     }
 
@@ -136,3 +246,8 @@ public class BuscarAmigo extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
+
+
+
