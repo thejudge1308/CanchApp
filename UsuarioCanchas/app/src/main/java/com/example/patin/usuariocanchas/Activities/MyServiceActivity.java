@@ -81,7 +81,7 @@ public class MyServiceActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MyServiceActivity.this.getApplicationContext(),"Problemas de conexion con el servidor.",Toast.LENGTH_LONG).show();
+                Toast.makeText(MyServiceActivity.this.getApplicationContext(),"Problemas de conexión con el servidor.",Toast.LENGTH_LONG).show();
             }
         });
     }
