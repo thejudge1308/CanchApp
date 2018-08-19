@@ -388,9 +388,9 @@ public class CreaEquipoFragment extends Fragment {
                                 apellidoIntegranteEquipo.add(apellidoAmigo);
 
                             }
-                            if(values.getKey().contains("correoAmigo")){
+                            if(values.getKey().contains("corrreoAmigo")){
                                 correoAmigo = (String) values.getValue();
-                                Log.d("correoAmigo",correoAmigo);
+                                Log.d("corrreoAmigo",correoAmigo);
                                 correoIntegranteEquipo.add(correoAmigo);
 
                             }
@@ -428,12 +428,12 @@ public class CreaEquipoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("cantidadAmigosSe",cantidadAmigosSeleccionados+"");
-                if(cantidadAmigosSeleccionados<2 || cantidadAmigosSeleccionados>3)
+                if(cantidadAmigosSeleccionados<5 || cantidadAmigosSeleccionados>10)
                 {
-                    Toast toast = Toast.makeText(view.getContext(), "Cantidad de integrantes debe ser >4 y <10", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(view.getContext(), "Cantidad de integrantes debe ser entre 5 y 10 jugadores", Toast.LENGTH_LONG);
                     toast.show();
                 }
-                if(cantidadAmigosSeleccionados>=2 && cantidadAmigosSeleccionados<=3)
+                if(cantidadAmigosSeleccionados>=5 && cantidadAmigosSeleccionados<=9)
                 {
 
 
