@@ -25,7 +25,7 @@ public class CreaEventoFragment extends Fragment {
     private Button newMatch,reservas;
     private Spinner spinner;
     private Button activarGps;
-    private Button newMatch,creaEquipo;
+    private Button creaEquipo;
 
 
     public static String fechaEvento=null;
@@ -80,8 +80,12 @@ public class CreaEventoFragment extends Fragment {
                 //prev.setTargetFragment(getParentFragment(), 0);
 
                 MapsCanchaFragment dialogFragment = new MapsCanchaFragment();
-                dialogFragment.setDialogoResult(this);
+                //dialogFragment.setDialogoResult(this);
                 dialogFragment.show(ft, "dialog");
+
+            }
+        });
+
         this.creaEquipo = (Button) view.findViewById(R.id.botonCrearEquipo);
         this.creaEquipo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,11 +94,6 @@ public class CreaEventoFragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEquipo).commit();
             }
         });
-
-            }
-        });
-
-
 
 
         return view;
