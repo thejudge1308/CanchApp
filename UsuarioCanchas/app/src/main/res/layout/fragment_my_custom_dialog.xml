@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context=".Fragment.HomeFragment">
+    android:background="@android:color/background_light">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -29,12 +28,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/proximos_eventos" />
-
-        <Button
-            android:id="@+id/boton_pagar_prueba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pagar"/>
 
         <ListView
             android:layout_width="match_parent"
