@@ -1,7 +1,9 @@
 package com.example.patin.usuariocanchas.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,7 +68,8 @@ public class CreaEquipoFragment extends Fragment {
 
     private EditText nombreEquipo;
 
-    private ArrayList<String> correoIntegranteEquipo, nombreIntegranteEquipo,apellidoIntegranteEquipo;
+    private ArrayList<String> correoIntegranteEquipo, nombreIntegranteEquipo,apellidoIntegranteEquipo,
+            correoIntegranteEquipoFinal, nombreIntegranteEquipoFinal,apellidoIntegranteEquipoFinal;
 
     public CreaEquipoFragment() {
         checkBoxes = new ArrayList<CheckBox>();
@@ -75,6 +78,10 @@ public class CreaEquipoFragment extends Fragment {
         correoIntegranteEquipo = new ArrayList<String>();
         nombreIntegranteEquipo = new ArrayList<String>();
         apellidoIntegranteEquipo = new ArrayList<String>();
+
+        correoIntegranteEquipoFinal = new ArrayList<String>();
+        nombreIntegranteEquipoFinal = new ArrayList<String>();
+        apellidoIntegranteEquipoFinal = new ArrayList<String>();
     }
 
     /**
@@ -131,6 +138,10 @@ public class CreaEquipoFragment extends Fragment {
         correoIntegranteEquipo.add(SingletonUser.getInstance().getEmail());
         nombreIntegranteEquipo.add(SingletonUser.getInstance().getName());
         apellidoIntegranteEquipo.add(SingletonUser.getInstance().getSurname());
+
+        correoIntegranteEquipoFinal.add(SingletonUser.getInstance().getEmail());
+        nombreIntegranteEquipoFinal.add(SingletonUser.getInstance().getName());
+        apellidoIntegranteEquipoFinal.add(SingletonUser.getInstance().getSurname());
 
         ClickBotonAceptar();
 
@@ -286,19 +297,26 @@ public class CreaEquipoFragment extends Fragment {
 
                     Log.v("EntraBtn","entra");
 
-                    Log.d("chkbox",chkbox.getText().toString());
+                    Log.d("chkbox","Texto: "+chkbox.getText().toString());
 
-                    //Log.d("chkbox",chkbox.getId()+"");
+                    Log.d("chkbox","Id:"+chkbox.getId()+"");
 
 
+                    int id = chkbox.getId();
                     if (chkbox.isChecked()==true) {
                         Log.d("chkbox","Clikc");
+                        nombreIntegranteEquipoFinal.add(nombreIntegranteEquipo.get(id));
+                        correoIntegranteEquipoFinal.add(correoIntegranteEquipo.get(id));
+                        apellidoIntegranteEquipoFinal.add(apellidoIntegranteEquipo.get(id));
                         cantidadAmigosSeleccionados++;
                         // el código que quieras (mostrar un mensaje por pantalla por ejemplo)
                     }
 
                     if (chkbox.isChecked()==false) {
                         Log.d("chkbox","No Clikc");
+                        nombreIntegranteEquipoFinal.remove(nombreIntegranteEquipo.get(id));
+                        correoIntegranteEquipoFinal.remove(correoIntegranteEquipo.get(id));
+                        apellidoIntegranteEquipoFinal.remove(apellidoIntegranteEquipo.get(id));
                         cantidadAmigosSeleccionados--;
                         // el código que quieras (mostrar un mensaje por pantalla por ejemplo)
                     }
@@ -438,31 +456,53 @@ public class CreaEquipoFragment extends Fragment {
                                 }
                                 else
                                 {
+                                    AlertDialog.Builder dialogo1 = new AlertDialog.Builder(view.getContext());
+                                    dialogo1.setTitle("CONFIRMACIÓN");
+                                    dialogo1.setMessage("¿ Confirma crear Equipo ?");
+                                    dialogo1.setCancelable(false);
+                                    dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogo1, int id) {
+                                            //aceptar();
 
-                                    Toast toast = Toast.makeText(view.getContext(), "Equipo Creado con éxito", Toast.LENGTH_SHORT);
-                                    toast.show();
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                            database.getReference("Equipo").child(nombreEquipo.getText().toString()).push(); //Obtiene la referencia de la bd
 
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    database.getReference("Equipo").child(nombreEquipo.getText().toString()).push(); //Obtiene la referencia de la bd
-
-                                    database.getReference("Equipo").child(nombreEquipo.getText().toString()).setValue(new Equipo(SingletonUser.getInstance().getName(),
-                                            SingletonUser.getInstance().getId(), SingletonUser.getInstance().getEmail(),nombreEquipo.getText().toString(), fechaString));
+                                            database.getReference("Equipo").child(nombreEquipo.getText().toString()).setValue(new Equipo(SingletonUser.getInstance().getName(),
+                                                    SingletonUser.getInstance().getId(), SingletonUser.getInstance().getEmail(),nombreEquipo.getText().toString(), fechaString));
 
 
-                                    Log.d("correoIntegrante",correoIntegranteEquipo.size()+"");
+                                            Log.d("correoIntegrante",correoIntegranteEquipo.size()+"");
 
-                                    for(int i=0; i<correoIntegranteEquipo.size();i++)
-                                    {
-                                        String integrante = "Intregrante "+(i+1)+"";
-                                        FirebaseDatabase databaseIntegrante = FirebaseDatabase.getInstance();
+                                            for(int i=0; i<correoIntegranteEquipoFinal.size();i++)
+                                            {
+                                                Log.d("Integrante: ","Correo: "+correoIntegranteEquipoFinal.get(i));
+                                                Log.d("Integrante: ","nombre: "+nombreIntegranteEquipoFinal.get(i));
+                                                Log.d("Integrante: ","Apellido: "+apellidoIntegranteEquipoFinal.get(i));
+                                                String integrante = "Intregrante "+(i+1)+"";
+                                                FirebaseDatabase databaseIntegrante = FirebaseDatabase.getInstance();
 
-                                        databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).push();
+                                                databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).push();
 
-                                        //databaseIntegrante.getReference(nombreEquipo.getText().toString()).child(integrante).push();
+                                                //databaseIntegrante.getReference(nombreEquipo.getText().toString()).child(integrante).push();
 
-                                        databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).setValue(new Integrante(correoIntegranteEquipo.get(i),
-                                                nombreIntegranteEquipo.get(i),apellidoIntegranteEquipo.get(i)));
-                                    }
+                                                databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).setValue(new Integrante(correoIntegranteEquipoFinal.get(i),
+                                                        nombreIntegranteEquipoFinal.get(i),apellidoIntegranteEquipoFinal.get(i)));
+                                            }
+
+                                            Toast toast = Toast.makeText(view.getContext(), "Equipo Creado con éxito", Toast.LENGTH_SHORT);
+                                            toast.show();
+
+                                        }
+                                    });
+                                    dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogo1, int id) {
+                                            //cancelar();
+                                            Toast toast = Toast.makeText(view.getContext(), "No se ha creado Equipo", Toast.LENGTH_LONG);
+                                            toast.show();
+                                        }
+                                    });
+                                    dialogo1.show();
+
                                 }
                             }
 
@@ -470,11 +510,8 @@ public class CreaEquipoFragment extends Fragment {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
+                        }
                     });
-
-
-
 
                     }
                     else
