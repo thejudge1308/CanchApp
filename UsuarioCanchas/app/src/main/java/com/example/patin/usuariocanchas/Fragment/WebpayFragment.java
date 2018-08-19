@@ -3,6 +3,7 @@ package com.example.patin.usuariocanchas.Fragment;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,16 @@ import android.widget.Toast;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Fragment para mostrar la pagina de webpay y pagar la cuota de un evento.
@@ -39,7 +46,7 @@ public class WebpayFragment extends Fragment {
 
     //Id del usuario que va a pagar, se lo pasan desde el fragment anterior... maybe
     //private String userId = SingletonUser.getInstance().getId();
-    private String userId = "LFVSvYxApO1OCctB56v";
+    private String userId = "-LFVSvYxApO1OCctB56v";
 
     public WebpayFragment() {
         // Required empty public constructor
@@ -96,14 +103,10 @@ public class WebpayFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
 
-            Log.d("[DEBUG]", url);
+            //Transaccion terminada, guardamos en la base de datos y volvemos al fragment anterior!
             if(url.endsWith("voucher.cgi")) {
-
-                Log.d("[DEBUG]", "Ending transaction!");
-                //TODO marcar cuota como pagada NECESITO LA QUERY NO SE COMO SE HACE AIUDA
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-                //db.child(FireBaseReferences.USER_PAY_REFERENCE).child(userId).child(String.valueOf(eventId)).setValue("estaPagado",1);
-
+                db.child(FireBaseReferences.USER_PAY_REFERENCE).child(userId).child(eventId).child("estaPagado").setValue("1");
                 FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                 ft.replace(R.id.frangment_content, new HomeFragment());
                 ft.commit();
