@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,8 +100,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bundle.putString("correoUser",this.correoUser);
         bundle.putString("keyUser",keyUser);
 
+
+
         TextView scoretext = v.findViewById(R.id.calification_lateral_nav);
         scoretext.setText(SingletonUser.getInstance().getScore()+"");
+
     }
 
 
@@ -186,6 +190,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft = fm.beginTransaction();
         f=new HomeFragment();
         f.setArguments(bundle);
+
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.patin.usuariocanchas.Model.TelefonoID;
 import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
@@ -21,9 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.util.HashMap;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -49,10 +45,8 @@ public class SplashActivity extends AppCompatActivity {
                 //Compruerba el inicio de sesion
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user!=null){
-                    //Log.i("Fire","Sesion iniciada");
-                    Log.d("MESSAGING_FIREBASE", "token "+ FirebaseInstanceId.getInstance().getToken());
+                    Log.i("Fire","Sesion iniciada");
                     loadUserData(user.getEmail());
-
                 }else{
                     Log.i("Fire","no iniciada");
                     Intent main = new Intent(SplashActivity.this,LoginActivity.class);
@@ -81,9 +75,6 @@ public class SplashActivity extends AppCompatActivity {
                         SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
-
-                setPhoneId();
-
                 Intent main = new Intent(SplashActivity.this,HomeActivity.class);
                 SplashActivity.this.startActivity(main);
             }
@@ -112,37 +103,6 @@ public class SplashActivity extends AppCompatActivity {
         if(this.fireAuthStateListener != null){
             FirebaseAuth.getInstance().removeAuthStateListener(this.fireAuthStateListener);
         }
-    }
-
-    /**
-     * Modifica el ID de firebase de cada dispositivo
-     */
-    public void setPhoneId(){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
-        Query query = userReference.child(FireBaseReferences.USER_IDFIREBASE).equalTo(SingletonUser.getInstance().getId());
-        Log.v("MESSAGING_FIREBASE","entro");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                /*if(!dataSnapshot.exists()){
-                    Log.v("MESSAGING_FIREBASE", "Cambio "+FirebaseInstanceId.getInstance().getToken());
-
-                }*/
-                //Log.v("MESSAGING_FIREBASE","id: "+SingletonUser.getInstance().getId());
-                //Log.v("MESSAGING_FIREBASE", FirebaseInstanceId.getInstance().getToken());
-                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                 DatabaseReference id_phone_reference = database.getReference(); //Obtiene la referencia de la bd
-                 id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).push();
-                 id_phone_reference.child(FireBaseReferences.USER_IDFIREBASE).child(SingletonUser.getInstance().getId()).setValue(new TelefonoID(SingletonUser.getInstance().getEmail(),FirebaseInstanceId.getInstance().getToken()));
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
 }

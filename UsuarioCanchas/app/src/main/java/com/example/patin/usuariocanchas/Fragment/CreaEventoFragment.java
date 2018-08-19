@@ -17,7 +17,7 @@ import com.example.patin.usuariocanchas.R;
 
 public class CreaEventoFragment extends Fragment {
     View view;
-    private Button newMatch,reservas;
+    private Button newMatch,creaEquipo;
 
     private OnFragmentInteractionListener mListener;
 
@@ -39,12 +39,22 @@ public class CreaEventoFragment extends Fragment {
         container.removeAllViews();
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_crea_evento, container, false);
+
         this.newMatch = (Button) view.findViewById(R.id.reservarcancha_button_fragmenthome);
         this.newMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),SportActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        this.creaEquipo = (Button) view.findViewById(R.id.botonCrearEquipo);
+        this.creaEquipo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreaEquipoFragment crearEquipo = new CreaEquipoFragment();
+                getFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEquipo).commit();
             }
         });
 

@@ -41,20 +41,86 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ContactFragment extends Fragment{
+
+    private  FloatingActionButton floatingActionButton;
+    private ListView contactListView;
+    private ArrayList<ContactItem> contactItems;
+
+    private EditText emailEditText;
+    private Button sendRequestButton;
+    DatabaseReference base;
+    DatabaseReference baseNotificacion;
+    DatabaseReference basedato;
+    String nombreSolicitante = SingletonUser.getInstance().getName(); //soy yo
+    String apellidoSolicitante = SingletonUser.getInstance().getSurname();
+    String correoSolicitante = SingletonUser.getInstance().getEmail();
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable  ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
             container.removeAllViews();
-            final View rootView = inflater.inflate(R.layout.fragment_contact, container,false);
+            final View rootView = inflater.inflate(R.layout.activity_add_friend, container,false);
 
-            FloatingActionButton floatingActionButton=rootView.findViewById(R.id.addcontact_fragment_contact);
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            Log.v("Nombre mio = ",nombreSolicitante + apellidoSolicitante);
+            Log.v(" Mi correo = ",correoSolicitante);
+            super.onCreate(savedInstanceState);
+            //setContentView(R.layout.activity_add_friend);
+            base = FirebaseDatabase.getInstance().getReference("usuario");
+            baseNotificacion = FirebaseDatabase.getInstance().getReference("Notificacion");
+            basedato = FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE);
+            this.emailEditText = rootView.findViewById(R.id.email_addfriend_activity);
+            this.sendRequestButton = rootView.findViewById(R.id.sendrequest_addfriend_activity1);
+
+            this.sendRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    BuscarAmigo buscarAmigo=new BuscarAmigo();
-                    getFragmentManager().beginTransaction().replace(R.id.frangment_content,buscarAmigo).commit();
+                public void onClick(View v) {
+
+                    //buscar el usuario en la base de datos
+                    final String correoIngresado=ContactFragment.this.emailEditText.getText().toString();
+                    final Query q =  base.orderByChild("email").equalTo(correoIngresado);
+                    q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int cont=0;
+                            User user = new User();
+                            String keyUser="";
+                            for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                keyUser=datasnapshot.getKey();
+                                if (!correoIngresado.equalsIgnoreCase(SingletonUser.getInstance().getEmail())) {
+                                    user = datasnapshot.getValue(User.class);
+                                    Log.v("Nombre: ", keyUser);
+                                    Log.v("Nombre: ", dataSnapshot.getKey() + " key");
+                                    cont++;
+                                }
+                            }
+                            if (cont>0){
+                                Log.v("encontre => ", String.valueOf(+ cont));
+                                NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
+                                Log.v("nombre Solicitante ", nombreSolicitante);
+                                Log.v("apellido Solicitante ", apellidoSolicitante);
+                                Log.v("nombre Solicitado ", user.getName());
+                                Log.v("apellido Solicitado ", user.getSurname());
+                                Log.v("email Solicitado ", user.getEmail());
+                                //asi se inserta una solicitud de amistad
+                                basedato.child(keyUser).push().setValue(notificacionAmistad);
+                                Toast.makeText(rootView.getContext(), "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
+                            }
+                            else if(cont==0){
+                                Log.v("encontre nada => ", String.valueOf(+ cont));
+                                Toast.makeText(rootView.getContext(), "Usuario no Encontrado" , Toast.LENGTH_LONG ).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             });
 
