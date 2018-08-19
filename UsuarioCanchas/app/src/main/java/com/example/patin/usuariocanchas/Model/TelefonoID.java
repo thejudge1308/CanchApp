@@ -8,6 +8,10 @@ public class TelefonoID {
 
     }
 
+    public TelefonoID(String phone_id) {
+        this.phone_id = phone_id;
+    }
+
     public TelefonoID(String email, String phone_id) {
         this.email = email;
         this.phone_id = phone_id;
