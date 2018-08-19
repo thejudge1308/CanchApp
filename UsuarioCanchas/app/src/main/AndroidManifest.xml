@@ -73,7 +73,6 @@
         <activity
             android:name=".Activities.ChangePassActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity android:name=".Activities.AddFriendActivity" />
         <activity android:name=".Activities.SportActivity" />
         <activity android:name=".Activities.MyServiceActivity" />
         <activity
