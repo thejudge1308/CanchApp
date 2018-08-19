@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.CreateMessage;
+import com.example.patin.usuariocanchas.MessagingService;
 import com.example.patin.usuariocanchas.Model.Notificacion;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.Model.User;
@@ -79,6 +81,8 @@ public class AddFriendActivity extends AppCompatActivity {
                                Log.v("email Solicitado ", user.getEmail());
                                //asi se inserta una solicitud de amistad
                                basedato.child(keyUser).push().setValue(notificacionAmistad);
+                               //Solicitud push notification
+                               CreateMessage c = new CreateMessage(user.getEmail(), MessagingService.NOTIFICACION_AMIGO);
                                Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
                            }
                            else if(cont==0){

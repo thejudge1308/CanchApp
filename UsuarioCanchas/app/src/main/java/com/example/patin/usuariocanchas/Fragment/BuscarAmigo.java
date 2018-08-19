@@ -16,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.CreateMessage;
 import com.example.patin.usuariocanchas.Item.ContactItem;
+import com.example.patin.usuariocanchas.MessagingService;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
@@ -106,6 +108,7 @@ public class BuscarAmigo extends Fragment {
                             Log.v("email Solicitado ", user.getEmail());
                             //asi se inserta una solicitud de amistad
                             basedato.child(keyUser).push().setValue(notificacionAmistad);
+                            CreateMessage c = new CreateMessage(user.getEmail(), CreateMessage.NOTIFICACION_AMIGO);
                             Toast.makeText(view.getContext(), "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
                         }
                         else if(cont==0){

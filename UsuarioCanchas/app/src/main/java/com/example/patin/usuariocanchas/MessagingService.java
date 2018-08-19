@@ -16,24 +16,15 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MessagingService extends FirebaseMessagingService {
 
-    /**
-     * Notificaciones:
-     * Partido = 0
-     * Amigo = 1
-     * Equipo = 2
-     * Servicio = 3
-     */
 
-    public final String NOTIFICACION_PARTIDO="0";
-    public final String NOTIFICACION_AMIGO="1";
-    public final String NOTIFICACION_EQUIPO="2";
-    public final String NOTIFICACION_SERVICIO="3";
 
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
         //remoteMessage.getNotification().getBody();
 
 
-        this.crearNotificacion( getHeader(remoteMessage.getNotification().getBody()));
+        this.crearNotificacion( CreateMessage.getHeader(remoteMessage.getNotification().getBody()));
         //Log.d("MESSAGING_FIREBASE", "From: " + remoteMessage.getFrom());
         //Log.d("MESSAGING_FIREBASE", "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
@@ -41,21 +32,7 @@ public class MessagingService extends FirebaseMessagingService {
 
     }
 
-    public String getHeader(String opcion){
-        switch (opcion){
-            case NOTIFICACION_PARTIDO:
-                return "Te han invitado a un partido";
-            case NOTIFICACION_AMIGO:
-                return "Tienes una solicitud de amistad.";
-            case NOTIFICACION_EQUIPO:
-                return "Tienes una solicitud de un equipo.";
-            case NOTIFICACION_SERVICIO:
-                return "Alguien necesita de tus servicios.";
-            default:
-                return "Unete al juego.";
-        }
 
-    }
 
     public void crearNotificacion(String mensaje){
 
