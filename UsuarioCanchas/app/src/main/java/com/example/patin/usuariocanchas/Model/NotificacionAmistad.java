@@ -7,18 +7,37 @@ public class NotificacionAmistad {
     String apellidoSolicitado;
     String correoSolicitado;
     String correoSolicitante;
+    String idSolicitado;
+    int estado=0;
 
 
     public NotificacionAmistad() {
     }
 
-    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado, String correoSolicitante) {
+    public NotificacionAmistad(String nombreSolicitante, String apellidoSolicitante, String nombreSolicitado, String apellidoSolicitado, String correoSolicitado, String correoSolicitante, String idSolicitado) {
         this.nombreSolicitante = nombreSolicitante;
         this.apellidoSolicitante = apellidoSolicitante;
         this.nombreSolicitado = nombreSolicitado;
         this.apellidoSolicitado = apellidoSolicitado;
         this.correoSolicitado = correoSolicitado;
         this.correoSolicitante = correoSolicitante;
+        this.idSolicitado = idSolicitado;
+    }
+
+    public String getIdSolicitado() {
+        return idSolicitado;
+    }
+
+    public void setIdSolicitado(String idSolicitado) {
+        this.idSolicitado = idSolicitado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public String getCorreoSolicitante() {
@@ -70,5 +89,3 @@ public class NotificacionAmistad {
     }
 
 }
-
-
