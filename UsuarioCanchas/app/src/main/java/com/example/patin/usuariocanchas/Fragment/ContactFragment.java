@@ -126,6 +126,8 @@ public class ContactFragment extends Fragment{
 
 
 
+            }
+        });
         return rootView;
 
     }
