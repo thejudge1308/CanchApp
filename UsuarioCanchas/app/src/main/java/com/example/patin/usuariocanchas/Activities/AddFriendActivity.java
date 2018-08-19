@@ -81,8 +81,6 @@ public class AddFriendActivity extends AppCompatActivity {
                                Log.v("email Solicitado ", user.getEmail());
                                //asi se inserta una solicitud de amistad
                                basedato.child(keyUser).push().setValue(notificacionAmistad);
-                               //Solicitud push notification
-                               CreateMessage c = new CreateMessage(user.getEmail(), MessagingService.NOTIFICACION_AMIGO);
                                Toast.makeText(AddFriendActivity.this, "Solicitud Enviada" , Toast.LENGTH_LONG ).show();
                            }
                            else if(cont==0){
