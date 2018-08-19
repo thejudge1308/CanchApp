@@ -21,8 +21,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.patin.usuariocanchas.Fragment.CreaEventoFragment;
 import com.example.patin.usuariocanchas.Fragment.HomeFragment;
 import com.example.patin.usuariocanchas.Fragment.ContactFragment;
+import com.example.patin.usuariocanchas.Fragment.MapsCanchaFragment;
 import com.example.patin.usuariocanchas.Fragment.NotifyFragment;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
@@ -32,7 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MapsCanchaFragment.OnDialogResult{
     private LinearLayoutCompat content;
     String correoUser;
     String keyUser;
@@ -218,6 +222,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.frangment_content,f);
         ft.disallowAddToBackStack();
         ft.commit();
+    }
+    @Override
+    public void finish(String result) {
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
+                .show();
     }
 
 }

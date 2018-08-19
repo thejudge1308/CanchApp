@@ -75,16 +75,13 @@ public class CanchaPrincipalActivity extends AppCompatActivity implements View.O
 
 
 
-                //break;
+            //break;
 
             /*case R.id.btnFrag2:
-
                 Fragment2 fr2 = new Fragment2();
-
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 transaction2.add(R.id.idContenedor, fr2);
                 transaction2.commit();
-
                 break;*/
         }
 

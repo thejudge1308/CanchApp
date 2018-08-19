@@ -116,9 +116,9 @@ public class CanchaPrincipalFragment extends Fragment {
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaString = fecha.format(new Date());
 
-        fechaActual = (TextView) view.findViewById(R.id.txt1);
+  //      fechaActual = (TextView) view.findViewById(R.id.txt1);
 
-        fechaActual.setText(fechaString);
+//        fechaActual.setText(fechaString);
 
         nombreClubCanchas = (TextView) view.findViewById(R.id.txtNombreCLubCanchas);
 
@@ -190,14 +190,9 @@ public class CanchaPrincipalFragment extends Fragment {
                                 String direccionAux2=(String)values.getValue();
                                 direccion.add(direccionAux2);
                             }
-
                         }
-
-
                         //LatLng curicoAux = new LatLng(latitud, longitud);
-
                         //curico.add(curicoAux);
-
                     }*/
                 }
             }
@@ -348,20 +343,15 @@ public class CanchaPrincipalFragment extends Fragment {
                 @Override
                 public void onClick(View view)
                 {
-
                     Log.v("EntraBtn","entra");
-
                     Log.d("btn",btn.getText().toString());
                     HorariosCanchaFragment fr1 = new HorariosCanchaFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
                     Bundle data = new Bundle();
                     data.putString("nombreCancha",  btn.getText().toString());
                     fr1.setArguments(data);
-
                     transaction.replace(R.id.contenedorFragment, fr1);
                     transaction.commit();
-
                 }
             });
         }*/
