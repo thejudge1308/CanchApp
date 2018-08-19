@@ -428,12 +428,12 @@ public class CreaEquipoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("cantidadAmigosSe",cantidadAmigosSeleccionados+"");
-                if(cantidadAmigosSeleccionados<5 || cantidadAmigosSeleccionados>10)
+                if(cantidadAmigosSeleccionados<4 || cantidadAmigosSeleccionados>10)
                 {
                     Toast toast = Toast.makeText(view.getContext(), "Cantidad de integrantes debe ser entre 5 y 10 jugadores", Toast.LENGTH_LONG);
                     toast.show();
                 }
-                if(cantidadAmigosSeleccionados>=5 && cantidadAmigosSeleccionados<=9)
+                if(cantidadAmigosSeleccionados>=4 && cantidadAmigosSeleccionados<=9)
                 {
 
 
