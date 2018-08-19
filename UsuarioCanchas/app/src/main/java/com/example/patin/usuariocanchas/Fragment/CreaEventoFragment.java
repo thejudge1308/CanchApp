@@ -71,16 +71,12 @@ public class CreaEventoFragment extends Fragment {
         activarGps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                //prev.setTargetFragment(getParentFragment(), 0);
 
+                /**
+                 * dialog fragment google maps
+                 */
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 MapsCanchaFragment dialogFragment = new MapsCanchaFragment();
-                //dialogFragment.setDialogoResult(this);
                 dialogFragment.show(ft, "dialog");
 
             }

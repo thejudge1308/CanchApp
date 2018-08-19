@@ -175,30 +175,20 @@ public class SeleccionDeCanchaFragment extends DialogFragment {
                 @Override
                 public void onClick(View view)
                 {
-
                     Log.v("EntraBtn","entra");
-
                     Log.d("btn",btn.getText().toString());
 
 
+                    /**
+                     * dialog fragment de horario cancha
+                     */
                     android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
                     DialogFragment dialogFragment = new HorarioCanchaDialogFragment();
                     Bundle bundle=new Bundle();
                     bundle.putString("btn",btn.getText().toString());
                     bundle.putString("idAdmin",String.valueOf(idAdmin));
                     dialogFragment.setArguments(bundle);
-
                     dialogFragment.show(ft, "dialog");
-                    /*HorariosCanchaFragment horarioCanchaFragment=new HorariosCanchaFragment();
-                    Bundle bundle=new Bundle();
-                    bundle.putString("nombreCancha",btn.getText().toString());
-                    horarioCanchaFragment.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.idContenedor,horarioCanchaFragment).commit();*/
 
                 }
             });

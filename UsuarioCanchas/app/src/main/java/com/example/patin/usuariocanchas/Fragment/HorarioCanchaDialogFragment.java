@@ -166,14 +166,13 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
 
                     dynamicButtons[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
+
+                            /**
+                             * aca abro el cudro de dialogo final para confirmar que el
+                             * usuario realmente quiere guardara la hora y cancha.
+                             */
                             idBotonPresionado=((Button) view).getId();
                             String hora=horariosCancha.get(idBotonPresionado).getHora_inicio()+" - "+horariosCancha.get(idBotonPresionado).getHora_termino();
-                            /*ReservaCanchaFragment reservaCanchaFragment=new ReservaCanchaFragment();
-                            Bundle bundle=new Bundle();
-                            bundle.putString("nombreCancha",nombreCancha);
-                            reservaCanchaFragment.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.contenedorFragment,reservaCanchaFragment).commit();
-                            //Toast.makeText(getContext(),"presiona"+idBoton,Toast.LENGTH_LONG).show();*/
                             AlertDialog.Builder builder = new AlertDialog.Builder(vista.getContext());
                             builder.setTitle("Reserva de Horas");
                             builder.setMessage("¿Realmente quiere reservar cancha "+"'"+ nombreCancha +"'"+"?\n\n"+"Fecha: "+ etPlannedDate.getText().toString()+" - "+hora+
@@ -207,11 +206,7 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                         //reservaCancha.push().setValue(reserva);
                                         Toast.makeText(vista.getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();
 
-                                        /*CreaEventoFragment reservaCanchaFragment=new CreaEventoFragment();
-                                        Bundle bundle=new Bundle();
-                                        bundle.putString("nombreCancha",nombreCancha);
-                                        reservaCanchaFragment.setArguments(bundle);
-                                        getFragmentManager().beginTransaction().replace(R.id.frangment_content,reservaCanchaFragment).commit();*/
+
                                     }
                                     dialog.dismiss();
                                 }

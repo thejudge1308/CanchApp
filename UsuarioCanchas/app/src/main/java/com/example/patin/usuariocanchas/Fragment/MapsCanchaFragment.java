@@ -416,18 +416,14 @@ public class MapsCanchaFragment extends DialogFragment implements OnMapReadyCall
 
         idAdmin = id;
 
+        /**
+         * dilog fragment que abre Seleccionar cancha
+         */
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
         DialogFragment dialogFragment = new SeleccionDeCanchaFragment();
 
         Bundle bundle=new Bundle();
         bundle.putLong("idAdmin",idAdmin);
-        Log.d("IdAdmin",Long.toString(idAdmin)+" asasa");
-        Log.d("CTM",nombreClub+" asasa");
         bundle.putString("nombreClub",nombreClub);
         bundle.putLong("idAdmin",idAdmin);
         dialogFragment.setArguments(bundle);
