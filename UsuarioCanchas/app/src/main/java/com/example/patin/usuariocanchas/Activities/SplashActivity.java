@@ -28,7 +28,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 public class SplashActivity extends AppCompatActivity {
 
     private TextView versionTextView;
-    public static String VERSIONAPP="1.0";
+    public static String VERSIONAPP="1.5";
 
     FirebaseAuth.AuthStateListener fireAuthStateListener;
 
