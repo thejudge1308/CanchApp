@@ -9,7 +9,7 @@ public class FireBaseReferences {
     final public static String CANCHA_REFERENCE = "Cancha";
     final public static String NOTIFICACION_REFEREMCE = "Notificacion";
     final public static String NOTIFICACIONAMISTAD_REFEREMCE = "NotificacionAmistad";
-    final public static String AMIGO_REFEREMCE = "Amigo";
+    final public static String AMIGO_REFERENCE = "Amigos";
     final public static String CORREO_SOLICITADO = "correoSolicitado";
     final public static String CLUB_CANCHA_REFERENCE = "ClubCancha";
     final public static String RESERVA_REFERENCE = "Reserva";

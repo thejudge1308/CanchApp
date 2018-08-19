@@ -23,8 +23,6 @@ public class HomeFragment extends Fragment {
 
     private Button crearEvento;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
