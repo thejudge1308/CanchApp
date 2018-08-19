@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.patin.usuariocanchas.CreateMessage;
 import com.example.patin.usuariocanchas.Item.ContactItem;
 import com.example.patin.usuariocanchas.MessagingService;
+import com.example.patin.usuariocanchas.Model.Amigo;
 import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
@@ -113,7 +114,136 @@ public class BuscarAmigo extends Fragment {
                             Log.v("email Solicitado ", user.getEmail());
                             //asi se inserta una solicitud de amistad
 
-                            final DatabaseReference addNotificacion = FirebaseDatabase.getInstance().getReference("NotificacionAmistad/"+user.getId());
+                            //final DatabaseReference addNotificacion = FirebaseDatabase.getInstance().getReference("NotificacionAmistad/"+user.getId());
+                            final DatabaseReference amigos = FirebaseDatabase.getInstance().getReference("Amigos").child(SingletonUser.getInstance().getId());
+                            //Query query = amigos.orderByChild("correoAmigo").equalTo(user.getEmail());
+                            amigos.addListenerForSingleValueEvent(new ValueEventListener() {
+                                int contador=0;
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Amigo  amigo = new Amigo();
+                                    for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                        amigo = datasnapshot.getValue(Amigo.class);
+                                        if(amigo.getCorrreoAmigo().equalsIgnoreCase(user.getEmail())){
+                                            contador++;
+                                        }
+
+                                    }
+
+                                    if (contador == 0){
+                                        final DatabaseReference addNotificacion = FirebaseDatabase.getInstance().getReference("NotificacionAmistad/"+user.getId());
+                                        DatabaseReference bdNotificacion= FirebaseDatabase.getInstance().getReference("NotificacionAmistad").child(user.getId());
+                                        bdNotificacion.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot datasnapshot : dataSnapshot.getChildren()){
+                                                    contador++;
+
+                                                }
+
+                                                if(contador==0){
+                                                    if(!addNotificacion.push().setValue(notificacionAmistad).isSuccessful()){
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                                        builder.setTitle("Solicitud");
+                                                        builder.setMessage("Solicitud Enviada");
+                                                        builder.setIcon(R.drawable.ic_info_black_24dp);
+                                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+                                                        CreateMessage c = new CreateMessage(user.getEmail(), CreateMessage.NOTIFICACION_AMIGO);
+                                                        AlertDialog alert = builder.create();
+                                                        alert.show();
+
+                                                    }else{
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                                        builder.setTitle("Error");
+                                                        builder.setMessage("Error, No se Envio la Solicitud");
+                                                        builder.setIcon(R.drawable.ic_cancel_black_24dp);
+                                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+                                                        AlertDialog alert = builder.create();
+                                                        alert.show();
+                                                    }
+                                                }
+                                                else if(contador>0){
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                                    builder.setTitle("Solicitud");
+                                                    builder.setMessage("Ya Existe una Solicitud");
+                                                    builder.setIcon(R.drawable.ic_info_black_24dp);
+                                                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    AlertDialog alert = builder.create();
+                                                    alert.show();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+                                        /*if(!addNotificacion.push().setValue(notificacionAmistad).isSuccessful()){
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                            builder.setTitle("Solicitud");
+                                            builder.setMessage("Solicitud Enviada");
+                                            builder.setIcon(R.drawable.ic_info_black_24dp);
+                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            CreateMessage c = new CreateMessage(user.getEmail(), CreateMessage.NOTIFICACION_AMIGO);
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+
+                                        }else{
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                            builder.setTitle("Error");
+                                            builder.setMessage("Error, No se Envio la Solicitud");
+                                            builder.setIcon(R.drawable.ic_cancel_black_24dp);
+                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+                                        }*/
+
+                                    }
+                                    else if(contador>0){
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                        builder.setTitle("Solicitud");
+                                        builder.setMessage("Ustedes ya son Amigos");
+                                        builder.setIcon(R.drawable.ic_cancel_black_24dp);
+                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        AlertDialog alert = builder.create();
+                                        alert.show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                            /*final DatabaseReference addNotificacion = FirebaseDatabase.getInstance().getReference("NotificacionAmistad/"+user.getId());
                             DatabaseReference bdNotificacion= FirebaseDatabase.getInstance().getReference("NotificacionAmistad").child(user.getId());
                             bdNotificacion.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -172,7 +302,7 @@ public class BuscarAmigo extends Fragment {
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                 }
-                            });
+                            });*/
 
 
 
