@@ -1,15 +1,20 @@
 package com.example.patin.usuariocanchas.Fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.R;
@@ -18,6 +23,15 @@ import com.example.patin.usuariocanchas.R;
 public class CreaEventoFragment extends Fragment {
     View view;
     private Button newMatch,reservas;
+    private Spinner spinner;
+    private Button activarGps;
+
+
+    public static String fechaEvento=null;
+    public static String horaInicio=null;
+    public static String horaTermino=null;
+    public static String nombreCancha=null;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,14 +61,34 @@ public class CreaEventoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //codigo para spinner o comboBox
+        spinner= (Spinner) view.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(view.getContext(),R.array.opciones,R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        activarGps=view.findViewById(R.id.button_activar_gps);
+        activarGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                //prev.setTargetFragment(getParentFragment(), 0);
 
+                MapsCanchaFragment dialogFragment = new MapsCanchaFragment();
+                dialogFragment.setDialogoResult(this);
+                dialogFragment.show(ft, "dialog");
 
-
+            }
+        });
 
 
 
         return view;
     }
+
 
 
     public interface OnFragmentInteractionListener {
