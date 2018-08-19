@@ -109,13 +109,13 @@ public class ContactFragment extends Fragment{
                     AdapterContact adapterContact = new AdapterContact(getActivity(),contactItems);
                     contactListView.setAdapter(adapterContact);
 
-                    contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   /* contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             final int pos = position;
-                            Toast.makeText(getActivity().getApplicationContext(),pos+"",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(),"",Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    });*/
 
                 }
 
@@ -127,34 +127,7 @@ public class ContactFragment extends Fragment{
             }
         });
 
-        /*
-        Log.v("nroAmigo","numero amigo: "+misAmigos.size());
-        if (misAmigos.size()>0){
-            this.contactListView = (ListView)rootView.findViewById(R.id.contact_listview_fragment_contact);
-
-            Drawable image  = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_group);
-
-            this.contactItems = new ArrayList<>();
-            String nombreAmigo;
-            String correoAmigo;
-            for (int i=0;i<misAmigos.size();i++){
-                nombreAmigo = misAmigos.get(i).getNombreAmigo() + " "+misAmigos.get(i).getApellidoAmigo();
-                correoAmigo = misAmigos.get(i).getCorrreoAmigo();
-                this.contactItems.add(new ContactItem(nombreAmigo, correoAmigo,image));
-            }
-            this.contactItems.add(new ContactItem("2", "2",image));
-            //this.contactItems.add(new ContactItem("3", "2",image));
-            AdapterContact adapterContact = new AdapterContact(getActivity(),this.contactItems);
-            this.contactListView.setAdapter(adapterContact);
-
-            this.contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    final int pos = position;
-                    Toast.makeText(getActivity().getApplicationContext(),pos+"",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
+       
 
 
 

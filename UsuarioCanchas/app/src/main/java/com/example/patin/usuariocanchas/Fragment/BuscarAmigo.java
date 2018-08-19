@@ -103,7 +103,7 @@ public class BuscarAmigo extends Fragment {
                         }
                         if (cont>0){
                             Log.v("encontre => ", String.valueOf(+ cont));
-                            final NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante);
+                            final NotificacionAmistad notificacionAmistad = new NotificacionAmistad(nombreSolicitante,apellidoSolicitante,user.getName(),user.getSurname(), user.getEmail(),correoSolicitante,SingletonUser.getInstance().getId());
                             Log.v("nombre Solicitante ", nombreSolicitante);
                             Log.v("apellido Solicitante ", apellidoSolicitante);
                             Log.v("nombre Solicitado ", user.getName());

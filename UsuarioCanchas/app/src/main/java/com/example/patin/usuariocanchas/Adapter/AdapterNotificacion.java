@@ -15,8 +15,12 @@ import com.example.patin.usuariocanchas.Model.NotificacionAmistad;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -42,23 +46,31 @@ public class AdapterNotificacion extends RecyclerView.Adapter<AdapterNotificacio
         String nombreApellido=notificacionAmistad.getNombreSolicitante()+" "+notificacionAmistad.getApellidoSolicitante();
         holder.nombre.setText(nombreApellido);
         holder.tituloNotificaion.setText("Notificacion de Amistad");
-        final String keyUser=SingletonUser.getInstance().getId();
+        final String keyUser = SingletonUser.getInstance().getId();
+        final String correoMio = SingletonUser.getInstance().getEmail();
         holder.correo.setText(notificacionAmistad.getCorreoSolicitante());
         Button aceptar= (Button) v.findViewById(R.id.button_aceptar_amigo);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference base = FirebaseDatabase.getInstance().getReference("Amigos/"+keyUser);
+                DatabaseReference base = FirebaseDatabase.getInstance().getReference("Amigos/"+keyUser);//esta intancia agrega amigo para una persona
+                DatabaseReference base1 = FirebaseDatabase.getInstance().getReference("Amigos/"+notificacionAmistad.getIdSolicitado());//esta instancia agrega amigo para la otra persona
                 String apellidoAmigo=notificacionAmistad.getApellidoSolicitante();
                 String corrreoAmigo=notificacionAmistad.getCorreoSolicitante();
                 String nombreAmigo=notificacionAmistad.getNombreSolicitante();
-                String miCorreo=notificacionAmistad.getCorreoSolicitado();
+                final String miCorreo=notificacionAmistad.getCorreoSolicitado();
                 Amigo amigo=new Amigo(apellidoAmigo,corrreoAmigo, nombreAmigo, miCorreo);
 
-                if(!base.push().setValue(amigo).isSuccessful()){
+                String miApellido=SingletonUser.getInstance().getSurname();
+                String miCorrreo=SingletonUser.getInstance().getEmail();
+                String miNombre=SingletonUser.getInstance().getName();
+                String CorreoAmigo=notificacionAmistad.getCorreoSolicitante();
+                Amigo amigo2=new Amigo(miApellido,miCorrreo, miNombre, CorreoAmigo);
+
+                if(!base.push().setValue(amigo).isSuccessful() && !base1.push().setValue(amigo2).isSuccessful()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Amigo Guardado");
-                    builder.setMessage("Nuevo Amigo Guardado con Exito");
+                    builder.setTitle("Felicidades");
+                    builder.setMessage("Ya Son Amigos");
                     builder.setIcon(R.drawable.ic_info_black_24dp);
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -67,13 +79,18 @@ public class AdapterNotificacion extends RecyclerView.Adapter<AdapterNotificacio
                     });
                     AlertDialog alert = builder.create();
                     alert.show();
+                    int estado = 1;
+                    //FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE+"/"+keyUser).setValue(NotificacionAmistad.class);
+                    //notificacionAmistads.set(position,notificacionAmistad).setEstado(1);
+                    DatabaseReference notify= FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE);
+                    notify.setValue(estado);
 
-                    FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE+"/"+keyUser).removeValue();
-                    notificacionAmistads.remove(position);
+
+
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("Error");
-                    builder.setMessage("Error, No se Guardo Amigo!");
+                    builder.setMessage("No se Pudo Realizar la Solicitud");
                     builder.setIcon(R.drawable.ic_cancel_black_24dp);
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
