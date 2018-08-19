@@ -16,4 +16,6 @@ public class FireBaseReferences {
     final public static String RESERVA_FECHAEVENTO_REFERENCE = "fecha_evento";
 
     final public static String USER_IDFIREBASE="FIREBASE_PHONE_ID";
+
+    final public static String USER_PAY_REFERENCE = "UsuarioPagaEvento";
 }
