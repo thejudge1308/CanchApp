@@ -3,6 +3,7 @@ package com.example.patin.usuariocanchas.Fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +18,12 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.Activities.HomeActivity;
+import com.example.patin.usuariocanchas.Activities.LoginActivity;
+import com.example.patin.usuariocanchas.CreateMessage;
+import com.example.patin.usuariocanchas.MessagingService;
 import com.example.patin.usuariocanchas.Model.Reserva;
+import com.example.patin.usuariocanchas.Model.User;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
@@ -445,12 +451,16 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
                             Toast toast = Toast.makeText(view.getContext(), "Partido creado con éxito", Toast.LENGTH_SHORT);
                             toast.show();
 
-                            HorarioCanchaDialogFragment horarioCanchaDialogFragment = new HorarioCanchaDialogFragment();
-                            Bundle bundle=new Bundle();
-                            bundle.putString("idAdmin",SingletonUser.getInstance().getId());
-                            bundle.putString("btn",nombreCancha);
-                            horarioCanchaDialogFragment.setArguments(bundle);
-                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,horarioCanchaDialogFragment).commit();
+                           //Envio de notificaciones.
+                            sendNotification(miEquipo);
+                            sendNotification(nombreEquipo);
+
+                            //HorarioCanchaDialogFragment horarioCanchaDialogFragment = new HorarioCanchaDialogFragment();
+                            //Bundle bundle=new Bundle();
+                            //bundle.putString("idAdmin",SingletonUser.getInstance().getId());
+                            //bundle.putString("btn",nombreCancha);
+                            //horarioCanchaDialogFragment.setArguments(bundle);
+                            //getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,horarioCanchaDialogFragment).commit();
 
                         }
                     });
@@ -477,5 +487,42 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
         });
 
     }
+
+    public void sendNotification(String equipo){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference(); //Obtiene la referencia de la bd
+        Query query = userReference.child("Equipo").orderByChild("nombreEquipo").equalTo(equipo);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                   // Log.v("MESSAGING_FIREBASE",dataSnapshot.toString());
+
+                    for(DataSnapshot d : dataSnapshot.getChildren()){
+                     //   Log.v("MESSAGING_FIREBASE",d.getValue().toString());
+                        for (DataSnapshot x : d.getChildren()){
+                            for(DataSnapshot in : x.getChildren()){
+                                //Log.v("MESSAGING_FIREBASE",x.getValue().toString());
+                                if(in.getKey().contains("Integrante")){
+                                    Log.v("MESSAGING_FIREBASE",in.getValue().toString());
+                                    new CreateMessage(in.getValue().toString(),CreateMessage.NOTIFICACION_PARTIDO);
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 }
