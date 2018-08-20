@@ -23,16 +23,9 @@ import com.example.patin.usuariocanchas.R;
 public class CreaEventoFragment extends Fragment {
     View view;
     private Button newMatch,reservas;
-    private Spinner spinner;
+    //private Spinner spinner;
     private Button activarGps;
-    private Button creaEquipo;
-
-
-    public static String fechaEvento=null;
-    public static String horaInicio=null;
-    public static String horaTermino=null;
-    public static String nombreCancha=null;
-
+    private Button creaEquipoButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,19 +47,15 @@ public class CreaEventoFragment extends Fragment {
         container.removeAllViews();
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_crea_evento, container, false);
-
-        this.newMatch = (Button) view.findViewById(R.id.reservarcancha_button_fragmenthome);
-        this.newMatch.setOnClickListener(new View.OnClickListener() {
+        creaEquipoButton = view.findViewById(R.id.crearequipo_button_creaeventofragment);
+        creaEquipoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),SportActivity.class);
-                startActivity(intent);
+                CreaEquipoFragment equipoFragment = new CreaEquipoFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,equipoFragment).commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
             }
         });
-        //codigo para spinner o comboBox
-        spinner= (Spinner) view.findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(view.getContext(),R.array.opciones,R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
         activarGps=view.findViewById(R.id.button_activar_gps);
         activarGps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,22 +64,14 @@ public class CreaEventoFragment extends Fragment {
                 /**
                  * dialog fragment google maps
                  */
+                //CreaEventoFragment crearEvento = new CreaEventoFragment();
+                MapsCanchaFragment maps = new MapsCanchaFragment();
+                getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,maps).commit();
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                MapsCanchaFragment dialogFragment = new MapsCanchaFragment();
-                dialogFragment.show(ft, "dialog");
 
             }
         });
-
-        this.creaEquipo = (Button) view.findViewById(R.id.botonCrearEquipo);
-        this.creaEquipo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreaEquipoFragment crearEquipo = new CreaEquipoFragment();
-                getFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEquipo).commit();
-            }
-        });
-
 
         return view;
     }

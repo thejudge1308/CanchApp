@@ -419,8 +419,8 @@ public class MapsCanchaFragment extends DialogFragment implements OnMapReadyCall
         /**
          * dilog fragment que abre Seleccionar cancha
          */
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        DialogFragment dialogFragment = new SeleccionDeCanchaFragment();
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        SeleccionDeCanchaFragment dialogFragment = new SeleccionDeCanchaFragment();
 
         Bundle bundle=new Bundle();
         bundle.putLong("idAdmin",idAdmin);
@@ -428,7 +428,12 @@ public class MapsCanchaFragment extends DialogFragment implements OnMapReadyCall
         bundle.putLong("idAdmin",idAdmin);
         dialogFragment.setArguments(bundle);
 
-        dialogFragment.show(ft, "dialog");
+       //dialogFragment.show(ft, "dialog");
+
+        //MapsCanchaFragment maps = new MapsCanchaFragment();
+        getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,dialogFragment).commit();
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
 
     }
 
