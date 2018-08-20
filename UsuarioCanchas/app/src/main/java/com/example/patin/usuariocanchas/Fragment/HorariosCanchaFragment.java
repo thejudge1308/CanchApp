@@ -194,6 +194,7 @@ public class HorariosCanchaFragment extends Fragment {
                                         //end
                                         //reservaCancha.push().setValue(reserva);
                                         Toast.makeText(getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();
+
                                     }
                                     dialog.dismiss();
                                 }

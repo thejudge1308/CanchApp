@@ -492,6 +492,9 @@ public class CreaEquipoFragment extends Fragment {
                                             Toast toast = Toast.makeText(view.getContext(), "Equipo Creado con éxito", Toast.LENGTH_SHORT);
                                             toast.show();
 
+                                            CreaEventoFragment creaEventoFragment = new CreaEventoFragment();
+                                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,creaEventoFragment).commit();
+
                                         }
                                     });
                                     dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -499,6 +502,9 @@ public class CreaEquipoFragment extends Fragment {
                                             //cancelar();
                                             Toast toast = Toast.makeText(view.getContext(), "No se ha creado Equipo", Toast.LENGTH_LONG);
                                             toast.show();
+
+                                            CreaEventoFragment creaEventoFragment = new CreaEventoFragment();
+                                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,creaEventoFragment).commit();
                                         }
                                     });
                                     dialogo1.show();
