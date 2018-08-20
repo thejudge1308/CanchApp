@@ -70,7 +70,7 @@ public class NotifyFragment extends Fragment {
                 }
                 if (notificaciones.size()<=0){
                     TextView textView=view.findViewById(R.id.nohaynotificaciones);
-                    textView.setText("No hay notificaciones nuevas");
+
                 }
                 adapterNotificacion.notifyDataSetChanged();
             }
