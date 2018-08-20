@@ -34,8 +34,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.v("fito","algo");
-                CreaEventoFragment crearEvento = new CreaEventoFragment();
-                getFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEvento).commit();
+                Intent i = new Intent(getActivity().getApplicationContext(),SportActivity.class);
+                getActivity().startActivity(i);
+                //CreaEventoFragment crearEvento = new CreaEventoFragment();
+                //rgetFragmentManager().beginTransaction().replace(R.id.frangment_content,crearEvento).commit();
             }
         });
         return rootView;
