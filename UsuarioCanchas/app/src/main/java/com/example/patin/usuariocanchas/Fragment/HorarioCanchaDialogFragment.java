@@ -193,7 +193,7 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                     if(Date.parse(fechaReserva)>Date.parse(fechaEvento)){
                                         Toast.makeText(vista.getContext(),"Fecha de evento debe se mayor a la fecha actual",Toast.LENGTH_LONG).show();
                                     }else{
-                                        Reserva reserva=new Reserva(fechaEvento,fechaReserva,estado,horaInicio,horaTermino, SingletonUser.getInstance().getId(),nombreCancha);
+                                        /*Reserva reserva=new Reserva(fechaEvento,fechaReserva,estado,horaInicio,horaTermino, SingletonUser.getInstance().getId(),nombreCancha);
                                         //codigo necesario para almacenar el id dentro del objeto
                                         DatabaseReference newReserva = reservaCancha.push();
                                         newReserva.setValue(reserva);
@@ -204,7 +204,18 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                         reservaCancha.updateChildren(reservaUpdates);
                                         //end
                                         //reservaCancha.push().setValue(reserva);
-                                        Toast.makeText(vista.getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(vista.getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();*/
+
+                                        CrearPartidoFragment crearPartidoFragment = new CrearPartidoFragment();
+                                        Bundle bundle=new Bundle();
+                                        bundle.putString("fechaEvento",fechaEvento);
+                                        bundle.putString("fechaReserva",fechaReserva);
+                                        bundle.putString("estado",estado);
+                                        bundle.putString("horaInicio",horaInicio);
+                                        bundle.putString("horaTermino",horaTermino);
+                                        bundle.putString("nombreCancha",nombreCancha);
+                                        crearPartidoFragment.setArguments(bundle);
+                                        getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,crearPartidoFragment).commit();
 
 
                                     }
