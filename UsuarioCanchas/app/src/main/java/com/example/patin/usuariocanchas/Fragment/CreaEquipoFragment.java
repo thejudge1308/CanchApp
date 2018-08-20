@@ -500,7 +500,7 @@ public class CreaEquipoFragment extends Fragment {
                                     dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialogo1, int id) {
                                             //cancelar();
-                                            Toast toast = Toast.makeText(view.getContext(), "No se ha creado Equipo", Toast.LENGTH_LONG);
+                                            Toast toast = Toast.makeText(view.getContext(), "No se ha Creado Equipo", Toast.LENGTH_LONG);
                                             toast.show();
 
                                             CreaEventoFragment creaEventoFragment = new CreaEventoFragment();
