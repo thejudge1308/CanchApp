@@ -83,7 +83,7 @@ public class ServiceValuesActivity extends AppCompatActivity {
                 if (databaseError != null) {
                     Toast.makeText(getApplicationContext(),"No se ha podido guardar.",Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(),"Guardado éxito.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Guardado con éxito.",Toast.LENGTH_SHORT).show();
                     ServiceValuesActivity.this.finish();
                 }
             }

@@ -11,28 +11,28 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingrese su antigua contraseña"
+        android:text="Ingrese su contraseña actual"
         />
     <EditText
         android:id="@+id/oldpass_edittext_recovery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ingrese su nueva contraseña"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         />
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingrese su contraseña" />
+        android:text="Ingrese su nueva contraseña" />
 
     <EditText
         android:id="@+id/pass1_edittext_recovery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ingrese su nueva contraseña"
+        android:hint="Nueva contraseña"
         android:inputType="textPassword" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Vuelva a ingresar"
+        android:hint="Confirme nueva contraseña"
         android:inputType="textPassword" />
 
     <Button

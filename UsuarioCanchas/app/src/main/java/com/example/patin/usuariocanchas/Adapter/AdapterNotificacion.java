@@ -67,7 +67,7 @@ public class AdapterNotificacion extends RecyclerView.Adapter<AdapterNotificacio
                 if(!base.push().setValue(amigo).isSuccessful() && !base1.push().setValue(amigo2).isSuccessful()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("Felicidades");
-                    builder.setMessage("Ya Son Amigos");
+                    builder.setMessage("Ahora ya s on Amigos");
                     builder.setIcon(R.drawable.ic_info_black_24dp);
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -76,7 +76,8 @@ public class AdapterNotificacion extends RecyclerView.Adapter<AdapterNotificacio
                     });
                     AlertDialog alert = builder.create();
                     alert.show();
-
+                    FirebaseDatabase.getInstance().getReference(FireBaseReferences.NOTIFICACIONAMISTAD_REFEREMCE+"/"+keyUser).removeValue();
+                    notificacionAmistads.remove(position);
 
 
 
