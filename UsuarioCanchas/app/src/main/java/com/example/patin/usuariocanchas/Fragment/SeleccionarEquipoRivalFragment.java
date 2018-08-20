@@ -72,6 +72,8 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
 
     private Button btnAcpertarPartido;
 
+    private long valorCancha;
+
     String fechaEvento;
     String fechaReserva;
     String estado;
@@ -93,6 +95,8 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
         horaInicio="";
         horaTermino="";
         nombreCancha="";
+
+        valorCancha = 0;
     }
 
     /**
@@ -127,6 +131,8 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
             horaInicio=getArguments().getString("horaInicio");
             horaTermino=getArguments().getString("horaTermino");
             nombreCancha=getArguments().getString("nombreCancha");
+
+            valorCancha=(long) getArguments().getLong("valorCancha");
         }
     }
 
@@ -454,6 +460,16 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
                            //Envio de notificaciones.
                             sendNotification(miEquipo);
                             sendNotification(nombreEquipo);
+
+                            WebpayFragment webpayFragment = new WebpayFragment();
+                            Bundle bundle=new Bundle();
+
+
+
+                            bundle.putInt("amount",Integer.parseInt(valorCancha+""));
+                            bundle.putString("eventId",keyUser);
+                            webpayFragment.setArguments(bundle);
+                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,webpayFragment).commit();
 
                             //HorarioCanchaDialogFragment horarioCanchaDialogFragment = new HorarioCanchaDialogFragment();
                             //Bundle bundle=new Bundle();

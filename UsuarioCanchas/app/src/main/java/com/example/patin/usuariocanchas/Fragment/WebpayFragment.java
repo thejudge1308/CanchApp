@@ -3,6 +3,7 @@ package com.example.patin.usuariocanchas.Fragment;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,8 @@ public class WebpayFragment extends Fragment {
     private String eventId;
 
     //Id del usuario que va a pagar, se lo pasan desde el fragment anterior... maybe
-    //private String userId = SingletonUser.getInstance().getId();
-    private String userId = "-LFVSvYxApO1OCctB56v";
+    private String userId = SingletonUser.getInstance().getId();
+    //private String userId = "-LFVSvYxApO1OCctB56v";
 
     public WebpayFragment() {
         // Required empty public constructor
@@ -58,6 +59,7 @@ public class WebpayFragment extends Fragment {
         //Obtener argumentos e iniciar transaccion
         this.amount = getArguments().getInt("amount");
         this.eventId= getArguments().getString("eventId");
+        Log.d("_WEBPAY", this.amount+" "+this.eventId);
         initWebpayTransaction();
 
     }

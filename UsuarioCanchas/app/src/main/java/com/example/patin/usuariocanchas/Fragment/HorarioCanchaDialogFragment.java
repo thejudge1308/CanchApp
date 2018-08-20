@@ -214,6 +214,7 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                         bundle.putString("horaInicio",horaInicio);
                                         bundle.putString("horaTermino",horaTermino);
                                         bundle.putString("nombreCancha",nombreCancha);
+                                        bundle.putLong("valorCancha",valorCancha);
                                         crearPartidoFragment.setArguments(bundle);
                                         getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,crearPartidoFragment).commit();
 

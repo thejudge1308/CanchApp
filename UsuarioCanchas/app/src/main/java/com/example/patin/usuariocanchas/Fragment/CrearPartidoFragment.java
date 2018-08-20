@@ -63,6 +63,8 @@ public class CrearPartidoFragment extends Fragment {
 
     private Button btnAcpertarPartido;
 
+    private long valorCancha;
+
     String fechaEvento;
     String fechaReserva;
     String estado;
@@ -76,6 +78,8 @@ public class CrearPartidoFragment extends Fragment {
         cantidadEquipos = 0;
         nombreEquipo = "";
         cantidadEquiposSeleccionados = 0;
+
+        valorCancha = 0;
 
         fechaEvento="";
         fechaReserva="";
@@ -116,6 +120,8 @@ public class CrearPartidoFragment extends Fragment {
             horaInicio=getArguments().getString("horaInicio");
             horaTermino=getArguments().getString("horaTermino");
             nombreCancha=getArguments().getString("nombreCancha");
+
+            valorCancha=(long) getArguments().getLong("valorCancha");
         }
     }
 
@@ -400,6 +406,7 @@ public class CrearPartidoFragment extends Fragment {
                                             bundle.putString("horaInicio",horaInicio);
                                             bundle.putString("horaTermino",horaTermino);
                                             bundle.putString("nombreCancha",nombreCancha);
+                                            bundle.putLong("valorCancha",valorCancha);
                                             seleccionarEquipoRivalFragment.setArguments(bundle);
                                             getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,seleccionarEquipoRivalFragment).commit();
 
