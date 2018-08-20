@@ -8,7 +8,7 @@
     <string name="email_textview_loginactivity">Correo electrónico</string>
     <string name="pass_textview_loginactivity">Contraseña</string>
     <string name="sesion_button_loginactivity">Iniciar sesión</string>
-    <string name="recovery_textview_loginactivity">Registarse</string>
+    <string name="recovery_textview_loginactivity">Registrarse</string>
 
     <string name="title_activity_home">Canchapp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -97,5 +97,5 @@
     <string name="title_activity_maps_cancha">Map</string>
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_buscar_amigo">BuscarAmigo</string>
+    <string name="title_activity_buscar_amigo">Buscar Amigo</string>
 </resources>

@@ -1,0 +1,27 @@
+Tarjeta de Credito:
+	BUENA
+	Num Tarjeta: 4051885600446623
+
+	Vencimiento: Cualquier fecha mayor a hoy
+	Cod Verif: 123
+	Rut: 11.111.11-1
+	Clave: 123
+
+	MALA
+	Num Tarjeta: 5186059559590568
+
+	Vencimiento: Cualquier fecha mayor a hoy
+	Cod Verif: 123
+	Rut: 11.111.11-1
+	Clave: 123
+
+Redcompra
+	BUENA
+	Num Tarjeta: 4051885600446623
+	Rut: 11.111.11-1
+	Clave: 123
+
+	MALA
+	Num Tarjeta: 5186059559590568
+	Rut: 11.111.11-1
+	Clave: 123
