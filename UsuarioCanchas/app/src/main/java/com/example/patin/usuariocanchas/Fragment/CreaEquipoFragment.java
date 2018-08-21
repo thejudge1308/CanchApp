@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example.patin.usuariocanchas.Model.*;
 
 public class CreaEquipoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -464,10 +466,46 @@ public class CreaEquipoFragment extends Fragment {
                                         public void onClick(DialogInterface dialogo1, int id) {
                                             //aceptar();
 
-                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                            database.getReference("Equipo").child(nombreEquipo.getText().toString()).push(); //Obtiene la referencia de la bd
+                                            Log.d("Integrante","NombreEquipo: "+nombreEquipo.getText().toString());
+                                            Log.d("Integrante","Nombre: "+SingletonUser.getInstance().getName());
+                                            Log.d("Integrante","Id: "+SingletonUser.getInstance().getId());
+                                            Log.d("Integrante","Email: "+SingletonUser.getInstance().getEmail());
+                                            Log.d("Integrante","Fecha: "+fechaString);
 
-                                            database.getReference("Equipo").child(nombreEquipo.getText().toString()).setValue(new Equipo(SingletonUser.getInstance().getName(),
+                                            try {
+                                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                DatabaseReference equiporeference = database.getReference(); //Obtiene la referencia de la bd
+                                                equiporeference.child("Equipo").child(nombreEquipo.getText().toString()).push(); //Obtiene la referencia de la bd
+                                                equiporeference.child("Equipo").child(nombreEquipo.getText().toString()).setValue(new Equipo(SingletonUser.getInstance().getName(),
+                                                        SingletonUser.getInstance().getId(), SingletonUser.getInstance().getEmail(), nombreEquipo.getText().toString(), fechaString));
+
+
+                                                for(int i=0; i<correoIntegranteEquipoFinal.size();i++)
+                                                {
+                                                    Log.d("Integrante: ","Correo: "+correoIntegranteEquipoFinal.get(i));
+                                                    Log.d("Integrante: ","nombre: "+nombreIntegranteEquipoFinal.get(i));
+                                                    Log.d("Integrante: ","Apellido: "+apellidoIntegranteEquipoFinal.get(i));
+                                                    String integrante = "Intregrante "+(i+1)+"";
+                                                    FirebaseDatabase databaseIntegrante = FirebaseDatabase.getInstance();
+
+                                                    databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).push();
+
+                                                    //databaseIntegrante.getReference(nombreEquipo.getText().toString()).child(integrante).push();
+
+                                                    databaseIntegrante.getReference("Equipo").child(nombreEquipo.getText().toString()).child(integrante).setValue(new Integrante(correoIntegranteEquipoFinal.get(i),
+                                                            nombreIntegranteEquipoFinal.get(i),apellidoIntegranteEquipoFinal.get(i)));
+                                                }
+
+                                                Toast toast = Toast.makeText(view.getContext(), "Equipo Creado con éxito", Toast.LENGTH_SHORT);
+                                                toast.show();
+
+                                                CreaEventoFragment creaEventoFragment = new CreaEventoFragment();
+                                                getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,creaEventoFragment).commit();
+                                            }catch (Exception x){
+                                                Log.v("_MESSAGE",""+x);
+                                            }
+                                            //Log.d("Integrante","database: "+database);
+                                            /*database.getReference("Equipo").child(nombreEquipo.getText().toString()).setValue(new Equipo(SingletonUser.getInstance().getName(),
                                                     SingletonUser.getInstance().getId(), SingletonUser.getInstance().getEmail(),nombreEquipo.getText().toString(), fechaString));
 
 
@@ -493,7 +531,7 @@ public class CreaEquipoFragment extends Fragment {
                                             toast.show();
 
                                             CreaEventoFragment creaEventoFragment = new CreaEventoFragment();
-                                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,creaEventoFragment).commit();
+                                            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,creaEventoFragment).commit();*/
 
                                         }
                                     });
@@ -533,7 +571,7 @@ public class CreaEquipoFragment extends Fragment {
 
     }
 
-    public class  Equipo{
+    /*public class  Equipo{
         public String nombreAdminEquipo;
         public String idAdminEquipo;
         public String correoAdminEquipo;
@@ -622,5 +660,5 @@ public class CreaEquipoFragment extends Fragment {
         public void setApellido(String apellido) {
             this.apellido = apellido;
         }
-    }
+    }*/
 }
