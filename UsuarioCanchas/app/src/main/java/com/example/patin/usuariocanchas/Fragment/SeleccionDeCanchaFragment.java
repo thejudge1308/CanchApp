@@ -1,5 +1,6 @@
 package com.example.patin.usuariocanchas.Fragment;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.example.patin.usuariocanchas.Activities.CanchaPrincipalActivity;
 import com.example.patin.usuariocanchas.Activities.HorarioCanchaActivity;
 import com.example.patin.usuariocanchas.Activities.MapsCanchaActivity;
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.Model.Cancha;
 import com.example.patin.usuariocanchas.Model.Reserva;
 import com.example.patin.usuariocanchas.R;
@@ -82,10 +84,12 @@ public class SeleccionDeCanchaFragment extends DialogFragment {
         //fechaActual = (TextView) view.findViewById(R.id.txt1);
         //fechaActual.setText(fechaString);
         nombreClubCanchas = (TextView) view.findViewById(R.id.txtNombreCLubCanchas);
-        String nombreClub = getArguments().getString("nombreClub");
+        //String nombreClub = getArguments().getString("nombreClub");
+        String nombreClub = SportActivity.nombreClub;
         Log.d("nombreClub",nombreClub);
         nombreClubCanchas.setText(nombreClub);
-         idAdmin = (long) getArguments().get("idAdmin");
+        //idAdmin = (long) getArguments().get("idAdmin");
+        idAdmin = SportActivity.idAdmin;
         //String id =getArguments().getString("idAmdin");
         Log.d("IdAdmin",idAdmin+" ctm");
         Log.d("CTM",nombreClub+" ctm");
@@ -185,8 +189,13 @@ public class SeleccionDeCanchaFragment extends DialogFragment {
                     android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
                     HorarioCanchaDialogFragment dialogFragment = new HorarioCanchaDialogFragment();
                     Bundle bundle=new Bundle();
-                    bundle.putString("btn",btn.getText().toString());
-                    bundle.putString("idAdmin",String.valueOf(idAdmin));
+
+
+                    SportActivity.btn = btn.getText().toString();
+                    SportActivity.idAdminSeleccionCancha = String.valueOf(idAdmin);
+                    //bundle.putString("btn",btn.getText().toString());
+                    //bundle.putString("idAdmin",String.valueOf(idAdmin));
+
                     dialogFragment.setArguments(bundle);
                     getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,dialogFragment).commit();
 

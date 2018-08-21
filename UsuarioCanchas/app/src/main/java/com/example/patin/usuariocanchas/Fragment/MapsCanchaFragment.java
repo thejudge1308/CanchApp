@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.Fragment.CanchaPrincipalFragment;
 import com.example.patin.usuariocanchas.Fragment.SeleccionDeCanchaFragment;
 import com.example.patin.usuariocanchas.R;
@@ -422,12 +423,15 @@ public class MapsCanchaFragment extends DialogFragment implements OnMapReadyCall
         //FragmentTransaction ft = getFragmentManager().beginTransaction();
         SeleccionDeCanchaFragment dialogFragment = new SeleccionDeCanchaFragment();
 
-        Bundle bundle=new Bundle();
+        /*Bundle bundle=new Bundle();
         bundle.putLong("idAdmin",idAdmin);
         bundle.putString("nombreClub",nombreClub);
         bundle.putLong("idAdmin",idAdmin);
-        dialogFragment.setArguments(bundle);
+        */
+        //dialogFragment.setArguments(bundle);
 
+        SportActivity.idAdmin = idAdmin;
+        SportActivity.nombreClub = nombreClub;
        //dialogFragment.show(ft, "dialog");
 
         //MapsCanchaFragment maps = new MapsCanchaFragment();

@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.FireBaseReferences;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
@@ -57,8 +58,8 @@ public class WebpayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Obtener argumentos e iniciar transaccion
-        this.amount = getArguments().getInt("amount");
-        this.eventId= getArguments().getString("eventId");
+        this.amount = SportActivity.amount;
+        this.eventId= SportActivity.keyUser;
         Log.d("_WEBPAY", this.amount+" "+this.eventId);
         initWebpayTransaction();
 

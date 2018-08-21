@@ -34,6 +34,49 @@ public class SportActivity extends AppCompatActivity {
     public static String horaInicio=null;
     public static String horaTermino=null;
     public static String nombreCancha=null;
+
+    /**
+     * Seleccion cancha fragment
+     */
+    public static long idAdmin;
+    public static String nombreClub;
+
+    /**
+     *
+     * Horario cancha
+     */
+    public static String btn;
+    public static String idAdminSeleccionCancha;
+
+    /*
+     Horario cancha fragment
+     */
+     public static String fechaEventoH;
+     public static String fechaReservaH;
+     public static String estadoH;
+     public static String horaInicioH;
+     public static String StringhoraTerminoH;
+     public static String nombreCanchaH;
+     public static String valorCanchH;
+
+    /**
+     * ELECCION EQUIPO RIVAL
+     */
+    public static String nombreEquipoR;
+    public static String fechaEventoR;
+    public static String fechaReservaR;
+    public static String estadoR;
+    public static String horaInicioR;
+    public static String horaTerminoR;
+    public static String nombreCanchaR;
+    public static String valorCanchaR;
+
+
+    //WebPAY
+    public static Integer amount;
+    public static String keyUser;
+
+
     //private ListView sportsListView;
     //private ArrayList<SportItem> sportItemArrayList;
     @Override

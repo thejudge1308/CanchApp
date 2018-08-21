@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.patin.usuariocanchas.Activities.HorarioCanchaActivity;
 import com.example.patin.usuariocanchas.Activities.HorarioYReserva;
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.Model.Cancha;
 import com.example.patin.usuariocanchas.Model.DatePickerFragment;
 import com.example.patin.usuariocanchas.Model.HorarioCancha;
@@ -70,10 +71,15 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        /*if (getArguments() != null) {
+
             nombreCancha=getArguments().getString("btn");
             idAdmin=(long) getArguments().getLong("idAdmin");
-        }
+        }*/
+
+        nombreCancha=SportActivity.btn;
+        idAdmin=Long.parseLong(SportActivity.idAdminSeleccionCancha);
+
         Log.v("nombre", nombreCancha);
     }
 
@@ -207,7 +213,18 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                         Toast.makeText(vista.getContext(),"Reservado con exito",Toast.LENGTH_LONG).show();*/
 
                                         CrearPartidoFragment crearPartidoFragment = new CrearPartidoFragment();
-                                        Bundle bundle=new Bundle();
+
+
+                                        SportActivity.fechaEventoH = fechaEvento;
+                                        SportActivity.fechaReservaH = fechaReserva;
+                                        SportActivity.estadoH = estado;
+                                        SportActivity.horaInicioH = horaInicio;
+                                        SportActivity.StringhoraTerminoH = horaTermino;
+                                        SportActivity.nombreCanchaH= nombreCancha;
+                                        SportActivity.valorCanchH= valorCancha+"";
+                                        Log.v("_WEBPAY","SportActivity.valorCanchH: "+SportActivity.valorCanchH);
+
+                                        /*Bundle bundle=new Bundle();
                                         bundle.putString("fechaEvento",fechaEvento);
                                         bundle.putString("fechaReserva",fechaReserva);
                                         bundle.putString("estado",estado);
@@ -215,7 +232,7 @@ public class HorarioCanchaDialogFragment extends DialogFragment {
                                         bundle.putString("horaTermino",horaTermino);
                                         bundle.putString("nombreCancha",nombreCancha);
                                         bundle.putLong("valorCancha",valorCancha);
-                                        crearPartidoFragment.setArguments(bundle);
+                                        crearPartidoFragment.setArguments(bundle);*/
                                         getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,crearPartidoFragment).commit();
 
 

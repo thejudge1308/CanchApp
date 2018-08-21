@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.patin.usuariocanchas.Activities.HomeActivity;
 import com.example.patin.usuariocanchas.Activities.LoginActivity;
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.CreateMessage;
 import com.example.patin.usuariocanchas.MessagingService;
 import com.example.patin.usuariocanchas.Model.Reserva;
@@ -123,16 +124,28 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            miEquipo=getArguments().getString("miEquipo");
 
-            fechaEvento=getArguments().getString("fechaEvento");
-            fechaReserva=getArguments().getString("fechaReserva");
-            estado=getArguments().getString("estado");
-            horaInicio=getArguments().getString("horaInicio");
-            horaTermino=getArguments().getString("horaTermino");
-            nombreCancha=getArguments().getString("nombreCancha");
 
-            valorCancha=(long) getArguments().getLong("valorCancha");
+            miEquipo=SportActivity.nombreEquipoR;
+            fechaEvento=SportActivity.fechaEventoR;
+            fechaReserva=SportActivity.fechaReservaR;
+            estado=SportActivity.estadoR;
+            horaInicio=SportActivity.horaInicioR;
+            horaTermino=SportActivity.horaTerminoR;
+            nombreCancha=SportActivity.nombreCanchaR;
+            valorCancha=Long.parseLong(SportActivity.valorCanchH);
+
+
+            //miEquipo=getArguments().getString("miEquipo");
+
+            //fechaEvento=getArguments().getString("fechaEvento");
+            //fechaReserva=getArguments().getString("fechaReserva");
+            //estado=getArguments().getString("estado");
+            //horaInicio=getArguments().getString("horaInicio");
+            //horaTermino=getArguments().getString("horaTermino");
+            //nombreCancha=getArguments().getString("nombreCancha");
+
+            //valorCancha=(long) getArguments().getLong("valorCancha");
         }
     }
 
@@ -458,16 +471,19 @@ public class SeleccionarEquipoRivalFragment extends Fragment {
                             toast.show();
 
                            //Envio de notificaciones.
+                            sendNotification(SportActivity.nombreEquipoR);
                             sendNotification(miEquipo);
-                            sendNotification(nombreEquipo);
 
                             WebpayFragment webpayFragment = new WebpayFragment();
                             Bundle bundle=new Bundle();
 
 
+                            SportActivity.amount= Integer.parseInt(valorCancha+"");
+                            Log.v("_WEBPAY","Valor de la cancha "+SportActivity.amount);
+                            //bundle.putInt("amount",Integer.parseInt(valorCancha+""));
+                            SportActivity.keyUser = keyUser;
+                            //bundle.putString("eventId",keyUser);
 
-                            bundle.putInt("amount",Integer.parseInt(valorCancha+""));
-                            bundle.putString("eventId",keyUser);
                             webpayFragment.setArguments(bundle);
                             getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,webpayFragment).commit();
 

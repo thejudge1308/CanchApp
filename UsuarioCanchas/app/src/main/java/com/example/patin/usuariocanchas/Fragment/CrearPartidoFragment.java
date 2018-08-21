@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.patin.usuariocanchas.Activities.SportActivity;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
  * Activities that contain this fragment must implement the
  * {@link CrearPartidoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CrearPartidoFragment#newInstance} factory method to
+ * Use the {@link CrearPartidoFragment#} factory method to
  * create an instance of this fragment.
  */
 public class CrearPartidoFragment extends Fragment {
@@ -93,19 +94,19 @@ public class CrearPartidoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     *
+     *
      * @return A new instance of fragment CrearPartidoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CrearPartidoFragment newInstance(String param1, String param2) {
+    /*public static CrearPartidoFragment newInstance(String param1, String param2) {
         CrearPartidoFragment fragment = new CrearPartidoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,14 +115,24 @@ public class CrearPartidoFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
-            fechaEvento=getArguments().getString("fechaEvento");
+            fechaEvento= SportActivity.fechaEventoH;
+            fechaReserva=SportActivity.fechaReservaH;
+            estado=SportActivity.estadoH;
+            horaInicio=SportActivity.horaInicioH;
+            horaTermino=SportActivity.StringhoraTerminoH;
+            nombreCancha=SportActivity.nombreCanchaH;
+            valorCancha=(long) Long.parseLong(SportActivity.valorCanchH);
+
+
+
+            /*fechaEvento=getArguments().getString("fechaEvento");
             fechaReserva=getArguments().getString("fechaReserva");
             estado=getArguments().getString("estado");
             horaInicio=getArguments().getString("horaInicio");
             horaTermino=getArguments().getString("horaTermino");
             nombreCancha=getArguments().getString("nombreCancha");
 
-            valorCancha=(long) getArguments().getLong("valorCancha");
+            valorCancha=(long) getArguments().getLong("valorCancha");*/
         }
     }
 
@@ -399,14 +410,26 @@ public class CrearPartidoFragment extends Fragment {
                                             Log.d("NombreEquipo",nombreEquipo);
                                             SeleccionarEquipoRivalFragment seleccionarEquipoRivalFragment = new SeleccionarEquipoRivalFragment();
                                             Bundle bundle=new Bundle();
-                                            bundle.putString("miEquipo",nombreEquipo);
+
+
+                                            SportActivity.nombreEquipoR = nombreEquipo;
+                                            SportActivity.fechaEventoR=fechaEvento;
+                                            SportActivity.fechaReservaR=fechaReserva;
+                                            SportActivity.estadoR=estado;
+                                            SportActivity.horaInicioR=horaInicio;
+                                            SportActivity.horaTerminoR=horaTermino;
+                                            SportActivity.nombreCanchaR=nombreCancha;
+                                            SportActivity.valorCanchaR=valorCancha+"";
+                                            Log.v("_WEBPAY","SportActivity.valorCanchaR: "+SportActivity.valorCanchaR+"");
+
+                                            /*bundle.putString("miEquipo",nombreEquipo);
                                             bundle.putString("fechaEvento",fechaEvento);
                                             bundle.putString("fechaReserva",fechaReserva);
                                             bundle.putString("estado",estado);
                                             bundle.putString("horaInicio",horaInicio);
                                             bundle.putString("horaTermino",horaTermino);
                                             bundle.putString("nombreCancha",nombreCancha);
-                                            bundle.putLong("valorCancha",valorCancha);
+                                            bundle.putLong("valorCancha",valorCancha);*/
                                             seleccionarEquipoRivalFragment.setArguments(bundle);
                                             getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,seleccionarEquipoRivalFragment).commit();
 
