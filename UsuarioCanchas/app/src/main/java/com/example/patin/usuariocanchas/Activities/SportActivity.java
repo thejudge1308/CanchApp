@@ -1,7 +1,9 @@
 package com.example.patin.usuariocanchas.Activities;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +19,11 @@ import com.example.patin.usuariocanchas.Adapter.AdapterContact;
 import com.example.patin.usuariocanchas.Adapter.AdapterSport;
 import com.example.patin.usuariocanchas.Fragment.CreaEquipoFragment;
 import com.example.patin.usuariocanchas.Fragment.CreaEventoFragment;
+import com.example.patin.usuariocanchas.Fragment.CrearPartidoFragment;
 import com.example.patin.usuariocanchas.Fragment.HorarioCanchaDialogFragment;
 import com.example.patin.usuariocanchas.Fragment.MapsCanchaFragment;
 import com.example.patin.usuariocanchas.Fragment.SeleccionDeCanchaFragment;
+import com.example.patin.usuariocanchas.Fragment.SeleccionarEquipoRivalFragment;
 import com.example.patin.usuariocanchas.Fragment.SportsFragment;
 import com.example.patin.usuariocanchas.Fragment.WebpayFragment;
 import com.example.patin.usuariocanchas.Item.SportItem;
@@ -133,6 +137,23 @@ public class SportActivity extends AppCompatActivity {
             SeleccionDeCanchaFragment fragment = new SeleccionDeCanchaFragment();
             getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,fragment).commit();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
+        }else if(f instanceof CrearPartidoFragment){
+            HorarioCanchaDialogFragment fragment = new HorarioCanchaDialogFragment();
+            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,fragment).commit();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+        }else if(f instanceof SeleccionarEquipoRivalFragment){
+            CrearPartidoFragment fragment = new CrearPartidoFragment();
+            getFragmentManager().beginTransaction().replace(R.id.content_sport_activity,fragment).commit();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+        }else {
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this.getApplicationContext());
+            dialogo1.setTitle("Desea salir?");
+            dialogo1.setMessage("Se cancelará toda la transacción.");
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogo1, int id) {
+                            finish();
+                        }});
+
         }
 
     }
