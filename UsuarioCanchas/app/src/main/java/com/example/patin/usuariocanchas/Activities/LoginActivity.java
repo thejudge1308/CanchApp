@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         //this.userEditText = findViewById
         this.userEditText = findViewById(R.id.email_edittext_loginactivity);
         this.passEditText = findViewById(R.id.pass_edittext_loginactivity);
@@ -161,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                         User userR = issue.getValue(User.class);
                         userR.setPassword("");
                         SingletonUser.user = userR;
-                        SingletonUser.getInstance().setId(issue.getKey());
+                        SingletonUser.getInstance().setId(issue.getKey()+"");
                     }
                 }
                 Intent main = new Intent(LoginActivity.this,HomeActivity.class);

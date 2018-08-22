@@ -1,5 +1,6 @@
 package com.example.patin.usuariocanchas.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.example.patin.usuariocanchas.R;
 import com.example.patin.usuariocanchas.Values.SingletonUser;
 
+import static com.example.patin.usuariocanchas.R.id.sendrequest_addfriend_activity;
+
 public class MyPerfilActivity extends AppCompatActivity {
 
     private TextView emailTextView;
@@ -18,6 +21,8 @@ public class MyPerfilActivity extends AppCompatActivity {
     private TextView scoreTextView;
     private Button changePassButton;
     private Button myServiceButton;
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,8 @@ public class MyPerfilActivity extends AppCompatActivity {
         this.scoreTextView.setText(SingletonUser.getInstance().getScore()+"");
 
         this.changePassButton = findViewById(R.id.changepass_button_myperfil);
+
+
         this.changePassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

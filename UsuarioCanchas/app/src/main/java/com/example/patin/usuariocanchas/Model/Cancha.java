@@ -6,20 +6,29 @@ import java.util.ArrayList;
 public class Cancha {
     String nombre;
     String direccion;
-    Integer precio;
-    Integer idAdministrador;//rut administrador
-    Double latitud;
-    Double longitud;
-    String estado;
+    Long idAdministrador;//rut administrador
+    String latitud;
+    String longitud;
+    Long valor;
 
-    public Cancha(String nombre, String direccion, Integer precio, Integer idAdministrador, Double latitud, Double longitud, String estado) {
+    public Cancha() {
+    }
+
+    public Cancha(String nombre, String direccion, Long idAdministrador, String latitud, String longitud, long valor) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.precio = precio;
         this.idAdministrador = idAdministrador;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.estado = estado;
+        this.valor = valor;
+    }
+
+    public long getValor() {
+        return valor;
+    }
+
+    public void setValor(long valor) {
+        this.valor = valor;
     }
 
     public String getNombre() {
@@ -38,43 +47,27 @@ public class Cancha {
         this.direccion = direccion;
     }
 
-    public Integer getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Integer precio) {
-        this.precio = precio;
-    }
-
-    public Integer getIdAdministrador() {
+    public Long getIdAdministrador() {
         return idAdministrador;
     }
 
-    public void setIdAdministrador(Integer idAdministrador) {
+    public void setIdAdministrador(Long idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
 
-    public Double getLatitud() {
+    public String getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(Double latitud) {
+    public void setLatitud(String latitud) {
         this.latitud = latitud;
     }
 
-    public Double getLongitud() {
+    public String getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(Double longitud) {
+    public void setLongitud(String longitud) {
         this.longitud = longitud;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 }
